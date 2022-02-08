@@ -1,0 +1,30 @@
+{
+  "name": "gifflar",
+  "version": "1.0.0",
+  "description": "",
+  "main": "bin/index.ts",
+  "bin": {
+    "gifflar": "bin/index.ts"
+  },
+  "scripts": {
+    "dev": "ts-node-dev -r tsconfig-paths/register --respawn --ignore-watch node_modules bin/index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/gifflarsuite/gifflar-core.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/gifflarsuite/gifflar-core/issues"
+  },
+  "homepage": "https://gitlab.com/gifflarsuite/gifflar-core#readme",
+  "devDependencies": {
+    "@types/node": "^17.0.16",
+    "ts-node-dev": "^1.1.8",
+    "tsconfig-paths": "^3.12.0",
+    "typescript": "^4.5.5"
+  },
+  "dependencies": {}
+}
