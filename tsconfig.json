@@ -12,6 +12,7 @@
       "@utils/*": ["utils/*"],
       "@modules/*": ["modules/*"],
       "@config/*": ["config/*"],
+      "@templates/*": ["templates/*"],
       "@test/*": ["test/*"]
     },
     "types": ["node"],

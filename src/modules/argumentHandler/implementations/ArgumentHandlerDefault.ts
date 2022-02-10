@@ -2,8 +2,8 @@ import { getArgInfoByReceivedArg } from "@utils/getArgInfoByReceivedArg";
 import { IArgumentHandler } from "../types/IArgumentHandler";
 import { IArgumentHandlerDTO } from "../types/IArgumentHandlerDTO";
 
-class ArgumentHandler implements IArgumentHandler {
-  helpHandler: () => void = () => {};
+class ArgumentHandlerDefault implements IArgumentHandler {
+  helpHandler: (value: string) => Promise<void> = async () => {};
 
   constructor() {
     const helpInfo = getArgInfoByReceivedArg({ receivedArgKey: "help" });
@@ -11,8 +11,8 @@ class ArgumentHandler implements IArgumentHandler {
   }
 
   async execute({ dir, file, args }: IArgumentHandlerDTO) {
-    const KEY = 1;
-    const VALUE = 2;
+    const KEY = 0;
+    const VALUE = 1;
     const keyValueArgument: string[] = args.slice(0, 2);
 
     // Obtendo comando a ser executado
@@ -22,8 +22,14 @@ class ArgumentHandler implements IArgumentHandler {
     });
 
     // Caso comwando não encontrado, executa helper
-    if (!commandInfo) this.helpHandler();
+    if (!commandInfo || !keyValueArgument[VALUE]) {
+      this.helpHandler(keyValueArgument[VALUE]);
+      return;
+    }
+
+    // Executando handler de comando conhecido
+    await commandInfo?.handler(keyValueArgument[VALUE]);
   }
 }
 
-export default ArgumentHandler;
+export default ArgumentHandlerDefault;

@@ -28,8 +28,8 @@ const aliasesDictionary: IAliasDictionary = {
     aliases: ["-h", "--help"],
   }),
   ...registryAlias({
-    baseArg: "create",
-    aliases: ["-c", "--create"],
+    baseArg: "make:contract",
+    aliases: ["-m", "--make:contract"],
   }),
 };
 

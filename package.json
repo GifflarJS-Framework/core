@@ -2,12 +2,17 @@
   "name": "gifflar",
   "version": "1.0.0",
   "description": "",
-  "main": "bin/index.ts",
+  "main": "index.js",
   "bin": {
-    "gifflar": "bin/index.ts"
+    "gifflar": "bin/index.js"
   },
   "scripts": {
-    "dev": "ts-node-dev -r tsconfig-paths/register --respawn --ignore-watch node_modules bin/index.ts"
+    "compile": "babel src --extensions \".js,.ts\" --out-dir bin --copy-files --no-copy-ignored",
+    "build": "rm -r bin && npm run compile",
+    "start": "node dist/index.js",
+    "dev": "ts-node-dev -r tsconfig-paths/register --ignore-watch node_modules src/index.ts",
+    "reinstall": "rm /home/levy/.nvm/versions/node/v14.18.1/bin/gifflar && npm uninstall && npm install -g ./",
+    "buildreinstall": "npm run build && npm run reinstall"
   },
   "repository": {
     "type": "git",
@@ -21,7 +26,13 @@
   },
   "homepage": "https://gitlab.com/gifflarsuite/gifflar-core#readme",
   "devDependencies": {
+    "@babel/cli": "^7.17.0",
+    "@babel/core": "^7.17.2",
+    "@babel/node": "^7.16.8",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-typescript": "^7.16.7",
     "@types/node": "^17.0.16",
+    "babel-plugin-module-resolver": "^4.1.0",
     "ts-node-dev": "^1.1.8",
     "tsconfig-paths": "^3.12.0",
     "typescript": "^4.5.5"

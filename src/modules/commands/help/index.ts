@@ -1,7 +1,7 @@
-import HelpCommandDefault from "./implementations/default";
+import HelpCommandDefault from "./implementations/HelpCommandDefault";
 
 const implementations = {
   default: HelpCommandDefault,
 };
 
-export default new implementations.default();
+export default implementations.default;

@@ -1,5 +1,5 @@
 class HelpCommandDefault {
-  async execute() {
+  async execute(value: string): Promise<void> {
     console.log("Help");
   }
 }

@@ -1,3 +1,3 @@
 export interface IArgumentHandler {
-  helpHandler: () => void;
+  helpHandler: (value: string) => Promise<void>;
 }
