@@ -11,7 +11,8 @@
     "build": "rm -r bin && npm run compile",
     "start": "node dist/index.js",
     "dev": "ts-node-dev -r tsconfig-paths/register --ignore-watch node_modules src/index.ts",
-    "reinstall": "rm /home/levy/.nvm/versions/node/v14.18.1/bin/gifflar && npm uninstall && npm install -g ./",
+    "uninstall": "rm /home/levy/.nvm/versions/node/v14.18.1/bin/gifflar && npm uninstall",
+    "reinstall": "npm run uninstall && npm install -g ./",
     "buildreinstall": "npm run build && npm run reinstall"
   },
   "repository": {
