@@ -1,4 +1,4 @@
-import { IConfigFile } from "@modules/commands/init/types/IConfigFile";
+import { IConfigFile } from "@modules/commands/Init/types/IConfigFile";
 import { copyFile, makeDirectory, readFile } from "@utils/files";
 import path from "path";
 import { ICreateContractCommand } from "../types/ICreateContractCommand";

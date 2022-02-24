@@ -1,3 +1,3 @@
-import "./create_contract";
-import "./help";
-import "./init";
+import "./CreateContract";
+import "./Help";
+import "./Init";

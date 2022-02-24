@@ -1,11 +1,11 @@
-import { ICreateContractCommand } from "@modules/commands/create_contract/types/ICreateContractCommand";
+import { ICreateContractCommand } from "@modules/commands/CreateContract/types/ICreateContractCommand";
 import { injectable, inject } from "tsyringe";
 import { IAliasDictionary } from "../types/IAliasDictionary";
 import { IDictionary } from "../types/IDictionary";
 import { IAlias } from "../types/IAlias";
 import { IAliasRegistryDTO } from "../dtos/IAliasRegistryDTO";
-import { IHelpCommand } from "@modules/commands/help/types/IHelpCommand";
-import { IInitCommand } from "@modules/commands/init/types/IInitCommand";
+import { IHelpCommand } from "@modules/commands/Help/types/IHelpCommand";
+import { IInitCommand } from "@modules/commands/Init/types/IInitCommand";
 import { IGetArgInfoByReceivedArgDTO } from "../dtos/IGetArgInfoByReceivedArgDTO";
 import { IDictionaryItemInfo } from "../types/IDictionaryItemInfo";
 import { IArgumentDictionaryProvider } from "../types/IArgumentDictionaryProvider";
