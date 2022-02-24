@@ -11,7 +11,7 @@
     "build": "rm -r bin && npm run compile",
     "start": "node dist/index.js",
     "dev": "ts-node-dev -r tsconfig-paths/register --ignore-watch node_modules src/index.ts",
-    "uninstall": "rm /home/levy/.nvm/versions/node/v14.18.1/bin/gifflar && npm uninstall",
+    "uninstall": "rm /home/levy/.nvm/versions/node/v14.18.0/bin/gifflar && npm uninstall",
     "reinstall": "npm run uninstall && npm install -g ./",
     "buildreinstall": "npm run build && npm run reinstall"
   },
@@ -38,5 +38,8 @@
     "tsconfig-paths": "^3.12.0",
     "typescript": "^4.5.5"
   },
-  "dependencies": {}
+  "dependencies": {
+    "reflect-metadata": "^0.1.13",
+    "tsyringe": "^4.6.0"
+  }
 }

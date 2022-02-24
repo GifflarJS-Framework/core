@@ -1,5 +1,10 @@
 #!/usr/bin/env node
-import ArgumentHandler from "@modules/argumentHandler";
+import "reflect-metadata";
+import "./modules";
+import "./shared/container";
+import ArgumentHandler from "@modules/ArgumentHandler";
+import { IArgumentHandler } from "@modules/ArgumentHandler/types/IArgumentHandler";
+import { container } from "tsyringe";
 
 const argv = process.argv;
 
@@ -8,6 +13,6 @@ const dir = argv[0];
 const file = argv[1];
 const args = argv.slice(2);
 
-const argumentHandler = new ArgumentHandler();
+const argumentHandler = container.resolve<IArgumentHandler>(ArgumentHandler);
 
 argumentHandler.execute({ args, dir, file });

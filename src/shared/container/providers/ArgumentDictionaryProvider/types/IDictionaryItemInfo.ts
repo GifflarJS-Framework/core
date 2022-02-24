@@ -1,4 +1,4 @@
-export interface IArgumentInfo {
+export interface IDictionaryItemInfo {
   alias: string[];
   options: string[];
   required: boolean;
