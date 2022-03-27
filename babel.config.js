@@ -22,6 +22,7 @@ module.exports = {
         },
       },
     ],
+    ["@babel/plugin-proposal-decorators", { legacy: true }],
   ],
   ignore: ["**/*.spec.ts"],
 };
