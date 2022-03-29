@@ -2,18 +2,19 @@
   "compilerOptions": {
     "target": "es5",
     "module": "commonjs",
-    "outDir": "./dist",
+    "outDir": "./bin",
     "rootDir": "./src",
     "strict": true,
     "strictPropertyInitialization": false,
-    "baseUrl": "./src",
+    "baseUrl": ".",
     "allowJs": true,
     "paths": {
-      "@utils/*": ["utils/*"],
-      "@modules/*": ["modules/*"],
-      "@config/*": ["config/*"],
-      "@templates/*": ["templates/*"],
-      "@test/*": ["test/*"]
+      "@utils/*": ["./src/utils/*"],
+      "@modules/*": ["./src/modules/*"],
+      "@config/*": ["./src/config/*"],
+      "@templates/*": ["./src/templates/*"],
+      "@test/*": ["./src/test/*"],
+      "@shared/*": ["./src/shared/*"]
     },
     "types": ["node"],
     "typeRoots": ["./src/types"],
@@ -21,7 +22,10 @@
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
+    "declaration": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true
-  }
+  },
+  "exclude": ["./bin/index.ts"],
+  "include": ["node_modules/@types", "src/**/**.ts"]
 }

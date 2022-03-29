@@ -1,7 +1,7 @@
 import { IArgumentHandler } from "../types/IArgumentHandler";
 import { IArgumentHandlerDTO } from "../types/IArgumentHandlerDTO";
 import { injectable, inject } from "tsyringe";
-import { IArgumentDictionaryProvider } from "shared/container/providers/ArgumentDictionaryProvider/types/IArgumentDictionaryProvider";
+import { IArgumentDictionaryProvider } from "@shared/container/providers/ArgumentDictionaryProvider/types/IArgumentDictionaryProvider";
 
 @injectable()
 class ArgumentHandlerDefault implements IArgumentHandler {
@@ -26,18 +26,18 @@ class ArgumentHandlerDefault implements IArgumentHandler {
     const argumentKey = keyValueArgument[KEY];
     const commandInfo = this.argumentDictionaryProvider.getArgInfoByReceivedArg(
       {
-        receivedArgKey: argumentKey,
+        receivedArgKey: argumentKey || "",
       }
     );
 
     // Caso comwando não encontrado, executa helper
     if (!commandInfo) {
-      this.helpHandler(keyValueArgument[VALUE]);
+      this.helpHandler(keyValueArgument[VALUE] || "");
       return;
     }
 
     // Executando handler de comando conhecido
-    await commandInfo?.handler(keyValueArgument[VALUE]);
+    await commandInfo?.handler(keyValueArgument[VALUE] || "");
   }
 }
 

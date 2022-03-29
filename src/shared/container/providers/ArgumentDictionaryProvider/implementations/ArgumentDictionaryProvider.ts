@@ -72,7 +72,7 @@ export default class ArgumentDictionaryProvider
   public getArgInfoByReceivedArg({
     receivedArgKey,
   }: IGetArgInfoByReceivedArgDTO): IDictionaryItemInfo | undefined {
-    const command = this.aliasesDictionary[receivedArgKey];
+    const command = this.aliasesDictionary[receivedArgKey] || "";
     if (!command) return undefined;
     const commandInfo = this.argumentsDictionary[command];
     if (!commandInfo) return undefined;

@@ -8,8 +8,8 @@
   },
   "scripts": {
     "compile": "babel src --extensions \".js,.ts\" --out-dir bin --copy-files --no-copy-ignored",
-    "build": "rm -r bin && npm run compile",
-    "start": "node dist/index.js",
+    "build": "rm -r bin && npm run compile && tsc --project tsconfig.json && tscpaths -p tsconfig.json -s ./src -o ./bin",
+    "start": "ts-node -r tsconfig-paths/register src/index.ts",
     "dev": "ts-node-dev -r tsconfig-paths/register --ignore-watch node_modules src/index.ts",
     "uninstall": "rm /home/levy/.nvm/versions/node/v14.18.0/bin/gifflar && npm uninstall",
     "reinstall": "npm run uninstall && npm install -g ./",
@@ -35,12 +35,13 @@
     "@babel/preset-typescript": "^7.16.7",
     "@types/node": "^17.0.16",
     "babel-plugin-module-resolver": "^4.1.0",
+    "babel-plugin-transform-typescript-metadata": "^0.3.2",
     "ts-node-dev": "^1.1.8",
     "tsconfig-paths": "^3.12.0",
-    "typescript": "^4.5.5"
+    "tscpaths": "^0.0.9",
+    "typescript": "^4.6.3"
   },
   "dependencies": {
-    "as": "^0.4.1",
     "gifflar": "file:../gifflar-library",
     "reflect-metadata": "^0.1.13",
     "tsyringe": "^4.6.0"
