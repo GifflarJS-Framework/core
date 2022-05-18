@@ -2,6 +2,10 @@
 
 This is the Gifflar, a command line interface framework that allows you to define Solidity smart contracts creation via JavaScript. This enables you to develop systems able to create smart contracts on the fly based on different configurations.
 
+## Project Status
+
+**In development**
+
 ## Getting started
 
 ### Dependencies
