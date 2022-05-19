@@ -9,6 +9,7 @@ class InitCommandDefault implements IInitCommand {
       projectName: "Gifflar Project",
       root: "./gifflar",
       contractsFolder: "./gifflar/contracts",
+      servicesFolder: "./gifflar/services",
     };
 
     // Writing config file

@@ -16,6 +16,9 @@ class HelpCommandDefault implements IHelpCommand {
     console.log(
       "  make:contract, --make:contract, -m:contract \t Make a new Gifflar Contract. Required a file name as argument."
     );
+    console.log(
+      "  make:service, --make:service, -m:service \t Make a new Gifflar Service. Required a file name as argument."
+    );
   }
 }
 export default HelpCommandDefault;

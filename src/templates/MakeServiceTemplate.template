@@ -1,0 +1,37 @@
+import { createContract } from "gifflar";
+import { IWeb3 } from "gifflar/bin/modules/deployer/types/IWeb3";
+import { IContractDeployDTO } from "gifflar/bin/modules/managing/contract/types/IContractDeployDTO";
+import { IGifflarContract } from "gifflar/bin/modules/managing/contract/types/IGifflarContract";
+import { IContractJson } from "gifflar/bin/modules/models/contract/types/IContractJson";
+
+class ContractService {
+  // Creating contract model
+  private myContract: IGifflarContract = createContract("MyContract");
+
+  createModel() {
+    // Creating a contract variable
+    this.myContract.createVariable("string", "message", "public");
+
+    // Creating a contract constructor function
+    this.myContract
+      .createConstructor("public")
+      .setInput("string", "_message")
+      .setAssignment("message", "_message");
+
+    return this.myContract.json;
+  }
+
+  write(json: Array<IContractJson>): string {
+    return this.myContract.write(json);
+  }
+
+  compile(callback: (errors: any) => void) {
+    return this.myContract.compile(callback);
+  }
+
+  deploy(inputs: IContractDeployDTO, web3: IWeb3) {
+    this.myContract.deploy(inputs, web3);
+  }
+}
+
+export default ContractService;
