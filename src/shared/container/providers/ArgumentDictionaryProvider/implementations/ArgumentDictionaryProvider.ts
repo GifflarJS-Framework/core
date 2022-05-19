@@ -1,4 +1,3 @@
-import { ICreateContractCommand } from "@modules/commands/CreateContract/types/ICreateContractCommand";
 import { injectable, inject } from "tsyringe";
 import { IAliasDictionary } from "../types/IAliasDictionary";
 import { IDictionary } from "../types/IDictionary";
@@ -10,6 +9,8 @@ import { IGetArgInfoByReceivedArgDTO } from "../dtos/IGetArgInfoByReceivedArgDTO
 import { IDictionaryItemInfo } from "../types/IDictionaryItemInfo";
 import { IArgumentDictionaryProvider } from "../types/IArgumentDictionaryProvider";
 import { ICreateServiceCommand } from "@modules/commands/CreateService/types/ICreateServiceCommand";
+import { IWriteContractsCommand } from "@modules/commands/WriteContracts/types/IWriteContractsCommand";
+import { ICreateContractModelCommand } from "@modules/commands/CreateContractModel/types/ICreateContractModelCommand";
 
 @injectable()
 export default class ArgumentDictionaryProvider
@@ -28,17 +29,23 @@ export default class ArgumentDictionaryProvider
       required: false,
       handler: this.initCommand.execute,
     },
-    "make:contract": {
-      alias: ["-m:contract", "--make:contract"],
+    "make:model": {
+      alias: ["-m:model", "--make:model"],
       options: [],
       required: false,
-      handler: this.createContractCommand.execute,
+      handler: this.createContractModelCommand.execute,
     },
     "make:service": {
       alias: ["-m:service", "--make:service"],
       options: [],
       required: false,
       handler: this.createServiceCommand.execute,
+    },
+    write: {
+      alias: [],
+      options: [],
+      required: false,
+      handler: this.writeContractsCommand.execute,
     },
   };
   // DICTIONARY
@@ -52,12 +59,16 @@ export default class ArgumentDictionaryProvider
       aliases: ["--init"],
     }),
     ...this.registryAlias({
-      baseArg: "make:contract",
-      aliases: ["-m:contract", "--make:contract"],
+      baseArg: "make:model",
+      aliases: ["-m:model", "--make:model"],
     }),
     ...this.registryAlias({
       baseArg: "make:service",
       aliases: ["-m:service", "--make:service"],
+    }),
+    ...this.registryAlias({
+      baseArg: "write",
+      aliases: [],
     }),
   };
 
@@ -66,10 +77,12 @@ export default class ArgumentDictionaryProvider
     private helpCommand: IHelpCommand,
     @inject("InitCommand")
     private initCommand: IInitCommand,
-    @inject("CreateContractCommand")
-    private createContractCommand: ICreateContractCommand,
+    @inject("CreateContractModelCommand")
+    private createContractModelCommand: ICreateContractModelCommand,
     @inject("CreateServiceCommand")
-    private createServiceCommand: ICreateServiceCommand
+    private createServiceCommand: ICreateServiceCommand,
+    @inject("WriteContractsCommand")
+    private writeContractsCommand: IWriteContractsCommand
   ) {}
 
   private registryAlias({ baseArg, aliases }: IAliasRegistryDTO) {

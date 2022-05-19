@@ -14,11 +14,7 @@ interface IWriteFileDTO {
   content: any;
 }
 
-interface IReadFileDTO {
-  path: string;
-}
-
-interface IFileExistsDTO {
+interface IPathInput {
   path: string;
 }
 
@@ -45,14 +41,23 @@ export const writeFile = ({ destPath, content }: IWriteFileDTO): void => {
   });
 };
 
-export const fileExists = ({ path }: IFileExistsDTO) => {
+export const fileExists = ({ path }: IPathInput) => {
   return fs.existsSync(path);
 };
 
-export const readFile = ({ path }: IReadFileDTO): any | null => {
+export const readFile = ({ path }: IPathInput): any | null => {
   try {
     const content: any = fs.readFileSync(path, { encoding: "utf-8" });
     return content;
+  } catch (e) {
+    return null;
+  }
+};
+
+export const listFolderFiles = ({ path }: IPathInput): any | null => {
+  try {
+    const files: string[] = fs.readdirSync(path, { encoding: "utf-8" });
+    return files;
   } catch (e) {
     return null;
   }

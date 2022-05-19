@@ -1,9 +1,9 @@
 import { IConfigFile } from "@modules/commands/Init/types/IConfigFile";
 import { copyFile, makeDirectory, readFile } from "@utils/files";
 import path from "path";
-import { ICreateContractCommand } from "../types/ICreateContractCommand";
+import { ICreateContractModelCommand } from "../types/ICreateContractModelCommand";
 
-class CreateContractCommandDefault implements ICreateContractCommand {
+class CreateContractModelCommandDefault implements ICreateContractModelCommand {
   async execute(value: string): Promise<void> {
     const configFile: IConfigFile = JSON.parse(
       readFile({
@@ -19,9 +19,9 @@ class CreateContractCommandDefault implements ICreateContractCommand {
       // Creating root directory
       makeDirectory({ path: `${process.cwd()}/${configFile.root}` });
     }
-    if (configFile.contractsFolder !== "./") {
+    if (configFile.modelsFolder !== "./") {
       // Creating contracts directory
-      makeDirectory({ path: `${process.cwd()}/${configFile.contractsFolder}` });
+      makeDirectory({ path: `${process.cwd()}/${configFile.modelsFolder}` });
     }
 
     copyFile({
@@ -30,10 +30,10 @@ class CreateContractCommandDefault implements ICreateContractCommand {
       ),
       destPath: path.resolve(
         process.cwd(),
-        configFile.contractsFolder,
+        configFile.modelsFolder,
         `${value}Contract.ts`
       ),
     });
   }
 }
-export default CreateContractCommandDefault;
+export default CreateContractModelCommandDefault;

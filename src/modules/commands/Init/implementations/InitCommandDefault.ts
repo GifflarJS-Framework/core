@@ -8,6 +8,7 @@ class InitCommandDefault implements IInitCommand {
     const INITIAL_CONFIG: IConfigFile = {
       projectName: "Gifflar Project",
       root: "./gifflar",
+      modelsFolder: "./gifflar/models",
       contractsFolder: "./gifflar/contracts",
       servicesFolder: "./gifflar/services",
     };
