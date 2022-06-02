@@ -4,4 +4,5 @@ export interface IConfigFile {
   modelsFolder: string;
   contractsFolder: string;
   servicesFolder: string;
+  compileFolder: string;
 }

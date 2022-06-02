@@ -1,12 +1,12 @@
 import { container } from "tsyringe";
 import ArgumentHandlerDefault from "./implementations/ArgumentHandlerDefault";
+import { IArgumentHandler } from "./types/IArgumentHandler";
 
 const implementations = {
   default: ArgumentHandlerDefault,
 };
 
-container.register("ArgumentHandlerDefault", {
-  useClass: implementations.default,
-});
-
-export default implementations.default;
+container.registerSingleton<IArgumentHandler>(
+  "ArgumentHandler",
+  implementations.default
+);

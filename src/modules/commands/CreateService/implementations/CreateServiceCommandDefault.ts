@@ -20,7 +20,7 @@ class CreateServiceCommandDefault implements ICreateServiceCommand {
       makeDirectory({ path: `${process.cwd()}/${configFile.root}` });
     }
     if (configFile.servicesFolder !== "./") {
-      // Creating contracts directory
+      // Creating services directory
       makeDirectory({ path: `${process.cwd()}/${configFile.servicesFolder}` });
     }
 

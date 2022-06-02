@@ -8,9 +8,9 @@ import {
 } from "@utils/files";
 import { IGifflarContract } from "gifflar/bin/modules/managing/contract/types/IGifflarContract";
 import path from "path";
-import { IWriteContractsCommand } from "../types/IWriteContractsCommand";
+import { ICompileContractsCommand } from "../types/ICompileContractsCommand";
 
-class WriteContractsCommand implements IWriteContractsCommand {
+class CompileContracts implements ICompileContractsCommand {
   async execute(value: string): Promise<void> {
     const configFile: IConfigFile = JSON.parse(
       readFile({
@@ -22,10 +22,14 @@ class WriteContractsCommand implements IWriteContractsCommand {
         "Configuration file 'gifflarconfig.json' not found. Run 'gifflar init' first."
       );
 
-    if (configFile.contractsFolder !== "./") {
-      // Creating contracts directory
+    if (configFile.root !== "./") {
+      // Creating root directory
+      makeDirectory({ path: `${process.cwd()}/${configFile.root}` });
+    }
+    if (configFile.compileFolder !== "./") {
+      // Creating compilations directory
       makeDirectory({
-        path: path.resolve(process.cwd(), configFile.contractsFolder),
+        path: `${process.cwd()}/${configFile.compileFolder}`,
       });
     }
 
@@ -57,8 +61,38 @@ class WriteContractsCommand implements IWriteContractsCommand {
         ),
         content: code,
       });
+
+      const json = gContract.compile((errors) => {
+        if (errors) console.log(errors);
+      });
+
+      // Saving ABI
+      writeFile({
+        destPath: path.resolve(
+          configFile.compileFolder,
+          `${gContract.name}.json`
+        ),
+        content: JSON.stringify(
+          json.contracts.jsons[gContract.name].abi,
+          null,
+          2
+        ),
+      });
+
+      // Saving Metadata
+      writeFile({
+        destPath: path.resolve(
+          configFile.compileFolder,
+          `${gContract.name}_metadata.json`
+        ),
+        content: JSON.stringify(
+          JSON.parse(json.contracts.jsons[gContract.name].metadata),
+          null,
+          2
+        ),
+      });
     });
   }
 }
 
-export default WriteContractsCommand;
+export default CompileContracts;

@@ -11,6 +11,7 @@ class InitCommandDefault implements IInitCommand {
       modelsFolder: "./gifflar/models",
       contractsFolder: "./gifflar/contracts",
       servicesFolder: "./gifflar/services",
+      compileFolder: "./gifflar/arctifacts",
     };
 
     // Writing config file

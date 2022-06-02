@@ -11,6 +11,7 @@ import { IArgumentDictionaryProvider } from "../types/IArgumentDictionaryProvide
 import { ICreateServiceCommand } from "@modules/commands/CreateService/types/ICreateServiceCommand";
 import { IWriteContractsCommand } from "@modules/commands/WriteContracts/types/IWriteContractsCommand";
 import { ICreateContractModelCommand } from "@modules/commands/CreateContractModel/types/ICreateContractModelCommand";
+import { ICompileContractsCommand } from "@modules/commands/CompileContracts/types/ICompileContractsCommand";
 
 @injectable()
 export default class ArgumentDictionaryProvider
@@ -47,6 +48,12 @@ export default class ArgumentDictionaryProvider
       required: false,
       handler: this.writeContractsCommand.execute,
     },
+    compile: {
+      alias: [],
+      options: [],
+      required: false,
+      handler: this.compileContractsCommand.execute,
+    },
   };
   // DICTIONARY
   private aliasesDictionary: IAliasDictionary = {
@@ -70,6 +77,10 @@ export default class ArgumentDictionaryProvider
       baseArg: "write",
       aliases: [],
     }),
+    ...this.registryAlias({
+      baseArg: "compile",
+      aliases: [],
+    }),
   };
 
   constructor(
@@ -82,7 +93,9 @@ export default class ArgumentDictionaryProvider
     @inject("CreateServiceCommand")
     private createServiceCommand: ICreateServiceCommand,
     @inject("WriteContractsCommand")
-    private writeContractsCommand: IWriteContractsCommand
+    private writeContractsCommand: IWriteContractsCommand,
+    @inject("CompileContractsCommand")
+    private compileContractsCommand: ICompileContractsCommand
   ) {}
 
   private registryAlias({ baseArg, aliases }: IAliasRegistryDTO) {
