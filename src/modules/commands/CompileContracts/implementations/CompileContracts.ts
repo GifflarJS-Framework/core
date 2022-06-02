@@ -44,8 +44,13 @@ class CompileContracts implements ICompileContractsCommand {
       path: configFile.modelsFolder,
     });
 
-    // Creating code for all contracts in contracts folder
-    files.map((file) => {
+    const compile = ({
+      file,
+      configFile,
+    }: {
+      file: string;
+      configFile: IConfigFile;
+    }): void => {
       const gContract: IGifflarContract = require(path.resolve(
         process.cwd(),
         configFile.modelsFolder,
@@ -54,13 +59,20 @@ class CompileContracts implements ICompileContractsCommand {
 
       const code = gContract.write();
 
-      writeFile({
-        destPath: path.resolve(
-          configFile.contractsFolder,
-          `${gContract.name}.sol`
-        ),
-        content: code,
-      });
+      // Creating contract .sol if not found
+      if (
+        !fileExists({
+          path: path.resolve(configFile.contractsFolder, `${value}.sol`),
+        })
+      ) {
+        writeFile({
+          destPath: path.resolve(
+            configFile.contractsFolder,
+            `${gContract.name}.sol`
+          ),
+          content: code,
+        });
+      }
 
       const json = gContract.compile((errors) => {
         if (errors) console.log(errors);
@@ -91,7 +103,26 @@ class CompileContracts implements ICompileContractsCommand {
           2
         ),
       });
-    });
+    };
+
+    if (value) {
+      // Verifying if single contract file exists
+      if (
+        !fileExists({
+          path: path.resolve(configFile.modelsFolder, `${value}.ts`),
+        })
+      ) {
+        throw new Error("Requested contract model were not found.");
+      }
+
+      // Compiling single contract
+      compile({ file: value, configFile });
+    } else {
+      // Creating code and ABIs for all contracts in contracts folder
+      files.map((file) => {
+        compile({ file, configFile });
+      });
+    }
   }
 }
 
