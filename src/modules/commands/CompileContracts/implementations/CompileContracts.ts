@@ -7,6 +7,7 @@ import {
   writeFile,
 } from "@utils/files";
 import { IGifflarContract } from "gifflar/bin/modules/managing/contract/types/IGifflarContract";
+import { IContractJson } from "gifflar/bin/modules/models/contract/types/IContractJson";
 import path from "path";
 import { ICompileContractsCommand } from "../types/ICompileContractsCommand";
 
@@ -103,6 +104,47 @@ class CompileContracts implements ICompileContractsCommand {
           2
         ),
       });
+
+      // Verifying if contract dump file exists
+      if (
+        fileExists({
+          path: path.resolve(
+            configFile.compileFolder,
+            `${gContract.name}_dump.json`
+          ),
+        })
+      ) {
+        // Getting the dump file stringified
+        const dumpStringified: string = readFile({
+          path: path.resolve(
+            configFile.compileFolder,
+            `${gContract.name}_dump.json`
+          ),
+        });
+
+        // Parsing the json file
+        const dumpJson: IContractJson = JSON.parse(dumpStringified);
+        // Inserting the compilation json to the dump
+        dumpJson.json = gContract.json;
+
+        // Updating dump file
+        writeFile({
+          destPath: path.resolve(
+            configFile.compileFolder,
+            `${gContract.name}_dump.json`
+          ),
+          content: JSON.stringify(dumpJson, null, 2),
+        });
+      } else {
+        // Saving dump file
+        writeFile({
+          destPath: path.resolve(
+            configFile.compileFolder,
+            `${gContract.name}_dump.json`
+          ),
+          content: JSON.stringify(gContract, null, 2),
+        });
+      }
     };
 
     if (value) {
