@@ -4,14 +4,15 @@ import {
   listFolderFiles,
   makeDirectory,
   readFile,
-  writeFile,
 } from "@utils/files";
 import { IGifflarContract } from "gifflar-library/bin/modules/managing/contract/types/IGifflarContract";
 import { IContractJson } from "gifflar-library/bin/modules/models/contract/types/IContractJson";
 import path from "path";
-import { IWriteContractsCommand } from "../types/IWriteContractsCommand";
+import { IScriptFunctionInputs } from "../dtos/IScriptFunctionInputs";
+import { IContractModelsDict } from "../types/IContractModelsDict";
+import { IDeployContractsCommand } from "../types/IDeployContractsCommand";
 
-class WriteContractsCommand implements IWriteContractsCommand {
+class DeployContractsCommand implements IDeployContractsCommand {
   async execute(value: string): Promise<void> {
     const configFile: IConfigFile = JSON.parse(
       readFile({
@@ -23,18 +24,16 @@ class WriteContractsCommand implements IWriteContractsCommand {
         "Configuration file 'gifflarconfig.json' not found. Run 'gifflar init' first."
       );
 
-    if (configFile.contractsFolder !== "./") {
+    if (
+      configFile.scriptsFolder !== "./" &&
+      !fileExists({ path: configFile.scriptsFolder })
+    ) {
+      console.log("No scripts folder found. Creating new one...");
       // Creating contracts directory
       makeDirectory({
-        path: path.resolve(process.cwd(), configFile.contractsFolder),
+        path: path.resolve(process.cwd(), configFile.scriptsFolder),
       });
-    }
-
-    if (configFile.compileFolder !== "./") {
-      // Creating contracts directory
-      makeDirectory({
-        path: `${process.cwd()}/${configFile.compileFolder}`,
-      });
+      console.log(`Scripts folder created in: ${configFile.scriptsFolder}`);
     }
 
     if (!fileExists({ path: configFile.modelsFolder })) {
@@ -49,22 +48,14 @@ class WriteContractsCommand implements IWriteContractsCommand {
     });
 
     // Creating code for all contracts in contracts folder
+    const contracts: IContractModelsDict = {};
+
     files.map((file) => {
       const gContract: IGifflarContract = require(path.resolve(
         process.cwd(),
         configFile.modelsFolder,
         file
       )).default;
-
-      const code = gContract.write();
-
-      writeFile({
-        destPath: path.resolve(
-          configFile.contractsFolder,
-          `${gContract.name}.sol`
-        ),
-        content: code,
-      });
 
       // Verifying if contract dump file exists
       if (
@@ -85,29 +76,41 @@ class WriteContractsCommand implements IWriteContractsCommand {
 
         // Parsing the json file
         const dumpJson: IContractJson = JSON.parse(dumpStringified);
-        // Inserting the code to the dump
-        dumpJson.code = gContract.code;
-
-        // Updating dump file
-        writeFile({
-          destPath: path.resolve(
-            configFile.compileFolder,
-            `${gContract.name}_dump.json`
-          ),
-          content: JSON.stringify(dumpJson, null, 2),
-        });
-      } else {
-        // Saving dump file
-        writeFile({
-          destPath: path.resolve(
-            configFile.compileFolder,
-            `${gContract.name}_dump.json`
-          ),
-          content: JSON.stringify(gContract, null, 2),
-        });
+        // Inserting the dump file info to the contract
+        gContract.code = dumpJson.code;
+        gContract.json = dumpJson.json;
+        gContract.instance = dumpJson.instance;
       }
+
+      contracts[gContract.name] = gContract;
     });
+
+    // listing all files in scripts folder
+    const scriptFiles: string[] = listFolderFiles({
+      path: configFile.scriptsFolder,
+    });
+
+    if (!scriptFiles.length) {
+      throw new Error("No scripts created yet.");
+    }
+
+    // Iterating the scripts sequentially
+    scriptFiles.reduce(async (accumulator, file) => {
+      await accumulator;
+
+      // Getting script function
+      const scriptFunction: ({
+        contracts,
+      }: IScriptFunctionInputs) => Promise<void> = require(path.resolve(
+        process.cwd(),
+        configFile.scriptsFolder,
+        file
+      )).default;
+
+      // Executing script
+      await scriptFunction({ contracts });
+    }, Promise.resolve());
   }
 }
 
-export default WriteContractsCommand;
+export default DeployContractsCommand;

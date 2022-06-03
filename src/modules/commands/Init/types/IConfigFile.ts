@@ -1,3 +1,5 @@
+import { INetworkConfig } from "./INetworkConfig";
+
 export interface IConfigFile {
   projectName: string;
   root: string;
@@ -7,4 +9,6 @@ export interface IConfigFile {
   compileFolder: string;
   scriptsFolder: string;
   appKey: string;
+  defaultNetwork: string;
+  networks: Array<INetworkConfig>;
 }

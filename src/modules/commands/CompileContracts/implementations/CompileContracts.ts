@@ -6,8 +6,8 @@ import {
   readFile,
   writeFile,
 } from "@utils/files";
-import { IGifflarContract } from "gifflar/bin/modules/managing/contract/types/IGifflarContract";
-import { IContractJson } from "gifflar/bin/modules/models/contract/types/IContractJson";
+import { IGifflarContract } from "gifflar-library/bin/modules/managing/contract/types/IGifflarContract";
+import { IContractJson } from "gifflar-library/bin/modules/models/contract/types/IContractJson";
 import path from "path";
 import { ICompileContractsCommand } from "../types/ICompileContractsCommand";
 

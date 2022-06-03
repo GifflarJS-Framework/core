@@ -1,8 +1,8 @@
-import { createContract } from "gifflar";
-import { IWeb3 } from "gifflar/bin/modules/deployer/types/IWeb3";
-import { IContractDeployDTO } from "gifflar/bin/modules/managing/contract/types/IContractDeployDTO";
-import { IGifflarContract } from "gifflar/bin/modules/managing/contract/types/IGifflarContract";
-import { IContractJson } from "gifflar/bin/modules/models/contract/types/IContractJson";
+import { createContract } from "gifflar-library";
+import { IWeb3 } from "gifflar-library/bin/modules/deployer/types/IWeb3";
+import { IContractDeployDTO } from "gifflar-library/bin/modules/managing/contract/types/IContractDeployDTO";
+import { IGifflarContract } from "gifflar-library/bin/modules/managing/contract/types/IGifflarContract";
+import { IContractJson } from "gifflar-library/bin/modules/models/contract/types/IContractJson";
 
 class ContractService {
   // Creating contract model

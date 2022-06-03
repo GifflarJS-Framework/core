@@ -18,6 +18,8 @@ class InitCommandDefault implements IInitCommand {
         .createHash("sha256")
         .update(new Date().getTime().toString())
         .digest("hex"),
+      defaultNetwork: "",
+      networks: [],
     };
 
     // Writing config file
