@@ -7,6 +7,7 @@ import {
   writeFile,
 } from "@utils/files";
 import { IGifflarContract } from "gifflar/bin/modules/managing/contract/types/IGifflarContract";
+import { IContractJson } from "gifflar/bin/modules/models/contract/types/IContractJson";
 import path from "path";
 import { IWriteContractsCommand } from "../types/IWriteContractsCommand";
 
@@ -26,6 +27,13 @@ class WriteContractsCommand implements IWriteContractsCommand {
       // Creating contracts directory
       makeDirectory({
         path: path.resolve(process.cwd(), configFile.contractsFolder),
+      });
+    }
+
+    if (configFile.compileFolder !== "./") {
+      // Creating contracts directory
+      makeDirectory({
+        path: `${process.cwd()}/${configFile.compileFolder}`,
       });
     }
 
@@ -57,6 +65,47 @@ class WriteContractsCommand implements IWriteContractsCommand {
         ),
         content: code,
       });
+
+      // Verifying if contract dump file exists
+      if (
+        fileExists({
+          path: path.resolve(
+            configFile.compileFolder,
+            `${gContract.name}_dump.json`
+          ),
+        })
+      ) {
+        // Getting the dump file stringified
+        const dumpStringified: string = readFile({
+          path: path.resolve(
+            configFile.compileFolder,
+            `${gContract.name}_dump.json`
+          ),
+        });
+
+        // Parsing the json file
+        const dumpJson: IContractJson = JSON.parse(dumpStringified);
+        // Inserting the code to the dump
+        dumpJson.code = gContract.code;
+
+        // Updating dump file
+        writeFile({
+          destPath: path.resolve(
+            configFile.compileFolder,
+            `${gContract.name}_dump.json`
+          ),
+          content: JSON.stringify(dumpJson, null, 2),
+        });
+      } else {
+        // Saving dump file
+        writeFile({
+          destPath: path.resolve(
+            configFile.compileFolder,
+            `${gContract.name}_dump.json`
+          ),
+          content: JSON.stringify(gContract, null, 2),
+        });
+      }
     });
   }
 }

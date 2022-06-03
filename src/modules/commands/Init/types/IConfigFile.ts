@@ -5,4 +5,6 @@ export interface IConfigFile {
   contractsFolder: string;
   servicesFolder: string;
   compileFolder: string;
+  scriptsFolder: string;
+  appKey: string;
 }
