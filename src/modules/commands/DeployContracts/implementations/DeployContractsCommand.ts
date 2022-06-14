@@ -11,6 +11,7 @@ import path from "path";
 import { IScriptFunctionInputs } from "../dtos/IScriptFunctionInputs";
 import { IContractModelsDict } from "../types/IContractModelsDict";
 import { IDeployContractsCommand } from "../types/IDeployContractsCommand";
+import Web3 from "web3";
 
 class DeployContractsCommand implements IDeployContractsCommand {
   async execute(value: string): Promise<void> {
@@ -23,6 +24,33 @@ class DeployContractsCommand implements IDeployContractsCommand {
       throw Error(
         "Configuration file 'gifflarconfig.json' not found. Run 'gifflar init' first."
       );
+
+    // Checking if default network is defined
+    if (!configFile.defaultNetwork || !configFile.networks) {
+      throw Error("No default network found");
+    }
+
+    // Filtering the network config choosen
+    const networkConfig = configFile.networks.filter((config) => {
+      return config.key === configFile.defaultNetwork;
+    })[0];
+
+    // Checking if default network was found by key
+    if (!networkConfig) {
+      throw Error("No default network found");
+    }
+
+    // Creating web3 through network config
+    const web3 = new Web3(
+      new Web3.providers.HttpProvider(networkConfig.nodeLink)
+    );
+
+    // Recovering account from private key
+    const account = web3.eth.accounts.privateKeyToAccount(
+      configFile.mainAddressPrivateKey
+    );
+    // Saving account to memory
+    web3.eth.accounts.wallet.add(account);
 
     if (
       configFile.scriptsFolder !== "./" &&
@@ -80,6 +108,7 @@ class DeployContractsCommand implements IDeployContractsCommand {
         gContract.code = dumpJson.code;
         gContract.json = dumpJson.json;
         gContract.instance = dumpJson.instance;
+        gContract.setWeb3(web3);
       }
 
       contracts[gContract.name] = gContract;

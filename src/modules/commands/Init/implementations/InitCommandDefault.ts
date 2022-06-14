@@ -18,8 +18,23 @@ class InitCommandDefault implements IInitCommand {
         .createHash("sha256")
         .update(new Date().getTime().toString())
         .digest("hex"),
-      defaultNetwork: "",
-      networks: [],
+      defaultNetwork: "local_network",
+      mainAddressPrivateKey: "",
+      networks: [
+        {
+          key: "local_network",
+          networkId: 0,
+          gas: "3000000",
+          gasPrice: "10000000000",
+          nodeLink: "http://localhost:8545",
+        },
+        {
+          key: "bsc_testnet",
+          networkId: 97,
+          gas: "3000000",
+          nodeLink: "https://data-seed-prebsc-1-s1.binance.org:8545/",
+        },
+      ],
     };
 
     // Writing config file

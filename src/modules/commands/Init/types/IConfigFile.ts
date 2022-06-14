@@ -10,5 +10,6 @@ export interface IConfigFile {
   scriptsFolder: string;
   appKey: string;
   defaultNetwork: string;
+  mainAddressPrivateKey: string;
   networks: Array<INetworkConfig>;
 }
