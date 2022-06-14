@@ -1,0 +1,51 @@
+import { createContract } from "gifflar-library";
+import { IWeb3 } from "gifflar-library/bin/modules/deployer/types/IWeb3";
+import { IContractDeployDTO } from "gifflar-library/bin/modules/managing/contract/types/IContractDeployDTO";
+import { IGifflarContract } from "gifflar-library/bin/modules/managing/contract/types/IGifflarContract";
+import { IContractJson } from "gifflar-library/bin/modules/models/contract/types/IContractJson";
+import { Contract } from "web3-eth-contract";
+
+class ContractService {
+  // Creating contract model
+  private myContract: IGifflarContract = createContract("MyContract");
+
+  constructor(web3?: IWeb3, accountPrivateKey?: string) {
+    // Setting web3
+    if (web3) {
+      this.myContract.setWeb3(web3);
+    }
+
+    // Saving account to memory
+    if (accountPrivateKey) {
+      const account = web3.eth.accounts.privateKeyToAccount(accountPrivateKey);
+      web3.eth.accounts.wallet.add(account);
+    }
+  }
+
+  createModel(): any {
+    // Creating a contract variable
+    this.myContract.createVariable("string", "message", "public");
+
+    // Creating a contract constructor function
+    this.myContract
+      .createConstructor("public")
+      .setInput("string", "_message")
+      .setAssignment("message", "_message");
+
+    return this.myContract.json;
+  }
+
+  write(json: Array<IContractJson>): string {
+    return this.myContract.write(json);
+  }
+
+  compile(callback: (errors: any) => void): any {
+    return this.myContract.compile(callback);
+  }
+
+  deploy(inputs: IContractDeployDTO): Promise<Contract> {
+    return this.myContract.deploy(inputs);
+  }
+}
+
+export default ContractService;
