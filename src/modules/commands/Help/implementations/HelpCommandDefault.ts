@@ -25,6 +25,9 @@ class HelpCommandDefault implements IHelpCommand {
     console.log(
       " compile                                      \t Compiles one or all contracts generating ABIs and metadatas. Writes the codes if no .sol were found. It subscribes old versions."
     );
+    console.log(
+      " deploy                                      \t Deploys contracts based on scripts inside scripts folder."
+    );
   }
 }
 export default HelpCommandDefault;
