@@ -1,18 +1,19 @@
-import { createContract } from "gifflar-library";
+import { createContractManager } from "gifflar-library";
 import { IWeb3 } from "gifflar-library/bin/modules/deployer/types/IWeb3";
 import { IContractDeployDTO } from "gifflar-library/bin/modules/managing/contract/types/IContractDeployDTO";
+import { IGifflarContractManager } from "gifflar-library/bin/modules/managing/contractManager/types/IGifflarContractManager";
 import { IGifflarContract } from "gifflar-library/bin/modules/managing/contract/types/IGifflarContract";
 import { IContractJson } from "gifflar-library/bin/modules/models/contract/types/IContractJson";
 import { Contract } from "web3-eth-contract";
 
 class ContractService {
-  // Creating contract model
-  private myContract: IGifflarContract = createContract("MyContract");
+  // Creating contract manager
+  private myContractManager: IGifflarContractManager = createContractManager();
 
   constructor(web3?: IWeb3, accountPrivateKey?: string) {
     // Setting web3
     if (web3) {
-      this.myContract.setWeb3(web3);
+      this.myContractManager.setWeb3(web3);
     }
 
     // Saving account to memory
@@ -22,29 +23,33 @@ class ContractService {
     }
   }
 
-  createModel(): any {
+  createModel(contractName: string): any {
+    // Creating new contract
+    const myContract: IGifflarContract =
+      this.myContractManager.newContract(contractName);
+
     // Creating a contract variable
-    this.myContract.createVariable("string", "message", "public");
+    myContract.createVariable("string", "message", "public");
 
     // Creating a contract constructor function
-    this.myContract
+    myContract
       .createConstructor("public")
       .setInput("string", "_message")
       .setAssignment("message", "_message");
 
-    return this.myContract.json;
+    return myContract.toJson();
   }
 
   write(json: Array<IContractJson>): string {
-    return this.myContract.write(json);
+    return this.myContractManager.write(json);
   }
 
-  compile(callback: (errors: any) => void): any {
-    return this.myContract.compile(callback);
+  compile(contractName: string, callback: (errors: any) => void): any {
+    return this.myContractManager.compile(contractName, callback);
   }
 
-  deploy(inputs: IContractDeployDTO): Promise<Contract> {
-    return this.myContract.deploy(inputs);
+  deploy(contractName: string, inputs: IContractDeployDTO): Promise<Contract> {
+    return this.myContractManager.deploy(contractName, inputs);
   }
 }
 
