@@ -26,7 +26,8 @@ class CreateContractModelCommandDefault implements ICreateContractModelCommand {
 
     copyFile({
       sourcePath: path.resolve(
-        `${__dirname}/../../../../templates/MakeContractTemplate.template`
+        __dirname,
+        `../templates/MakeContractTemplate.template`
       ),
       destPath: path.resolve(
         process.cwd(),

@@ -10,7 +10,7 @@ class HelpCommandDefault implements IHelpCommand {
       " help, --help, -h                           \t Show all the Gifflar available commands."
     );
     console.log(
-      " init, --init                               \t Initializes the Gifflar configuration file."
+      " init, --init, -i                           \t Initializes the Gifflar configuration file."
     );
     console.log(" make");
     console.log(
@@ -18,6 +18,9 @@ class HelpCommandDefault implements IHelpCommand {
     );
     console.log(
       "  make:service, --make:service, -m:service \t Make a new Gifflar Service. Required a file name as argument."
+    );
+    console.log(
+      "  make:script, --make:script, -m:script \t Make a new Gifflar Deploying Script. Required a file name as argument."
     );
     console.log(
       " write                                      \t Writes the code of the contracts in contracts folder. It subscribes old versions."

@@ -20,14 +20,15 @@ class DeployContractsCommand implements IDeployContractsCommand {
         path: path.resolve(process.cwd(), "gifflarconfig.json"),
       })
     );
-    if (!configFile)
-      throw Error(
+    if (!configFile) {
+      throw new Error(
         "Configuration file 'gifflarconfig.json' not found. Run 'gifflar init' first."
       );
+    }
 
     // Checking if default network is defined
     if (!configFile.defaultNetwork || !configFile.networks) {
-      throw Error("No default network found");
+      throw new Error("No default network found");
     }
 
     // Filtering the network config choosen
@@ -37,7 +38,7 @@ class DeployContractsCommand implements IDeployContractsCommand {
 
     // Checking if default network was found by key
     if (!networkConfig) {
-      throw Error("No default network found");
+      throw new Error("No default network found");
     }
 
     // Creating web3 through network config

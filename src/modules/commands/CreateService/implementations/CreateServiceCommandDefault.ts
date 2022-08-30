@@ -5,15 +5,22 @@ import { ICreateServiceCommand } from "../types/ICreateServiceCommand";
 
 class CreateServiceCommandDefault implements ICreateServiceCommand {
   async execute(value: string): Promise<void> {
+    // Checking if value was set
+    if (!value) {
+      throw new Error("You must define the service name");
+    }
+
+    // Obtaining the configFile
     const configFile: IConfigFile = JSON.parse(
       readFile({
         path: path.resolve(process.cwd(), "gifflarconfig.json"),
       })
     );
-    if (!configFile)
-      throw Error(
+    if (!configFile) {
+      throw new Error(
         "Configuration file 'gifflarconfig.json' not found. Run 'gifflar init' first."
       );
+    }
 
     if (configFile.root !== "./") {
       // Creating root directory
@@ -26,7 +33,8 @@ class CreateServiceCommandDefault implements ICreateServiceCommand {
 
     copyFile({
       sourcePath: path.resolve(
-        `${__dirname}/../../../../templates/MakeServiceTemplate.template`
+        __dirname,
+        `../templates/MakeServiceTemplate.template`
       ),
       destPath: path.resolve(
         process.cwd(),
