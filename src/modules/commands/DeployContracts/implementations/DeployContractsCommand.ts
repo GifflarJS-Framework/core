@@ -5,8 +5,8 @@ import {
   makeDirectory,
   readFile,
 } from "@utils/files";
-import { IGifflarContract } from "gifflar-library/bin/modules/managing/contract/types/IGifflarContract";
-import { IContractJson } from "gifflar-library/bin/modules/models/contract/types/IContractJson";
+import { IGifflarContract } from "gifflar-library/bin/modules/managing/gifflarContract/types/IGifflarContract";
+import { IContractJson } from "gifflar-library/bin/modules/models/toplevels/contract/types/IContractJson";
 import path from "path";
 import { IScriptFunctionInputs } from "../dtos/IScriptFunctionInputs";
 import { IContractModelsDict } from "../types/IContractModelsDict";
@@ -90,7 +90,7 @@ class DeployContractsCommand implements IDeployContractsCommand {
         fileExists({
           path: path.resolve(
             configFile.compileFolder,
-            `${gContract.name}_dump.json`
+            `${gContract.getName()}_dump.json`
           ),
         })
       ) {
@@ -98,7 +98,7 @@ class DeployContractsCommand implements IDeployContractsCommand {
         const dumpStringified: string = readFile({
           path: path.resolve(
             configFile.compileFolder,
-            `${gContract.name}_dump.json`
+            `${gContract.getName()}_dump.json`
           ),
         });
 
@@ -111,7 +111,7 @@ class DeployContractsCommand implements IDeployContractsCommand {
         gContract.setWeb3(web3);
       }
 
-      contracts[gContract.name] = gContract;
+      contracts[gContract.getName()] = gContract;
     });
 
     // listing all files in scripts folder

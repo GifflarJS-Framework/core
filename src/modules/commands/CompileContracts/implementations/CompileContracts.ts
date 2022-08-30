@@ -6,8 +6,8 @@ import {
   readFile,
   writeFile,
 } from "@utils/files";
-import { IGifflarContract } from "gifflar-library/bin/modules/managing/contract/types/IGifflarContract";
-import { IContractJson } from "gifflar-library/bin/modules/models/contract/types/IContractJson";
+import { IGifflarContract } from "gifflar-library/bin/modules/managing/gifflarContract/types/IGifflarContract";
+import { IContractJson } from "gifflar-library/bin/modules/models/toplevels/contract/types/IContractJson";
 import path from "path";
 import { ICompileContractsCommand } from "../types/ICompileContractsCommand";
 
@@ -63,7 +63,7 @@ class CompileContracts implements ICompileContractsCommand {
         fileExists({
           path: path.resolve(
             configFile.compileFolder,
-            `${gContract.name}_dump.json`
+            `${gContract.getName()}_dump.json`
           ),
         })
       ) {
@@ -71,7 +71,7 @@ class CompileContracts implements ICompileContractsCommand {
         const dumpStringified: string = readFile({
           path: path.resolve(
             configFile.compileFolder,
-            `${gContract.name}_dump.json`
+            `${gContract.getName()}_dump.json`
           ),
         });
 
@@ -94,7 +94,7 @@ class CompileContracts implements ICompileContractsCommand {
         writeFile({
           destPath: path.resolve(
             configFile.contractsFolder,
-            `${gContract.name}.sol`
+            `${gContract.getName()}.sol`
           ),
           content: gContract.code,
         });
@@ -108,10 +108,10 @@ class CompileContracts implements ICompileContractsCommand {
       writeFile({
         destPath: path.resolve(
           configFile.compileFolder,
-          `${gContract.name}.json`
+          `${gContract.getName()}.json`
         ),
         content: JSON.stringify(
-          json.contracts.jsons[gContract.name].abi,
+          json.contracts.jsons[gContract.getName()].abi,
           null,
           2
         ),
@@ -121,10 +121,10 @@ class CompileContracts implements ICompileContractsCommand {
       writeFile({
         destPath: path.resolve(
           configFile.compileFolder,
-          `${gContract.name}_metadata.json`
+          `${gContract.getName()}_metadata.json`
         ),
         content: JSON.stringify(
-          JSON.parse(json.contracts.jsons[gContract.name].metadata),
+          JSON.parse(json.contracts.jsons[gContract.getName()].metadata),
           null,
           2
         ),
@@ -134,7 +134,7 @@ class CompileContracts implements ICompileContractsCommand {
       writeFile({
         destPath: path.resolve(
           configFile.compileFolder,
-          `${gContract.name}_dump.json`
+          `${gContract.getName()}_dump.json`
         ),
         content: JSON.stringify(gContract, null, 2),
       });
