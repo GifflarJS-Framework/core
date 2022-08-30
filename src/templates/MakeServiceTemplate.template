@@ -1,9 +1,9 @@
 import { createContractManager } from "gifflar-library";
 import { IWeb3 } from "gifflar-library/bin/modules/deployer/types/IWeb3";
-import { IContractDeployDTO } from "gifflar-library/bin/modules/managing/contract/types/IContractDeployDTO";
-import { IGifflarContractManager } from "gifflar-library/bin/modules/managing/contractManager/types/IGifflarContractManager";
-import { IGifflarContract } from "gifflar-library/bin/modules/managing/contract/types/IGifflarContract";
-import { IContractJson } from "gifflar-library/bin/modules/models/contract/types/IContractJson";
+import { IContractDeployDTO } from "gifflar-library/bin/modules/managing/gifflarContract/types/IContractDeployDTO";
+import { IGifflarContractManager } from "gifflar-library/bin/modules/managing/gifflarManager/types/IGifflarContractManager";
+import { IGifflarContract } from "gifflar-library/bin/modules/managing/gifflarContract/types/IGifflarContract";
+import { IContractJson } from "gifflar-library/bin/modules/models/toplevels/contract/types/IContractJson";
 import { Contract } from "web3-eth-contract";
 
 class ContractService {

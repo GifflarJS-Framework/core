@@ -6,8 +6,8 @@ import {
   readFile,
   writeFile,
 } from "@utils/files";
-import { IGifflarContract } from "gifflar-library/bin/modules/managing/contract/types/IGifflarContract";
-import { IContractJson } from "gifflar-library/bin/modules/models/contract/types/IContractJson";
+import { IGifflarContract } from "gifflar-library/bin/modules/managing/gifflarContract/types/IGifflarContract";
+import { IContractJson } from "gifflar-library/bin/modules/models/toplevels/contract/types/IContractJson";
 import path from "path";
 import { IWriteContractsCommand } from "../types/IWriteContractsCommand";
 
@@ -61,7 +61,7 @@ class WriteContractsCommand implements IWriteContractsCommand {
       writeFile({
         destPath: path.resolve(
           configFile.contractsFolder,
-          `${gContract.name}.sol`
+          `${gContract.getName()}.sol`
         ),
         content: code,
       });
@@ -71,7 +71,7 @@ class WriteContractsCommand implements IWriteContractsCommand {
         fileExists({
           path: path.resolve(
             configFile.compileFolder,
-            `${gContract.name}_dump.json`
+            `${gContract.getName()}_dump.json`
           ),
         })
       ) {
@@ -79,7 +79,7 @@ class WriteContractsCommand implements IWriteContractsCommand {
         const dumpStringified: string = readFile({
           path: path.resolve(
             configFile.compileFolder,
-            `${gContract.name}_dump.json`
+            `${gContract.getName()}_dump.json`
           ),
         });
 
@@ -92,7 +92,7 @@ class WriteContractsCommand implements IWriteContractsCommand {
         writeFile({
           destPath: path.resolve(
             configFile.compileFolder,
-            `${gContract.name}_dump.json`
+            `${gContract.getName()}_dump.json`
           ),
           content: JSON.stringify(dumpJson, null, 2),
         });
@@ -101,7 +101,7 @@ class WriteContractsCommand implements IWriteContractsCommand {
         writeFile({
           destPath: path.resolve(
             configFile.compileFolder,
-            `${gContract.name}_dump.json`
+            `${gContract.getName()}_dump.json`
           ),
           content: JSON.stringify(gContract, null, 2),
         });
