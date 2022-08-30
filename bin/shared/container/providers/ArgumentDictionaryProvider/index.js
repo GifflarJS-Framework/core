@@ -1,11 +1,13 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
+
+var _tsyringe = require("tsyringe");
+
+var _ArgumentDictionaryProvider = _interopRequireDefault(require("./implementations/ArgumentDictionaryProvider"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+const providers = {
+  default: _ArgumentDictionaryProvider.default
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-var tsyringe_1 = require("tsyringe");
-var ArgumentDictionaryProvider_1 = __importDefault(require("./implementations/ArgumentDictionaryProvider"));
-var providers = {
-    default: ArgumentDictionaryProvider_1.default,
-};
-tsyringe_1.container.registerSingleton("ArgumentDictionaryProvider", providers.default);
+
+_tsyringe.container.registerSingleton("ArgumentDictionaryProvider", providers.default);

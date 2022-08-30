@@ -1,11 +1,13 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
+
+var _tsyringe = require("tsyringe");
+
+var _ArgumentHandlerDefault = _interopRequireDefault(require("./implementations/ArgumentHandlerDefault"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+const implementations = {
+  default: _ArgumentHandlerDefault.default
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-var tsyringe_1 = require("tsyringe");
-var ArgumentHandlerDefault_1 = __importDefault(require("./implementations/ArgumentHandlerDefault"));
-var implementations = {
-    default: ArgumentHandlerDefault_1.default,
-};
-tsyringe_1.container.registerSingleton("ArgumentHandler", implementations.default);
+
+_tsyringe.container.registerSingleton("ArgumentHandler", implementations.default);
