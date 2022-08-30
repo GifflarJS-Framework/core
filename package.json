@@ -33,6 +33,7 @@
     "@babel/plugin-proposal-decorators": "^7.17.8",
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-typescript": "^7.16.7",
+    "types-gifflar": "git+https://github.com/GifflarJS-Framework/types-gifflar.git",
     "@types/node": "^17.0.16",
     "babel-plugin-module-resolver": "^4.1.0",
     "babel-plugin-transform-typescript-metadata": "^0.3.2",
@@ -40,8 +41,7 @@
     "ts-node-dev": "1.1.8",
     "tsconfig-paths": "^3.12.0",
     "tscpaths": "^0.0.9",
-    "typescript": "4.6.3",
-    "@types/gifflar": "git+https://github.com/GifflarJS-Framework/gifflar-library.git#types"
+    "typescript": "4.6.3"
   },
   "dependencies": {
     "gifflar-library": "git+https://github.com/GifflarJS-Framework/gifflar-library.git#build",
