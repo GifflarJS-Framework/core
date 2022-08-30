@@ -40,7 +40,8 @@
     "ts-node-dev": "1.1.8",
     "tsconfig-paths": "^3.12.0",
     "tscpaths": "^0.0.9",
-    "typescript": "4.6.3"
+    "typescript": "4.6.3",
+    "@types/gifflar": "git+https://github.com/GifflarJS-Framework/gifflar-library.git#types"
   },
   "dependencies": {
     "gifflar-library": "git+https://github.com/GifflarJS-Framework/gifflar-library.git#build",
