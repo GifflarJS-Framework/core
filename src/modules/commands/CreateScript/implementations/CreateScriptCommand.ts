@@ -17,16 +17,15 @@ class CreateScriptCommand implements ICreateScriptCommand {
     }
 
     // Obtaining the configFile
-    const configFile: IConfigFile = JSON.parse(
-      readFile({
-        path: path.resolve(process.cwd(), "gifflarconfig.json"),
-      })
-    );
-    if (!configFile) {
+    const content = readFile({
+      path: path.resolve(process.cwd(), "gifflarconfig.json"),
+    });
+    if (!content) {
       throw new Error(
         "Configuration file 'gifflarconfig.json' not found. Run 'gifflar init' first."
       );
     }
+    const configFile: IConfigFile = JSON.parse(content);
 
     // Checking if scripts folder
     if (!configFile.scriptsFolder) {

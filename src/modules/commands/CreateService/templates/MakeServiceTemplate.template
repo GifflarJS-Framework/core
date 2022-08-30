@@ -1,55 +1,45 @@
-import { createContractManager } from "gifflar-library";
-import { IWeb3 } from "gifflar-library/bin/modules/deployer/types/IWeb3";
+import { createGifflarManager } from "gifflar-library";
 import { IContractDeployDTO } from "gifflar-library/bin/modules/managing/gifflarContract/types/IContractDeployDTO";
-import { IGifflarContractManager } from "gifflar-library/bin/modules/managing/gifflarManager/types/IGifflarContractManager";
+import { IGifflarManager } from "gifflar-library/bin/modules/managing/gifflarManager/types/IGifflarManager";
 import { IGifflarContract } from "gifflar-library/bin/modules/managing/gifflarContract/types/IGifflarContract";
-import { IContractJson } from "gifflar-library/bin/modules/models/toplevels/contract/types/IContractJson";
 import { Contract } from "web3-eth-contract";
 
 class ContractService {
   // Creating contract manager
-  private myContractManager: IGifflarContractManager = createContractManager();
+  private myGifflarManager: IGifflarManager = createGifflarManager();
 
-  constructor(web3?: IWeb3, accountPrivateKey?: string) {
-    // Setting web3
-    if (web3) {
-      this.myContractManager.setWeb3(web3);
-    }
-
-    // Saving account to memory
-    if (accountPrivateKey) {
-      const account = web3.eth.accounts.privateKeyToAccount(accountPrivateKey);
-      web3.eth.accounts.wallet.add(account);
-    }
+  constructor(accountPrivateKey?: string) {
+    this.myGifflarManager.setDeployConfig(networks[defaultNetwork]);
+    if (accountPrivateKey) this.myGifflarManager.addSigner(accountPrivateKey);
   }
 
   createModel(contractName: string): any {
     // Creating new contract
     const myContract: IGifflarContract =
-      this.myContractManager.newContract(contractName);
+      this.myGifflarManager.newContract(contractName);
 
     // Creating a contract variable
-    myContract.createVariable("string", "message", "public");
+    myContract.createVariable({ regularType: "string" }, "message", "public");
 
     // Creating a contract constructor function
     myContract
       .createConstructor("public")
-      .setInput("string", "_message")
+      .setInput({ regularType: "string" }, "_message")
       .setAssignment("message", "_message");
 
     return myContract.toJson();
   }
 
-  write(json: Array<IContractJson>): string {
-    return this.myContractManager.write(json);
+  write(): string {
+    return this.myGifflarManager.writeAll();
   }
 
   compile(contractName: string, callback: (errors: any) => void): any {
-    return this.myContractManager.compile(contractName, callback);
+    return this.myGifflarManager.compile(contractName, callback);
   }
 
   deploy(contractName: string, inputs: IContractDeployDTO): Promise<Contract> {
-    return this.myContractManager.deploy(contractName, inputs);
+    return this.myGifflarManager.deploy(contractName, inputs);
   }
 }
 

@@ -15,16 +15,15 @@ import Web3 from "web3";
 
 class DeployContractsCommand implements IDeployContractsCommand {
   async execute(value: string): Promise<void> {
-    const configFile: IConfigFile = JSON.parse(
-      readFile({
-        path: path.resolve(process.cwd(), "gifflarconfig.json"),
-      })
-    );
-    if (!configFile) {
+    const content = readFile({
+      path: path.resolve(process.cwd(), "gifflarconfig.json"),
+    });
+    if (!content) {
       throw new Error(
         "Configuration file 'gifflarconfig.json' not found. Run 'gifflar init' first."
       );
     }
+    const configFile: IConfigFile = JSON.parse(content);
 
     // Checking if default network is defined
     if (!configFile.defaultNetwork || !configFile.networks) {
@@ -96,12 +95,13 @@ class DeployContractsCommand implements IDeployContractsCommand {
         })
       ) {
         // Getting the dump file stringified
-        const dumpStringified: string = readFile({
+        const dumpStringified = readFile({
           path: path.resolve(
             configFile.compileFolder,
             `${gContract.getName()}_dump.json`
           ),
         });
+        if (!dumpStringified) throw new Error("Dump file not found.");
 
         // Parsing the json file
         const dumpJson: IContractJson = JSON.parse(dumpStringified);

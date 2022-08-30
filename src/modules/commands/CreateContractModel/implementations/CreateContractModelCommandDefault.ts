@@ -5,15 +5,15 @@ import { ICreateContractModelCommand } from "../types/ICreateContractModelComman
 
 class CreateContractModelCommandDefault implements ICreateContractModelCommand {
   async execute(value: string): Promise<void> {
-    const configFile: IConfigFile = JSON.parse(
-      readFile({
-        path: path.resolve(process.cwd(), "gifflarconfig.json"),
-      })
-    );
-    if (!configFile)
+    const content = readFile({
+      path: path.resolve(process.cwd(), "gifflarconfig.json"),
+    });
+    if (!content) {
       throw Error(
         "Configuration file 'gifflarconfig.json' not found. Run 'gifflar init' first."
       );
+    }
+    const configFile: IConfigFile = JSON.parse(content);
 
     if (configFile.root !== "./") {
       // Creating root directory
