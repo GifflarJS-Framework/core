@@ -13,15 +13,15 @@ import { IWriteContractsCommand } from "../types/IWriteContractsCommand";
 
 class WriteContractsCommand implements IWriteContractsCommand {
   async execute(value: string): Promise<void> {
-    const configFile: IConfigFile = JSON.parse(
-      readFile({
-        path: path.resolve(process.cwd(), "gifflarconfig.json"),
-      })
-    );
-    if (!configFile)
+    const content = readFile({
+      path: path.resolve(process.cwd(), "gifflarconfig.json"),
+    });
+    if (!content) {
       throw Error(
         "Configuration file 'gifflarconfig.json' not found. Run 'gifflar init' first."
       );
+    }
+    const configFile: IConfigFile = JSON.parse(content);
 
     if (configFile.contractsFolder !== "./") {
       // Creating contracts directory
@@ -76,12 +76,13 @@ class WriteContractsCommand implements IWriteContractsCommand {
         })
       ) {
         // Getting the dump file stringified
-        const dumpStringified: string = readFile({
+        const dumpStringified = readFile({
           path: path.resolve(
             configFile.compileFolder,
             `${gContract.getName()}_dump.json`
           ),
         });
+        if (!dumpStringified) throw new Error("Dump file not found.");
 
         // Parsing the json file
         const dumpJson: IContractJson = JSON.parse(dumpStringified);

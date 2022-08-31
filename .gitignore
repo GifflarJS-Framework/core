@@ -4,5 +4,9 @@ package-lock.json
 node_modules/
 gifflar/
 gifflarconfig.json
+<<<<<<< HEAD
 bin/
 types/
+=======
+bin/
+>>>>>>> dev

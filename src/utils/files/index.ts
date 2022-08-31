@@ -45,12 +45,13 @@ export const fileExists = ({ path }: IPathInput) => {
   return fs.existsSync(path);
 };
 
-export const readFile = ({ path }: IPathInput): any | null => {
+export const readFile = ({ path }: IPathInput): string | undefined => {
   try {
-    const content: any = fs.readFileSync(path, { encoding: "utf-8" });
+    const content = fs.readFileSync(path, { encoding: "utf-8" });
     return content;
   } catch (e) {
-    return null;
+    console.log(e);
+    return undefined;
   }
 };
 

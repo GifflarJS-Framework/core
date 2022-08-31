@@ -13,6 +13,7 @@ import { IWriteContractsCommand } from "@modules/commands/WriteContracts/types/I
 import { ICreateContractModelCommand } from "@modules/commands/CreateContractModel/types/ICreateContractModelCommand";
 import { ICompileContractsCommand } from "@modules/commands/CompileContracts/types/ICompileContractsCommand";
 import { IDeployContractsCommand } from "@modules/commands/DeployContracts/types/IDeployContractsCommand";
+import { ICreateScriptCommand } from "@modules/commands/CreateScript/types/ICreateScriptCommand";
 
 @injectable()
 export default class ArgumentDictionaryProvider
@@ -42,6 +43,12 @@ export default class ArgumentDictionaryProvider
       options: [],
       required: false,
       handler: this.createServiceCommand.execute,
+    },
+    "make:script": {
+      alias: ["-m:script", "--make:script"],
+      options: [],
+      required: false,
+      handler: this.createScriptCommand.execute,
     },
     write: {
       alias: [],
@@ -81,6 +88,10 @@ export default class ArgumentDictionaryProvider
       aliases: ["-m:service", "--make:service"],
     }),
     ...this.registryAlias({
+      baseArg: "make:script",
+      aliases: ["-m:script", "--make:script"],
+    }),
+    ...this.registryAlias({
       baseArg: "write",
       aliases: [],
     }),
@@ -103,6 +114,8 @@ export default class ArgumentDictionaryProvider
     private createContractModelCommand: ICreateContractModelCommand,
     @inject("CreateServiceCommand")
     private createServiceCommand: ICreateServiceCommand,
+    @inject("CreateScriptCommand")
+    private createScriptCommand: ICreateScriptCommand,
     @inject("WriteContractsCommand")
     private writeContractsCommand: IWriteContractsCommand,
     @inject("CompileContractsCommand")

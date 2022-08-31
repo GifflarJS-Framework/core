@@ -1,7 +1,7 @@
 export interface INetworkConfig {
   key: string;
   networkId: number;
-  gas: string;
+  gas: number;
   gasPrice?: string;
   nodeLink: string;
 }

@@ -15,19 +15,19 @@ import Web3 from "web3";
 
 class DeployContractsCommand implements IDeployContractsCommand {
   async execute(value: string): Promise<void> {
-    const configFile: IConfigFile = JSON.parse(
-      readFile({
-        path: path.resolve(process.cwd(), "gifflarconfig.json"),
-      })
-    );
-    if (!configFile)
-      throw Error(
+    const content = readFile({
+      path: path.resolve(process.cwd(), "gifflarconfig.json"),
+    });
+    if (!content) {
+      throw new Error(
         "Configuration file 'gifflarconfig.json' not found. Run 'gifflar init' first."
       );
+    }
+    const configFile: IConfigFile = JSON.parse(content);
 
     // Checking if default network is defined
     if (!configFile.defaultNetwork || !configFile.networks) {
-      throw Error("No default network found");
+      throw new Error("No default network found");
     }
 
     // Filtering the network config choosen
@@ -37,7 +37,7 @@ class DeployContractsCommand implements IDeployContractsCommand {
 
     // Checking if default network was found by key
     if (!networkConfig) {
-      throw Error("No default network found");
+      throw new Error("No default network found");
     }
 
     // Creating web3 through network config
@@ -95,12 +95,13 @@ class DeployContractsCommand implements IDeployContractsCommand {
         })
       ) {
         // Getting the dump file stringified
-        const dumpStringified: string = readFile({
+        const dumpStringified = readFile({
           path: path.resolve(
             configFile.compileFolder,
             `${gContract.getName()}_dump.json`
           ),
         });
+        if (!dumpStringified) throw new Error("Dump file not found.");
 
         // Parsing the json file
         const dumpJson: IContractJson = JSON.parse(dumpStringified);
