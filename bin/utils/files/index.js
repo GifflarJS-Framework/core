@@ -61,7 +61,8 @@ const readFile = ({
 
     return content;
   } catch (e) {
-    return null;
+    console.log(e);
+    return undefined;
   }
 };
 

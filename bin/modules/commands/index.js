@@ -10,6 +10,8 @@ require("./CompileContracts");
 
 require("./DeployContracts");
 
+require("./CreateScript");
+
 require("./Help");
 
 require("./Init");

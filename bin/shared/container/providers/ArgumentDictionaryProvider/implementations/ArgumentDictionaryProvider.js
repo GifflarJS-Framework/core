@@ -21,7 +21,9 @@ var _ICompileContractsCommand = require("../../../../../modules/commands/Compile
 
 var _IDeployContractsCommand = require("../../../../../modules/commands/DeployContracts/types/IDeployContractsCommand");
 
-var _dec, _dec2, _dec3, _dec4, _dec5, _dec6, _dec7, _dec8, _dec9, _dec10, _class;
+var _ICreateScriptCommand = require("../../../../../modules/commands/CreateScript/types/ICreateScriptCommand");
+
+var _dec, _dec2, _dec3, _dec4, _dec5, _dec6, _dec7, _dec8, _dec9, _dec10, _dec11, _class;
 
 let ArgumentDictionaryProvider = (_dec = (0, _tsyringe.injectable)(), _dec2 = function (target, key) {
   return (0, _tsyringe.inject)("HelpCommand")(target, undefined, 0);
@@ -32,12 +34,14 @@ let ArgumentDictionaryProvider = (_dec = (0, _tsyringe.injectable)(), _dec2 = fu
 }, _dec5 = function (target, key) {
   return (0, _tsyringe.inject)("CreateServiceCommand")(target, undefined, 3);
 }, _dec6 = function (target, key) {
-  return (0, _tsyringe.inject)("WriteContractsCommand")(target, undefined, 4);
+  return (0, _tsyringe.inject)("CreateScriptCommand")(target, undefined, 4);
 }, _dec7 = function (target, key) {
-  return (0, _tsyringe.inject)("CompileContractsCommand")(target, undefined, 5);
+  return (0, _tsyringe.inject)("WriteContractsCommand")(target, undefined, 5);
 }, _dec8 = function (target, key) {
-  return (0, _tsyringe.inject)("DeployContractsCommand")(target, undefined, 6);
-}, _dec9 = Reflect.metadata("design:type", Function), _dec10 = Reflect.metadata("design:paramtypes", [typeof _IHelpCommand.IHelpCommand === "undefined" ? Object : _IHelpCommand.IHelpCommand, typeof _IInitCommand.IInitCommand === "undefined" ? Object : _IInitCommand.IInitCommand, typeof _ICreateContractModelCommand.ICreateContractModelCommand === "undefined" ? Object : _ICreateContractModelCommand.ICreateContractModelCommand, typeof _ICreateServiceCommand.ICreateServiceCommand === "undefined" ? Object : _ICreateServiceCommand.ICreateServiceCommand, typeof _IWriteContractsCommand.IWriteContractsCommand === "undefined" ? Object : _IWriteContractsCommand.IWriteContractsCommand, typeof _ICompileContractsCommand.ICompileContractsCommand === "undefined" ? Object : _ICompileContractsCommand.ICompileContractsCommand, typeof _IDeployContractsCommand.IDeployContractsCommand === "undefined" ? Object : _IDeployContractsCommand.IDeployContractsCommand]), _dec(_class = _dec2(_class = _dec3(_class = _dec4(_class = _dec5(_class = _dec6(_class = _dec7(_class = _dec8(_class = _dec9(_class = _dec10(_class = class ArgumentDictionaryProvider {
+  return (0, _tsyringe.inject)("CompileContractsCommand")(target, undefined, 6);
+}, _dec9 = function (target, key) {
+  return (0, _tsyringe.inject)("DeployContractsCommand")(target, undefined, 7);
+}, _dec10 = Reflect.metadata("design:type", Function), _dec11 = Reflect.metadata("design:paramtypes", [typeof _IHelpCommand.IHelpCommand === "undefined" ? Object : _IHelpCommand.IHelpCommand, typeof _IInitCommand.IInitCommand === "undefined" ? Object : _IInitCommand.IInitCommand, typeof _ICreateContractModelCommand.ICreateContractModelCommand === "undefined" ? Object : _ICreateContractModelCommand.ICreateContractModelCommand, typeof _ICreateServiceCommand.ICreateServiceCommand === "undefined" ? Object : _ICreateServiceCommand.ICreateServiceCommand, typeof _ICreateScriptCommand.ICreateScriptCommand === "undefined" ? Object : _ICreateScriptCommand.ICreateScriptCommand, typeof _IWriteContractsCommand.IWriteContractsCommand === "undefined" ? Object : _IWriteContractsCommand.IWriteContractsCommand, typeof _ICompileContractsCommand.ICompileContractsCommand === "undefined" ? Object : _ICompileContractsCommand.ICompileContractsCommand, typeof _IDeployContractsCommand.IDeployContractsCommand === "undefined" ? Object : _IDeployContractsCommand.IDeployContractsCommand]), _dec(_class = _dec2(_class = _dec3(_class = _dec4(_class = _dec5(_class = _dec6(_class = _dec7(_class = _dec8(_class = _dec9(_class = _dec10(_class = _dec11(_class = class ArgumentDictionaryProvider {
   argumentsDictionary = {
     help: {
       alias: ["-h", "--help"],
@@ -62,6 +66,12 @@ let ArgumentDictionaryProvider = (_dec = (0, _tsyringe.injectable)(), _dec2 = fu
       options: [],
       required: false,
       handler: this.createServiceCommand.execute
+    },
+    "make:script": {
+      alias: ["-m:script", "--make:script"],
+      options: [],
+      required: false,
+      handler: this.createScriptCommand.execute
     },
     write: {
       alias: [],
@@ -100,6 +110,10 @@ let ArgumentDictionaryProvider = (_dec = (0, _tsyringe.injectable)(), _dec2 = fu
       aliases: ["-m:service", "--make:service"]
     }),
     ...this.registryAlias({
+      baseArg: "make:script",
+      aliases: ["-m:script", "--make:script"]
+    }),
+    ...this.registryAlias({
       baseArg: "write",
       aliases: []
     }),
@@ -113,11 +127,12 @@ let ArgumentDictionaryProvider = (_dec = (0, _tsyringe.injectable)(), _dec2 = fu
     })
   };
 
-  constructor(helpCommand, initCommand, createContractModelCommand, createServiceCommand, writeContractsCommand, compileContractsCommand, deployContractsCommand) {
+  constructor(helpCommand, initCommand, createContractModelCommand, createServiceCommand, createScriptCommand, writeContractsCommand, compileContractsCommand, deployContractsCommand) {
     this.helpCommand = helpCommand;
     this.initCommand = initCommand;
     this.createContractModelCommand = createContractModelCommand;
     this.createServiceCommand = createServiceCommand;
+    this.createScriptCommand = createScriptCommand;
     this.writeContractsCommand = writeContractsCommand;
     this.compileContractsCommand = compileContractsCommand;
     this.deployContractsCommand = deployContractsCommand;
@@ -145,5 +160,5 @@ let ArgumentDictionaryProvider = (_dec = (0, _tsyringe.injectable)(), _dec2 = fu
     return commandInfo;
   }
 
-}) || _class) || _class) || _class) || _class) || _class) || _class) || _class) || _class) || _class) || _class);
+}) || _class) || _class) || _class) || _class) || _class) || _class) || _class) || _class) || _class) || _class) || _class);
 exports.default = ArgumentDictionaryProvider;

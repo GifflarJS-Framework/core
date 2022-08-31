@@ -15,13 +15,18 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 class DeployContractsCommand {
   async execute(value) {
-    const configFile = JSON.parse((0, _files.readFile)({
+    const content = (0, _files.readFile)({
       path: _path.default.resolve(process.cwd(), "gifflarconfig.json")
-    }));
-    if (!configFile) throw Error("Configuration file 'gifflarconfig.json' not found. Run 'gifflar init' first."); // Checking if default network is defined
+    });
+
+    if (!content) {
+      throw new Error("Configuration file 'gifflarconfig.json' not found. Run 'gifflar init' first.");
+    }
+
+    const configFile = JSON.parse(content); // Checking if default network is defined
 
     if (!configFile.defaultNetwork || !configFile.networks) {
-      throw Error("No default network found");
+      throw new Error("No default network found");
     } // Filtering the network config choosen
 
 
@@ -30,7 +35,7 @@ class DeployContractsCommand {
     })[0]; // Checking if default network was found by key
 
     if (!networkConfig) {
-      throw Error("No default network found");
+      throw new Error("No default network found");
     } // Creating web3 through network config
 
 
@@ -73,7 +78,8 @@ class DeployContractsCommand {
         // Getting the dump file stringified
         const dumpStringified = (0, _files.readFile)({
           path: _path.default.resolve(configFile.compileFolder, `${gContract.getName()}_dump.json`)
-        }); // Parsing the json file
+        });
+        if (!dumpStringified) throw new Error("Dump file not found."); // Parsing the json file
 
         const dumpJson = JSON.parse(dumpStringified); // Inserting the dump file info to the contract
 

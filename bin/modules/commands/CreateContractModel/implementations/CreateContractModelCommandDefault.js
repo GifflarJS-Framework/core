@@ -13,10 +13,15 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 class CreateContractModelCommandDefault {
   async execute(value) {
-    const configFile = JSON.parse((0, _files.readFile)({
+    const content = (0, _files.readFile)({
       path: _path.default.resolve(process.cwd(), "gifflarconfig.json")
-    }));
-    if (!configFile) throw Error("Configuration file 'gifflarconfig.json' not found. Run 'gifflar init' first.");
+    });
+
+    if (!content) {
+      throw Error("Configuration file 'gifflarconfig.json' not found. Run 'gifflar init' first.");
+    }
+
+    const configFile = JSON.parse(content);
 
     if (configFile.root !== "./") {
       // Creating root directory
@@ -33,7 +38,7 @@ class CreateContractModelCommandDefault {
     }
 
     (0, _files.copyFile)({
-      sourcePath: _path.default.resolve(`${__dirname}/../../../../templates/MakeContractTemplate.template`),
+      sourcePath: _path.default.resolve(__dirname, `../templates/MakeContractTemplate.template`),
       destPath: _path.default.resolve(process.cwd(), configFile.modelsFolder, `${value}Contract.ts`)
     });
   }

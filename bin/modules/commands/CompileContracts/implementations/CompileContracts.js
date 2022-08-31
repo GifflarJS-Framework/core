@@ -13,10 +13,15 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 class CompileContracts {
   async execute(value) {
-    const configFile = JSON.parse((0, _files.readFile)({
+    const content = (0, _files.readFile)({
       path: _path.default.resolve(process.cwd(), "gifflarconfig.json")
-    }));
-    if (!configFile) throw Error("Configuration file 'gifflarconfig.json' not found. Run 'gifflar init' first.");
+    });
+
+    if (!content) {
+      throw Error("Configuration file 'gifflarconfig.json' not found. Run 'gifflar init' first.");
+    }
+
+    const configFile = JSON.parse(content);
 
     if (configFile.root !== "./") {
       // Creating root directory
@@ -56,7 +61,8 @@ class CompileContracts {
         // Getting the dump file stringified
         const dumpStringified = (0, _files.readFile)({
           path: _path.default.resolve(configFile.compileFolder, `${gContract.getName()}_dump.json`)
-        }); // Parsing the json file
+        });
+        if (!dumpStringified) throw new Error("Dump file not found."); // Parsing the json file
 
         const dumpJson = JSON.parse(dumpStringified); // Inserting the compilation json to the dump
 
