@@ -18,15 +18,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://gitlab.com/gifflarsuite/gifflar-core.git"
+    "url": "git+https://github.com/GifflarJS-Framework/core.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://gitlab.com/gifflarsuite/gifflar-core/issues"
+    "url": "https://github.com/GifflarJS-Framework/core.git/issues"
   },
-  "homepage": "https://gitlab.com/gifflarsuite/gifflar-core#readme",
+  "homepage": "https://github.com/GifflarJS-Framework/core.git#readme",
   "devDependencies": {
     "@babel/cli": "^7.17.0",
     "@babel/core": "^7.17.2",
