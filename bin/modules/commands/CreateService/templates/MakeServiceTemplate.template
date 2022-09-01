@@ -1,0 +1,46 @@
+import { createGifflarManager } from "gifflar-library";
+import { IContractDeployDTO } from "types-gifflar-library/modules/managing/gifflarContract/types/IContractDeployDTO";
+import { IGifflarManager } from "types-gifflar-library/modules/managing/gifflarManager/types/IGifflarManager";
+import { IGifflarContract } from "types-gifflar-library/modules/managing/gifflarContract/types/IGifflarContract";
+import { Contract } from "web3-eth-contract";
+
+class ContractService {
+  // Creating contract manager
+  private myGifflarManager: IGifflarManager = createGifflarManager();
+
+  constructor(accountPrivateKey?: string) {
+    this.myGifflarManager.setDeployConfig(networks[defaultNetwork]);
+    if (accountPrivateKey) this.myGifflarManager.addSigner(accountPrivateKey);
+  }
+
+  createModel(contractName: string): any {
+    // Creating new contract
+    const myContract: IGifflarContract =
+      this.myGifflarManager.newContract(contractName);
+
+    // Creating a contract variable
+    myContract.createVariable({ regularType: "string" }, "message", "public");
+
+    // Creating a contract constructor function
+    myContract
+      .createConstructor("public")
+      .setInput({ regularType: "string" }, "_message")
+      .setAssignment("message", "_message");
+
+    return myContract.toJson();
+  }
+
+  write(): string {
+    return this.myGifflarManager.writeAll();
+  }
+
+  compile(contractName: string, callback: (errors: any) => void): any {
+    return this.myGifflarManager.compile(contractName, callback);
+  }
+
+  deploy(contractName: string, inputs: IContractDeployDTO): Promise<Contract> {
+    return this.myGifflarManager.deploy(contractName, inputs);
+  }
+}
+
+export default ContractService;
