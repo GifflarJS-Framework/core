@@ -162,6 +162,21 @@ class InitCommandDefault implements IInitCommand {
       }
     );
 
+    // Installing types gifflar
+    console.log("Installing gifflar types...");
+    await this.runCommand(
+      installCommand.command,
+      installCommand.args.concat([
+        "-D",
+        "git+https://github.com/GifflarJS-Framework/types-gifflar.git",
+      ]),
+      commandOptions,
+      (data, err) => {
+        if (err && !err.includes("warning")) throw new Error(err);
+        // console.log(data);
+      }
+    );
+
     console.log("Configuring gifflar library types...");
     // Movendo pacote para a pasta node_modules/@types
     await this.runCommand(
