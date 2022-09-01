@@ -1,13 +1,11 @@
 "use strict";
-
-var _tsyringe = require("tsyringe");
-
-var _CreateServiceCommandDefault = _interopRequireDefault(require("./implementations/CreateServiceCommandDefault"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-const implementations = {
-  default: _CreateServiceCommandDefault.default
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-
-_tsyringe.container.registerSingleton("CreateServiceCommand", implementations.default);
+Object.defineProperty(exports, "__esModule", { value: true });
+var tsyringe_1 = require("tsyringe");
+var CreateServiceCommandDefault_1 = __importDefault(require("./implementations/CreateServiceCommandDefault"));
+var implementations = {
+    default: CreateServiceCommandDefault_1.default,
+};
+tsyringe_1.container.registerSingleton("CreateServiceCommand", implementations.default);
