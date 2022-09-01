@@ -5,8 +5,13 @@ node_modules/
 gifflar/
 gifflarconfig.json
 <<<<<<< HEAD
+<<<<<<< HEAD
 bin/
 types/
 =======
 bin/
+>>>>>>> dev
+=======
+bin/
+/types
 >>>>>>> dev

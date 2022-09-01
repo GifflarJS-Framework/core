@@ -5,8 +5,8 @@ import {
   makeDirectory,
   readFile,
 } from "@utils/files";
-import { IGifflarContract } from "gifflar-library/bin/modules/managing/gifflarContract/types/IGifflarContract";
-import { IContractJson } from "gifflar-library/bin/modules/models/toplevels/contract/types/IContractJson";
+import { IGifflarContract } from "types-gifflar-library/modules/managing/gifflarContract/types/IGifflarContract";
+import { IContractJson } from "types-gifflar-library/modules/models/toplevels/contract/types/IContractJson";
 import path from "path";
 import { IScriptFunctionInputs } from "../dtos/IScriptFunctionInputs";
 import { IContractModelsDict } from "../types/IContractModelsDict";
