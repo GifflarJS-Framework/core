@@ -165,17 +165,19 @@ var InitCommandDefault = /** @class */ (function () {
                     case 4:
                         _a.sent();
                         // Installing types gifflar library
-                        console.log("Installing gifflar library types...");
-                        return [4 /*yield*/, this.runCommand(installCommand.command, installCommand.args.concat([
-                                "-D",
-                                "git+https://github.com/GifflarJS-Framework/types-gifflar-library.git",
-                            ]), commandOptions, function (data, err) {
-                                if (err && !err.includes("warning"))
-                                    throw new Error(err);
-                                // console.log(data);
-                            })];
-                    case 5:
-                        _a.sent();
+                        // console.log("Installing gifflar library types...");
+                        // await this.runCommand(
+                        //   installCommand.command,
+                        //   installCommand.args.concat([
+                        //     "-D",
+                        //     "git+https://github.com/GifflarJS-Framework/types-gifflar-library.git",
+                        //   ]),
+                        //   commandOptions,
+                        //   (data, err) => {
+                        //     if (err && !err.includes("warning")) throw new Error(err);
+                        //     // console.log(data);
+                        //   }
+                        // );
                         // Installing types gifflar
                         console.log("Installing gifflar types...");
                         return [4 /*yield*/, this.runCommand(installCommand.command, installCommand.args.concat([
@@ -186,26 +188,28 @@ var InitCommandDefault = /** @class */ (function () {
                                     throw new Error(err);
                                 // console.log(data);
                             })];
-                    case 6:
+                    case 5:
                         _a.sent();
-                        console.log("Configuring gifflar library types...");
+                        // console.log("Configuring gifflar library types...");
                         // Movendo pacote para a pasta node_modules/@types
-                        return [4 /*yield*/, this.runCommand("mv", ["node_modules/types-gifflar-library/", "node_modules/@types/"], commandOptions, function (data, err) {
-                                if (err)
-                                    throw new Error(err);
-                            })];
-                    case 7:
+                        // await this.runCommand(
+                        //   "mv",
+                        //   ["node_modules/types-gifflar-library/", "node_modules/@types/"],
+                        //   commandOptions,
+                        //   (data, err) => {
+                        //     if (err) throw new Error(err);
+                        //   }
+                        // );
+                        // console.log("Configuring gifflar types...");
                         // Movendo pacote para a pasta node_modules/@types
-                        _a.sent();
-                        console.log("Configuring gifflar types...");
-                        // Movendo pacote para a pasta node_modules/@types
-                        return [4 /*yield*/, this.runCommand("mv", ["node_modules/types-gifflar/", "node_modules/@types/"], commandOptions, function (data, err) {
-                                if (err)
-                                    throw new Error(err);
-                            })];
-                    case 8:
-                        // Movendo pacote para a pasta node_modules/@types
-                        _a.sent();
+                        // await this.runCommand(
+                        //   "mv",
+                        //   ["node_modules/types-gifflar/", "node_modules/@types/"],
+                        //   commandOptions,
+                        //   (data, err) => {
+                        //     if (err) throw new Error(err);
+                        //   }
+                        // );
                         if (!(0, files_1.fileExists)({
                             path: path_1.default.resolve(projectPath, "gifflarconfig.json"),
                         })) {
