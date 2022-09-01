@@ -197,6 +197,15 @@ var InitCommandDefault = /** @class */ (function () {
                     case 7:
                         // Movendo pacote para a pasta node_modules/@types
                         _a.sent();
+                        console.log("Configuring gifflar types...");
+                        // Movendo pacote para a pasta node_modules/@types
+                        return [4 /*yield*/, this.runCommand("mv", ["node_modules/types-gifflar/", "node_modules/@types/"], commandOptions, function (data, err) {
+                                if (err)
+                                    throw new Error(err);
+                            })];
+                    case 8:
+                        // Movendo pacote para a pasta node_modules/@types
+                        _a.sent();
                         if (!(0, files_1.fileExists)({
                             path: path_1.default.resolve(projectPath, "gifflarconfig.json"),
                         })) {
