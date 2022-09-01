@@ -22,11 +22,10 @@
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "declaration": true,
+    "declaration": false,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "emitDeclarationOnly": false,
-    "declarationDir": "./types"
+    "emitDeclarationOnly": false
   },
   "exclude": ["./bin/index.ts", "src/**/**.spec.ts"],
   "include": ["node_modules/@types", "src/**/**.ts"]
