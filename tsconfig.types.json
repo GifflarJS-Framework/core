@@ -29,5 +29,5 @@
     "declarationDir": "./types"
   },
   "exclude": ["./bin/index.ts", "src/**/**.spec.ts"],
-  "include": ["node_modules/@types", "src/**/**.ts"]
+  "include": ["node_modules/@types", "src/**/**/types/*.ts"]
 }

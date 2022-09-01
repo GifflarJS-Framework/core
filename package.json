@@ -8,7 +8,8 @@
   },
   "scripts": {
     "compile": "babel src --extensions \".js,.ts\" --out-dir bin --copy-files --no-copy-ignored",
-    "build": "rm -r bin && npm run compile && tsc --project tsconfig.json && tscpaths -p tsconfig.json -s ./src -o ./bin",
+    "build": "rm -rf bin && npm run compile && tsc --project tsconfig.json && tscpaths -p tsconfig.json -s ./src -o ./bin",
+    "build-types": "rm -rf types && npm run compile && tsc --project tsconfig.types.json && tscpaths -p tsconfig.types.json -s ./src -o ./types",
     "start": "ts-node -r tsconfig-paths/register src/index.ts",
     "dev": "ts-node-dev -r tsconfig-paths/register --ignore-watch node_modules src/index.ts",
     "uninstall": "rm /home/levy/.nvm/versions/node/v14.18.0/bin/gifflar && npm uninstall",
