@@ -148,19 +148,19 @@ class InitCommandDefault implements IInitCommand {
     );
 
     // Installing types gifflar library
-    console.log("Installing gifflar library types...");
-    await this.runCommand(
-      installCommand.command,
-      installCommand.args.concat([
-        "-D",
-        "git+https://github.com/GifflarJS-Framework/types-gifflar-library.git",
-      ]),
-      commandOptions,
-      (data, err) => {
-        if (err && !err.includes("warning")) throw new Error(err);
-        // console.log(data);
-      }
-    );
+    // console.log("Installing gifflar library types...");
+    // await this.runCommand(
+    //   installCommand.command,
+    //   installCommand.args.concat([
+    //     "-D",
+    //     "git+https://github.com/GifflarJS-Framework/types-gifflar-library.git",
+    //   ]),
+    //   commandOptions,
+    //   (data, err) => {
+    //     if (err && !err.includes("warning")) throw new Error(err);
+    //     // console.log(data);
+    //   }
+    // );
 
     // Installing types gifflar
     console.log("Installing gifflar types...");
@@ -177,27 +177,27 @@ class InitCommandDefault implements IInitCommand {
       }
     );
 
-    console.log("Configuring gifflar library types...");
+    // console.log("Configuring gifflar library types...");
     // Movendo pacote para a pasta node_modules/@types
-    await this.runCommand(
-      "mv",
-      ["node_modules/types-gifflar-library/", "node_modules/@types/"],
-      commandOptions,
-      (data, err) => {
-        if (err) throw new Error(err);
-      }
-    );
+    // await this.runCommand(
+    //   "mv",
+    //   ["node_modules/types-gifflar-library/", "node_modules/@types/"],
+    //   commandOptions,
+    //   (data, err) => {
+    //     if (err) throw new Error(err);
+    //   }
+    // );
 
-    console.log("Configuring gifflar types...");
+    // console.log("Configuring gifflar types...");
     // Movendo pacote para a pasta node_modules/@types
-    await this.runCommand(
-      "mv",
-      ["node_modules/types-gifflar/", "node_modules/@types/"],
-      commandOptions,
-      (data, err) => {
-        if (err) throw new Error(err);
-      }
-    );
+    // await this.runCommand(
+    //   "mv",
+    //   ["node_modules/types-gifflar/", "node_modules/@types/"],
+    //   commandOptions,
+    //   (data, err) => {
+    //     if (err) throw new Error(err);
+    //   }
+    // );
 
     if (
       !fileExists({

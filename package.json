@@ -42,7 +42,6 @@
     "tsconfig-paths": "^3.12.0",
     "tscpaths": "^0.0.9",
     "types-gifflar": "git+https://github.com/GifflarJS-Framework/types-gifflar.git",
-    "types-gifflar-library": "git+https://github.com/GifflarJS-Framework/types-gifflar-library.git",
     "typescript": "4.6.3"
   },
   "dependencies": {
