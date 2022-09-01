@@ -188,6 +188,17 @@ class InitCommandDefault implements IInitCommand {
       }
     );
 
+    console.log("Configuring gifflar types...");
+    // Movendo pacote para a pasta node_modules/@types
+    await this.runCommand(
+      "mv",
+      ["node_modules/types-gifflar/", "node_modules/@types/"],
+      commandOptions,
+      (data, err) => {
+        if (err) throw new Error(err);
+      }
+    );
+
     if (
       !fileExists({
         path: path.resolve(projectPath, "gifflarconfig.json"),
