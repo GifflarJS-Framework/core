@@ -50,7 +50,7 @@ class CreateServiceCommandDefault implements ICreateServiceCommand {
     }
     importGifflarConfig += `gifflarconfig.json";\n`;
 
-    let fileContent = readFile({
+    let fileContent = await readFile({
       path: path.resolve(filePath, `${value}Service.ts`),
     });
     fileContent = importGifflarConfig + fileContent;
