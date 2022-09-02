@@ -1,7 +1,8 @@
 import { createGifflarManager } from "gifflar-library";
-import { IContractDeployDTO } from "gifflar-library/modules/managing/gifflarContract/types/IContractDeployDTO";
-import { IGifflarManager } from "gifflar-library/modules/managing/gifflarManager/types/IGifflarManager";
-import { IGifflarContract } from "gifflar-library/modules/managing/gifflarContract/types/IGifflarContract";
+import { IContractDeployDTO } from "gifflar-library/bin/modules/managing/gifflarContract/types/IContractDeployDTO";
+import { IGifflarManager } from "gifflar-library/bin/modules/managing/gifflarManager/types/IGifflarManager";
+import { IGifflarContract } from "gifflar-library/bin/modules/managing/gifflarContract/types/IGifflarContract";
+import { INetworkConfig } from "gifflar-library/bin/modules/deployer/types/INetworkConfig";
 import { Contract } from "web3-eth-contract";
 
 class ContractService {
@@ -9,7 +10,10 @@ class ContractService {
   private myGifflarManager: IGifflarManager = createGifflarManager();
 
   constructor(accountPrivateKey?: string) {
-    this.myGifflarManager.setDeployConfig(networks[defaultNetwork]);
+    const network: INetworkConfig = networks.filter((network) => {
+      return network.key === defaultNetwork;
+    })[0];
+    this.myGifflarManager.setDeployConfig(network);
     if (accountPrivateKey) this.myGifflarManager.addSigner(accountPrivateKey);
   }
 

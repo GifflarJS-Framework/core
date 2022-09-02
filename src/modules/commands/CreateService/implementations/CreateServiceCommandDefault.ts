@@ -53,9 +53,7 @@ class CreateServiceCommandDefault implements ICreateServiceCommand {
     let fileContent = readFile({
       path: path.resolve(filePath, `${value}Service.ts`),
     });
-    console.log(fileContent);
     fileContent = importGifflarConfig + fileContent;
-    console.log(fileContent);
     writeFile({
       destPath: path.resolve(filePath, `${value}Service.ts`),
       content: fileContent,
