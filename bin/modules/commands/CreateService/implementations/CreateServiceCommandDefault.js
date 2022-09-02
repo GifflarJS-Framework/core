@@ -87,9 +87,7 @@ var CreateServiceCommandDefault = /** @class */ (function () {
                         fileContent = (0, files_1.readFile)({
                             path: path_1.default.resolve(filePath, "".concat(value, "Service.ts")),
                         });
-                        console.log(fileContent);
                         fileContent = importGifflarConfig + fileContent;
-                        console.log(fileContent);
                         (0, files_1.writeFile)({
                             destPath: path_1.default.resolve(filePath, "".concat(value, "Service.ts")),
                             content: fileContent,

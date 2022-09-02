@@ -6,7 +6,7 @@ require("./modules");
 require("./shared/container");
 var tsyringe_1 = require("tsyringe");
 var argv = process.argv;
-console.log(argv);
+// console.log(argv);
 var dir = argv[0];
 var file = argv[1];
 var args = argv.slice(2);
