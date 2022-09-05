@@ -1,4 +1,3 @@
-import { ICreateContractCommand } from "@modules/commands/CreateContract/types/ICreateContractCommand";
 import { injectable, inject } from "tsyringe";
 import { IAliasDictionary } from "../types/IAliasDictionary";
 import { IDictionary } from "../types/IDictionary";
@@ -9,6 +8,12 @@ import { IInitCommand } from "@modules/commands/Init/types/IInitCommand";
 import { IGetArgInfoByReceivedArgDTO } from "../dtos/IGetArgInfoByReceivedArgDTO";
 import { IDictionaryItemInfo } from "../types/IDictionaryItemInfo";
 import { IArgumentDictionaryProvider } from "../types/IArgumentDictionaryProvider";
+import { ICreateServiceCommand } from "@modules/commands/CreateService/types/ICreateServiceCommand";
+import { IWriteContractsCommand } from "@modules/commands/WriteContracts/types/IWriteContractsCommand";
+import { ICreateContractModelCommand } from "@modules/commands/CreateContractModel/types/ICreateContractModelCommand";
+import { ICompileContractsCommand } from "@modules/commands/CompileContracts/types/ICompileContractsCommand";
+import { IDeployContractsCommand } from "@modules/commands/DeployContracts/types/IDeployContractsCommand";
+import { ICreateScriptCommand } from "@modules/commands/CreateScript/types/ICreateScriptCommand";
 
 @injectable()
 export default class ArgumentDictionaryProvider
@@ -27,11 +32,41 @@ export default class ArgumentDictionaryProvider
       required: false,
       handler: this.initCommand.execute,
     },
-    "make:contract": {
-      alias: ["-m:contract", "--make:contract"],
+    "make:model": {
+      alias: ["-m:model", "--make:model"],
       options: [],
       required: false,
-      handler: this.createContractCommand.execute,
+      handler: this.createContractModelCommand.execute,
+    },
+    "make:service": {
+      alias: ["-m:service", "--make:service"],
+      options: [],
+      required: false,
+      handler: this.createServiceCommand.execute,
+    },
+    "make:script": {
+      alias: ["-m:script", "--make:script"],
+      options: [],
+      required: false,
+      handler: this.createScriptCommand.execute,
+    },
+    write: {
+      alias: [],
+      options: [],
+      required: false,
+      handler: this.writeContractsCommand.execute,
+    },
+    compile: {
+      alias: [],
+      options: [],
+      required: false,
+      handler: this.compileContractsCommand.execute,
+    },
+    deploy: {
+      alias: [],
+      options: [],
+      required: false,
+      handler: this.deployContractsCommand.execute,
     },
   };
   // DICTIONARY
@@ -45,8 +80,28 @@ export default class ArgumentDictionaryProvider
       aliases: ["--init"],
     }),
     ...this.registryAlias({
-      baseArg: "make:contract",
-      aliases: ["-m", "--make:contract"],
+      baseArg: "make:model",
+      aliases: ["-m:model", "--make:model"],
+    }),
+    ...this.registryAlias({
+      baseArg: "make:service",
+      aliases: ["-m:service", "--make:service"],
+    }),
+    ...this.registryAlias({
+      baseArg: "make:script",
+      aliases: ["-m:script", "--make:script"],
+    }),
+    ...this.registryAlias({
+      baseArg: "write",
+      aliases: [],
+    }),
+    ...this.registryAlias({
+      baseArg: "compile",
+      aliases: [],
+    }),
+    ...this.registryAlias({
+      baseArg: "deploy",
+      aliases: [],
     }),
   };
 
@@ -55,8 +110,18 @@ export default class ArgumentDictionaryProvider
     private helpCommand: IHelpCommand,
     @inject("InitCommand")
     private initCommand: IInitCommand,
-    @inject("CreateContractCommand")
-    private createContractCommand: ICreateContractCommand
+    @inject("CreateContractModelCommand")
+    private createContractModelCommand: ICreateContractModelCommand,
+    @inject("CreateServiceCommand")
+    private createServiceCommand: ICreateServiceCommand,
+    @inject("CreateScriptCommand")
+    private createScriptCommand: ICreateScriptCommand,
+    @inject("WriteContractsCommand")
+    private writeContractsCommand: IWriteContractsCommand,
+    @inject("CompileContractsCommand")
+    private compileContractsCommand: ICompileContractsCommand,
+    @inject("DeployContractsCommand")
+    private deployContractsCommand: IDeployContractsCommand
   ) {}
 
   private registryAlias({ baseArg, aliases }: IAliasRegistryDTO) {

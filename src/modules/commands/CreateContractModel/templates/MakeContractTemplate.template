@@ -1,6 +1,5 @@
-//Contract template
 // Factory
-import { createContract } from "gifflar";
+import { createContract } from "gifflar-library";
 
 // Creating contract model
 const myContract = createContract("MyContract");

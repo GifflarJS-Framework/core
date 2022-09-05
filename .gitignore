@@ -3,5 +3,6 @@ yarn-error.log
 package-lock.json
 node_modules/
 gifflar/
-bin/
 gifflarconfig.json
+bin/
+/types

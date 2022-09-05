@@ -8,7 +8,8 @@
   },
   "scripts": {
     "compile": "babel src --extensions \".js,.ts\" --out-dir bin --copy-files --no-copy-ignored",
-    "build": "rm -r bin && npm run compile && tsc --project tsconfig.json && tscpaths -p tsconfig.json -s ./src -o ./bin",
+    "build": "rm -rf bin && npm run compile && tsc --project tsconfig.json && tscpaths -p tsconfig.json -s ./src -o ./bin",
+    "build-types": "rm -rf types && tsc --project tsconfig.types.json && tscpaths -p tsconfig.types.json -s ./src -o ./types",
     "start": "ts-node -r tsconfig-paths/register src/index.ts",
     "dev": "ts-node-dev -r tsconfig-paths/register --ignore-watch node_modules src/index.ts",
     "uninstall": "rm /home/levy/.nvm/versions/node/v14.18.0/bin/gifflar && npm uninstall",
@@ -17,15 +18,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://gitlab.com/gifflarsuite/gifflar-core.git"
+    "url": "git+https://github.com/GifflarJS-Framework/core.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://gitlab.com/gifflarsuite/gifflar-core/issues"
+    "url": "https://github.com/GifflarJS-Framework/core.git/issues"
   },
-  "homepage": "https://gitlab.com/gifflarsuite/gifflar-core#readme",
+  "homepage": "https://github.com/GifflarJS-Framework/core.git#readme",
   "devDependencies": {
     "@babel/cli": "^7.17.0",
     "@babel/core": "^7.17.2",
@@ -36,14 +37,18 @@
     "@types/node": "^17.0.16",
     "babel-plugin-module-resolver": "^4.1.0",
     "babel-plugin-transform-typescript-metadata": "^0.3.2",
-    "ts-node-dev": "^1.1.8",
+    "ganache": "^7.3.0",
+    "ts-node-dev": "1.1.8",
     "tsconfig-paths": "^3.12.0",
     "tscpaths": "^0.0.9",
-    "typescript": "^4.6.3"
+    "types-gifflar": "git+https://github.com/GifflarJS-Framework/types-gifflar.git",
+    "typescript": "4.6.3"
   },
   "dependencies": {
-    "gifflar": "git+https://github.com/GifflarJS-Framework/gifflar-library.git#build",
+    "gifflar-library": "git+https://github.com/GifflarJS-Framework/gifflar-library.git#build",
+    "prompt-sync": "^4.2.0",
     "reflect-metadata": "^0.1.13",
+    "solc": "0.5.17",
     "tsyringe": "^4.6.0"
   }
 }

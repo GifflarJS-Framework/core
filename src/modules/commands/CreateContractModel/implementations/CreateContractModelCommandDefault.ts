@@ -1,39 +1,40 @@
 import { IConfigFile } from "@modules/commands/Init/types/IConfigFile";
 import { copyFile, makeDirectory, readFile } from "@utils/files";
 import path from "path";
-import { ICreateContractCommand } from "../types/ICreateContractCommand";
+import { ICreateContractModelCommand } from "../types/ICreateContractModelCommand";
 
-class CreateContractCommandDefault implements ICreateContractCommand {
+class CreateContractModelCommandDefault implements ICreateContractModelCommand {
   async execute(value: string): Promise<void> {
-    const configFile: IConfigFile = JSON.parse(
-      readFile({
-        path: path.resolve(process.cwd(), "gifflarconfig.json"),
-      })
-    );
-    if (!configFile)
+    const content = readFile({
+      path: path.resolve(process.cwd(), "gifflarconfig.json"),
+    });
+    if (!content) {
       throw Error(
         "Configuration file 'gifflarconfig.json' not found. Run 'gifflar init' first."
       );
+    }
+    const configFile: IConfigFile = JSON.parse(content);
 
     if (configFile.root !== "./") {
       // Creating root directory
       makeDirectory({ path: `${process.cwd()}/${configFile.root}` });
     }
-    if (configFile.contractsFolder !== "./") {
+    if (configFile.modelsFolder !== "./") {
       // Creating contracts directory
-      makeDirectory({ path: `${process.cwd()}/${configFile.contractsFolder}` });
+      makeDirectory({ path: `${process.cwd()}/${configFile.modelsFolder}` });
     }
 
     copyFile({
       sourcePath: path.resolve(
-        `${__dirname}/../../../../templates/MakeContractTemplate.template`
+        __dirname,
+        `../templates/MakeContractTemplate.template`
       ),
       destPath: path.resolve(
         process.cwd(),
-        configFile.contractsFolder,
+        configFile.modelsFolder,
         `${value}Contract.ts`
       ),
     });
   }
 }
-export default CreateContractCommandDefault;
+export default CreateContractModelCommandDefault;
