@@ -29,7 +29,7 @@ class ContractService {
     myContract
       .createConstructor("public")
       .setInput({ regularType: "string" }, "_message")
-      .setAssignment("message", "_message");
+      .setAssignment("message", { customExpression: "_message" });
 
     return myContract.toJson();
   }
