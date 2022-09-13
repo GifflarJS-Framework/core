@@ -3,14 +3,14 @@ import { IHelpCommand } from "../types/IHelpCommand";
 class HelpCommandDefault implements IHelpCommand {
   async execute(value: string): Promise<void> {
     console.log("Usage:");
-    console.log(" command [arguments] [options]");
+    console.log(" command [arguments]");
 
     console.log("\nAvailable Commands");
     console.log(
       " help, --help, -h                           \t Show all the Gifflar available commands."
     );
     console.log(
-      " init, --init, -i                           \t Initializes the Gifflar configuration file."
+      " init, --init, -i                           \t Initializes a Gifflar project and creates Gifflar configuration file."
     );
     console.log(" make");
     console.log(

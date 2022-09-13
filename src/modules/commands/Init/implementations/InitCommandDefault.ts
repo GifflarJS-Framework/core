@@ -223,7 +223,7 @@ class InitCommandDefault implements IInitCommand {
     ) {
       writeFile({
         destPath: path.resolve(projectPath, ".gitignore"),
-        content: `node_modules/\ngifflarconfig.json\nyarn.lock\nyarn-error.log`,
+        content: `node_modules/\ngifflarconfig.json\nyarn.lock\nyarn-error.log\npackage-lock.json`,
       });
     }
 
