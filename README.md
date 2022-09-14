@@ -152,6 +152,14 @@ Node: If you have already compiled once, and these three compilation files still
 
 ### Make Script
 
+- Command variations: `gifflar make:script [filename]`, `gifflar --make:script [filename]`, `gifflar -m:script [filename]`.
+
+- Example: `gifflar make:script myscript`: Will create the script file inside 'scripts' folder.
+
+This command allows you to create deploy scripts to configure static smart contracts deploys. When you create a script, the framework will rename the file inserting a number in the filename to identify the deploy order. This means, if the filename parameter was `myscript`, and this is the first script to be created, the refactored filename will be `0_myscript`. If this was the second script to be created, the refactored name would be `1_myscript` and so on.
+
+The script will already have a default content, so you should update the content and build your own customized script with the right contract deploy args.
+
 ---
 
 ### Deploy
