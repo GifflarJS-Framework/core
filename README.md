@@ -80,7 +80,9 @@ Available Commands
 
 - Command variations: `gifflar init [path]`, `gifflar --init [path]`, `gifflar -i [path]`.
 
-- Example: `gifflar init my-first-gifflar-project` (Will create a gifflar project inside `my-first-gifflar-project` folder).
+- Example:
+  - `gifflar init my-first-gifflar-project` (Will create a gifflar project inside `my-first-gifflar-project` folder).
+  - `gifflar init` (Will create a gifflar project inside current folder).
 
 This command will install all dependencies needed for start developing with Gifflar (You'll be asked to choose between `yarn` or `npm`). It will also create the following folder structure:
 
