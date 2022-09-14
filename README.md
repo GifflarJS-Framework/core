@@ -164,6 +164,10 @@ The script will already have a default content, so you should update the content
 
 ### Deploy
 
+- Command variations: `gifflar deploy`.
+
+This command will execute the scripts sequentially (see [Make Script](#make-script)). In this phase, you must have compiled the contracts you want to deploy. Also, this command will use the network configuration set in `gifflarconfig.json`.
+
 ---
 
 ### Make Service
