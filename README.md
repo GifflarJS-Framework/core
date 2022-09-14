@@ -97,12 +97,18 @@ Node: If you run `gifflar init` inside an existent Gifflar project, it will upda
 
 ### Make Model
 
-### Make Service
+- Command variations: `gifflar make:model [filename]`, `gifflar --make:model [filename]`, `gifflar -m:model [filename]`.
 
-### Make Script
+- Example: `gifflar make:model MyContract` (The framework will automatically add the word 'Model' in the end of filename).
+
+This command will create a Gifflar Model inside the models folder (defined in `gifflarconfig.json`) with a default content. You can use the Gifflar Model if you want to create static smart contracts using Gifflar modelation. These models can be written, compiled and deployed through terminal. If you are building an application to generate smart contracts on the fly, you might use [Gifflar Services](#make-service), so you can create a service that receives a request, dinamically creates the smart contract and then give a response.
 
 ### Write
 
 ### Compile
 
+### Make Script
+
 ### Deploy
+
+### Make Service

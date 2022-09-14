@@ -32,7 +32,7 @@ class CreateContractModelCommandDefault implements ICreateContractModelCommand {
       destPath: path.resolve(
         process.cwd(),
         configFile.modelsFolder,
-        `${value}Contract.ts`
+        `${value}Model.ts`
       ),
     });
   }
