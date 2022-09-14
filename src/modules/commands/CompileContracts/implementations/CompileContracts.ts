@@ -87,20 +87,14 @@ class CompileContracts implements ICompileContractsCommand {
         gContract.write();
       }
 
-      // Creating contract .sol if not found
-      if (
-        !fileExists({
-          path: path.resolve(configFile.contractsFolder, `${value}.sol`),
-        })
-      ) {
-        writeFile({
-          destPath: path.resolve(
-            configFile.contractsFolder,
-            `${gContract.getName()}.sol`
-          ),
-          content: gContract.code,
-        });
-      }
+      // Rewriting contract .sol
+      writeFile({
+        destPath: path.resolve(
+          configFile.contractsFolder,
+          `${gContract.getName()}.sol`
+        ),
+        content: gContract.code,
+      });
 
       const json = gContract.compile((errors) => {
         if (errors) console.log(errors);
