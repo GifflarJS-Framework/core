@@ -37,16 +37,16 @@ command [arguments]
 
 #### Commands Table
 
-| Command      | Args                                                                                             | Mandatory args | Description                                                                                                    |
-| ------------ | ------------------------------------------------------------------------------------------------ | -------------- | -------------------------------------------------------------------------------------------------------------- |
-| help         | none                                                                                             | No             | Show all the Gifflar commands available.                                                                       |
-| init         | Path to where the project will be initialized. If not passed, `./` is considered.                | No             | Initializes a Gifflar project and `gifflarconfig.json` file.                                                   |
-| make:model   | Model file name.                                                                                 | Yes            | Make a new Gifflar Contract Model.                                                                             |
-| make:service | Service file name.                                                                               | Yes            | Make a new Gifflar Contract Service.                                                                           |
-| make:script  | Script file name.                                                                                | Yes            | Make a new Gifflar Deploying Script.                                                                           |
-| write        | none                                                                                             | Yes            | Writes the code of the contracts in contracts folder. It subscribes old versions.                              |
-| compile      | Contract file name. If no filename is passed, it compiles all contracts inside contracts folder. | No             | Compiles one or all contracts generating ABIs and metadatas inside compile folder. It subscribes old versions. |
-| deploy       | none                                                                                             | No             | Deploys contracts based on scripts sequence inside scripts folder.                                             |
+| Command                       | Args                                                                                             | Mandatory args | Description                                                                                                    |
+| ----------------------------- | ------------------------------------------------------------------------------------------------ | -------------- | -------------------------------------------------------------------------------------------------------------- |
+| [help](#help)                 | none                                                                                             | No             | Show all the Gifflar commands available.                                                                       |
+| [init](#init)                 | Path to where the project will be initialized. If not passed, `./` is considered.                | No             | Initializes a Gifflar project and `gifflarconfig.json` file.                                                   |
+| [make:model](#make-model)     | Model file name.                                                                                 | Yes            | Make a new Gifflar Contract Model.                                                                             |
+| [make:service](#make-service) | Service file name.                                                                               | Yes            | Make a new Gifflar Contract Service.                                                                           |
+| [make:script](#make-script)   | Script file name.                                                                                | Yes            | Make a new Gifflar Deploying Script.                                                                           |
+| [write](#write)               | none                                                                                             | Yes            | Writes the code of the contracts in contracts folder. It subscribes old versions.                              |
+| [compile](#compile)           | Contract file name. If no filename is passed, it compiles all contracts inside contracts folder. | No             | Compiles one or all contracts generating ABIs and metadatas inside compile folder. It subscribes old versions. |
+| [deploy](#deploy)             | none                                                                                             | No             | Deploys contracts based on scripts sequence inside scripts folder.                                             |
 
 ---
 
