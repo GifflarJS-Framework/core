@@ -7,7 +7,6 @@ import {
   writeFile,
 } from "@utils/files";
 import { IGifflarContract } from "gifflar-library/bin/modules/managing/gifflarContract/types/IGifflarContract";
-import { IContractJson } from "gifflar-library/bin/modules/models/toplevels/contract/types/IContractJson";
 import path from "path";
 import { ICompileContractsCommand } from "../types/ICompileContractsCommand";
 
@@ -68,21 +67,23 @@ class CompileContracts implements ICompileContractsCommand {
           ),
         })
       ) {
+        // If already exists, don't compile again
+        return;
         // Getting the dump file stringified
-        const dumpStringified = readFile({
-          path: path.resolve(
-            configFile.compileFolder,
-            `${gContract.getName()}_dump.json`
-          ),
-        });
-        if (!dumpStringified) throw new Error("Dump file not found.");
+        // const dumpStringified = readFile({
+        //   path: path.resolve(
+        //     configFile.compileFolder,
+        //     `${gContract.getName()}_dump.json`
+        //   ),
+        // });
+        // if (!dumpStringified) throw new Error("Dump file not found.");
 
         // Parsing the json file
-        const dumpJson: IContractJson = JSON.parse(dumpStringified);
+        // const dumpJson: IContractJson = JSON.parse(dumpStringified);
         // Inserting the compilation json to the dump
-        dumpJson.json = gContract.json;
+        // dumpJson.json = gContract.json;
 
-        gContract.code = dumpJson.code;
+        // gContract.code = dumpJson.code;
       } else {
         gContract.write();
       }
@@ -100,14 +101,14 @@ class CompileContracts implements ICompileContractsCommand {
         if (errors) console.log(errors);
       });
 
-      // Saving ABI
+      // Saving compiled JSON
       writeFile({
         destPath: path.resolve(
           configFile.compileFolder,
           `${gContract.getName()}.json`
         ),
         content: JSON.stringify(
-          json.contracts.jsons[gContract.getName()].abi,
+          json.contracts.jsons[gContract.getName()],
           null,
           2
         ),

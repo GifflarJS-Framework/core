@@ -160,6 +160,29 @@ This command allows you to create deploy scripts to configure static smart contr
 
 The script will already have a default content, so you should update the content and build your own customized script with the right contract deploy args.
 
+Script's default content:
+
+```ts
+import { IScriptFunctionInputs } from "types-gifflar/modules/commands/DeployContracts/dtos/IScriptFunctionInputs";
+
+export default async ({ contracts }: IScriptFunctionInputs) => {
+  const contract1 = contracts["MyContract"];
+
+  await contract1.deploy({
+    from: "0xF0A2237caEC496B04A9EA9BA8d145AeCBD722664",
+    args: ["asd"],
+    gas: 3000000,
+  });
+
+  const instance = contract1.deployed();
+  const message = await instance?.methods.message().call();
+
+  console.log(message);
+};
+```
+
+Note that the contracts models are already included in the script input. You just need to select the contract by the name you gave to it, then execute the deploy function of the contract model. You'll then be able to recover the instance and use it to call the contract functions.
+
 ---
 
 ### Deploy
