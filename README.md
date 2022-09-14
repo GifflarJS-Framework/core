@@ -133,6 +133,7 @@ arctifacts/
 - `MyContract.json`: Is the contract ABI.
 
 Note: If you didn't write the contracts with `gifflar write`, the `gifflar compile` will automatically create the `.json` files for you.
+
 Node: If you have already compiled once, and these three compilation files still exists in 'arctifacts' folder, the command will not subscribe them. It will maintain the same content. This is just to secure you to not lose the old content if wasn't your intention.
 
 ### Make Script
