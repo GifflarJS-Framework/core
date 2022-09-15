@@ -203,7 +203,7 @@ The services are created to manage all the contracts construction steps (modelat
 
 Note that if you want to work only creating smart contracts on the fly, you can use only Gifflar Services. But if you also or only want to create static smart contracts, you can use the Gifflar Environment to facilitate the smart contracts development using the [Gifflar Models](#make-model).
 
-The created service will have a default code to guide you on the service creation. This code uses the Gifflar Manager to manage many contracts creation, so the service can keep the contracts in only one object. The default service also exports the functions `createModel`, `write`, `compile` and `deploy`, that are the basic Gifflar functions, but you can also customize the services the way you'd like to. This is the service default code:
+The created service will have a default code to guide you on the service creation. This code uses the Gifflar Manager from [Gifflar Library](https://github.com/GifflarJS-Framework/gifflar-library) ([Gifflar Library Docs](https://github.com/GifflarJS-Framework/gifflar-library/wiki)) to manage many contracts creation, so the service can keep the contracts in only one object. The default service also exports the functions `createModel`, `write`, `compile` and `deploy`, that are the basic Gifflar functions, but you can also customize the services the way you'd like to. This is the service default code:
 
 ```ts
 import { createGifflarManager } from "gifflar-library";
@@ -257,5 +257,7 @@ class ContractService {
 
 export default ContractService;
 ```
+
+You can also take a look at some demo projects that uses the Gifflar Services at [GifflarJS-Framework/gifflar-demo-projects](https://github.com/GifflarJS-Framework/gifflar-demo-projects).
 
 ---
