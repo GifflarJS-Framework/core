@@ -10,9 +10,34 @@ This is the Gifflar, a command line interface framework that allows you to defin
 
 **In development**
 
-- Version: `alpha`.
+- Version: `v1.0.0_alpha`.
+
+# Smart Contract Languages
+
+For now, the Gifflar framework supports only Solidity code generation, we chose this language because many other blockchains also supports this language for building smart contracts. But we are working to support other smart contracts languages.
 
 # Getting started
+
+Gifflar Environment allows you to develop smart contracts in two ways: Statically or Dinamically.
+
+- `Statically`: You will create the smart contracts with the Gifflar Models, an easy way to create smart contracts code using TypeScript. In this environment you are also able to generate the `.sol` code, to compile them and also to deploy.
+- `Dinamically`: This is the feature that Gifflar brings. You can create Gifflar Services and do all the static process on the fly, through a service. This allows you to create different smart contracts based on conditional configurations you've made.
+
+## Index
+
+- [Installation](#installation)
+  - [Node version](#node-version)
+  - [Install Gifflar](#install-gifflar)
+- [Commands](#commands)
+  - [Help](#help)
+  - [Init](#init)
+  - [Make Model](#make-model)
+  - [Write](#write)
+  - [Compile](#compile)
+  - [Make Script](#make-script)
+  - [Deploy](#deploy)
+  - [Make Service](#make-service)
+- [Important Links](#important-links)
 
 ## Installation
 
@@ -331,3 +356,8 @@ export default ContractService;
 You can also take a look at some demo projects that uses the Gifflar Services at [GifflarJS-Framework/gifflar-demo-projects](https://github.com/GifflarJS-Framework/gifflar-demo-projects).
 
 ---
+
+## Important Links
+
+- [Gifflar Library Docs](https://github.com/GifflarJS-Framework/gifflar-library/wiki)
+- [Gifflar Demo Projects](https://github.com/GifflarJS-Framework/gifflar-demo-projects)
