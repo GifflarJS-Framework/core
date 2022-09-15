@@ -52,7 +52,10 @@ command [arguments]
 
 #### Help
 
-- Command variations: `gifflar help`, `gifflar --help`, `gifflar -h`.
+- Command variations:
+  - `gifflar help`
+  - `gifflar --help`
+  - `gifflar -h`
 
 Shows all the Gifflar commands available.
 
@@ -78,7 +81,11 @@ Available Commands
 
 ### Init
 
-- Command variations: `gifflar init [path]`, `gifflar --init [path]`, `gifflar -i [path]`.
+- Command variations:
+
+  - `gifflar init [path]`
+  - `gifflar --init [path]`
+  - `gifflar -i [path]`
 
 - Example:
   - `gifflar init my-first-gifflar-project` (Will create a gifflar project inside `my-first-gifflar-project` folder).
@@ -99,19 +106,73 @@ package-lock.json (or yarn.lock)
 gifflarconfig.json
 ```
 
-Node: If you run `gifflar init` inside an existent Gifflar project, it will update the packages, but it will `NOT` replace the folders or the `gifflarconfig.json` file, it will maintain the already created files. If you would like to reset `gifflarconfig.json`, you can delete it and run `gifflar init` to obtain the default `gifflarconfig.json` file.
+After running the command, the `gifflarconfig.json` will be created. This is the file that contains all the framework paths configurations.
+
+```json
+{
+  "projectName": "Gifflar Project",
+  "root": "./src",
+  "modelsFolder": "./src/models",
+  "contractsFolder": "./src/contracts",
+  "servicesFolder": "./src/services",
+  "compileFolder": "./src/arctifacts",
+  "scriptsFolder": "./src/scripts",
+  "appKey": "a65d5d5f3e0260d94cf8cf533539f32a9d0340925f3d84fb41d4f416819ef254", // Don't use this value
+  "defaultNetwork": "local_network",
+  "mainAddressPrivateKey": "",
+  "networks": [
+    {
+      "key": "local_network",
+      "networkId": 0,
+      "gas": 3000000,
+      "gasPrice": "10000000000",
+      "nodeLink": "http://localhost:8545"
+    },
+    {
+      "key": "bsc_testnet",
+      "networkId": 97,
+      "gas": 3000000,
+      "nodeLink": "https://data-seed-prebsc-1-s1.binance.org:8545/"
+    }
+  ]
+}
+```
+
+Let's take a look in every property:
+
+- `projectName`: Is the name of the Gifflar Project you want to give.
+- `root`: Is the Gifflar workspace folder.
+- `contractsFolder`: Where the `.sol` files will be created.
+- `servicesFolder`: Where the Gifflar Services files will be created.
+- `compileFolder`: Where the contracts compilation JSON files will be created.
+- `scriptsFolder`: Where the deploying scripts files will be created.
+- `appKey`: Is an unique application key for encryption and other pourposes.
+- `defaultNetwork`: Is the default network configuration key that Gifflar should use when deploying a contract.
+- `mainAddressPrivateKey`: The default deployer account private key.
+- `networks`: The list of networks configurations to be selected by `defaultNetwork` property.
+  - `key`: The unique network key to use as selection.
+  - `networkId`: The unique network id for deployed contracts addresses management.
+  - `gas`: The network GAS you are willing to use.
+  - `gasPrice`: The network GAS price you are willing to pay.
+  - `nodeLink`: The network node link which the framework will use to send transactions.
+
+`Note`: If you run `gifflar init` inside an existent Gifflar project, it will update the packages, but it will `NOT` replace the folders or the `gifflarconfig.json` file, it will maintain the already created files. If you would like to reset `gifflarconfig.json`, you can delete it and run `gifflar init` to obtain the default `gifflarconfig.json` file.
 
 ---
 
 ### Make Model
 
-- Command variations: `gifflar make:model [filename]`, `gifflar --make:model [filename]`, `gifflar -m:model [filename]`.
+- Command variations:
+
+  - `gifflar make:model [filename]`
+  - `gifflar --make:model [filename]`
+  - `gifflar -m:model [filename]`
 
 - Example: `gifflar make:model MyContract` (The framework will automatically add the word 'Model' in the end of filename).
 
 This command will create a Gifflar Model inside the models folder (defined in `gifflarconfig.json`) with a default content. You can use the Gifflar Model if you want to create static smart contracts using Gifflar modelation. These models can be written, compiled and deployed through terminal. If you are building an application to generate smart contracts on the fly, you might use [Gifflar Services](#make-service), so you can create a service that receives a request, dinamically creates the smart contract and then give a response.
 
-Note: You should set a different name to every model, so the framework can identify each model separately.
+`Note`: You should set a different name to every model, so the framework can identify each model separately.
 
 ---
 
@@ -125,7 +186,10 @@ This command takes all the models inside the 'models' folder and translate the J
 
 ### Compile
 
-- Command variations: `gifflar compile`, `gifflar compile [filename]`.
+- Command variations:
+
+  - `gifflar compile`
+  - `gifflar compile [filename]`
 
 - Example:
   - `gifflar compile`: Will compile all the models inside 'models' folder.
@@ -144,15 +208,19 @@ arctifacts/
 - `MyContract_metadata.json`: Is the compiled metadata extracted from the contract compiled JSON.
 - `MyContract.json`: Is the contract ABI.
 
-Note: If you didn't write the contracts with `gifflar write`, the `gifflar compile` will automatically create the `.json` files for you.
+`Note`: If you didn't write the contracts with `gifflar write`, the `gifflar compile` will automatically create the `.json` files for you.
 
-Node: If you have already compiled once, and these three compilation files still exists in 'arctifacts' folder, the command will not subscribe them. It will maintain the same content. This is just to secure you to not lose the old content if wasn't your intention.
+`Node`: If you have already compiled once, and these three compilation files still exists in 'arctifacts' folder, the command will not subscribe them. It will maintain the same content. This is just to secure you to not lose the old content if wasn't your intention.
 
 ---
 
 ### Make Script
 
-- Command variations: `gifflar make:script [filename]`, `gifflar --make:script [filename]`, `gifflar -m:script [filename]`.
+- Command variations:
+
+  - `gifflar make:script [filename]`
+  - `gifflar --make:script [filename]`
+  - `gifflar -m:script [filename]`
 
 - Example: `gifflar make:script myscript`: Will create the script file inside 'scripts' folder.
 
@@ -195,9 +263,13 @@ This command will execute the scripts sequentially (see [Make Script](#make-scri
 
 ### Make Service
 
-- Command variations: `gifflar make:service [filename]`, `gifflar --make:service [filename]`, `gifflar -m:service [filename]`.
+- Command variations:
 
-- Example: `gifflar make:service contractsBuilder`: Will create the service file `contractsBuilderService` inside 'services' folder`.
+  - `gifflar make:service [filename]`
+  - `gifflar --make:service [filename]`
+  - `gifflar -m:service [filename]`
+
+- Example: `gifflar make:service contractsBuilder` - Will create the service file `contractsBuilderService` inside 'services' folder.
 
 The services are created to manage all the contracts construction steps (modelation, writing, compilation and deploy). It's how you can create dynamic smart contracts through a given service request. You can create your own logic of creating smart contracts code, so then you can use these services in your API or frontend application.
 
