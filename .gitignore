@@ -4,4 +4,6 @@ package-lock.json
 node_modules/
 gifflar/
 gifflarconfig.json
-/types/
+bin/
+/types
+*.yml
