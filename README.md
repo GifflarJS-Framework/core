@@ -205,7 +205,7 @@ Note that if you want to work only creating smart contracts on the fly, you can 
 
 The created service will have a default code to guide you on the service creation. This code uses the Gifflar Manager to manage many contracts creation, so the service can keep the contracts in only one object. The default service also exports the functions `createModel`, `write`, `compile` and `deploy`, that are the basic Gifflar functions, but you can also customize the services the way you'd like to. This is the service default code:
 
-```
+```ts
 import { createGifflarManager } from "gifflar-library";
 import { IContractDeployDTO } from "gifflar-library/bin/modules/managing/gifflarContract/types/IContractDeployDTO";
 import { IGifflarManager } from "gifflar-library/bin/modules/managing/gifflarManager/types/IGifflarManager";
@@ -256,7 +256,6 @@ class ContractService {
 }
 
 export default ContractService;
-
 ```
 
 ---
