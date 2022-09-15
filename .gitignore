@@ -6,3 +6,4 @@ gifflar/
 gifflarconfig.json
 bin/
 /types
+*.yml
