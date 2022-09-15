@@ -154,7 +154,7 @@ Let's take a look in every property:
   - `gasPrice`: The network GAS price you are willing to pay.
   - `nodeLink`: The network node link which the framework will use to send transactions.
 
-`Note`: If you run `gifflar init` inside an existent Gifflar project, it will update the packages, but it will `NOT` replace the folders or the `gifflarconfig.json` file, it will maintain the already created files. If you would like to reset `gifflarconfig.json`, you can delete it and run `gifflar init` to obtain the default `gifflarconfig.json` file.
+`Note`: If you run `gifflar init` inside an existent Gifflar project, it will update the packages, but it will `NOT` replace the folders or the `gifflarconfig.json` file, it will maintain the already created files. If you would like to reset `gifflarconfig.json`, you can delete it and run `gifflar init` to obtain the default `gifflarconfig.json` file. Just remmember to use the same `appKey` if you were already using it.
 
 ---
 
@@ -168,7 +168,7 @@ Let's take a look in every property:
 
 - Example: `gifflar make:model MyContract` (The framework will automatically add the word 'Model' in the end of filename).
 
-This command will create a Gifflar Model inside the models folder (defined in `gifflarconfig.json`) with a default content. You can use the Gifflar Model if you want to create static smart contracts using Gifflar modelation. These models can be written, compiled and deployed through terminal. If you are building an application to generate smart contracts on the fly, you might use [Gifflar Services](#make-service), so you can create a service that receives a request, dinamically creates the smart contract and then give a response.
+This command will create a Gifflar Model inside the models folder (defined in `gifflarconfig.json`) with a default content. You can use the Gifflar Model if you want to create static smart contracts using Gifflar modeling (see [Gifflar Library Docs](https://github.com/GifflarJS-Framework/gifflar-library/wiki)). These models can be written, compiled and deployed through terminal. If you are building an application to generate smart contracts on the fly, you might use [Gifflar Services](#make-service), so you can create a service that receives a request, dinamically creates the smart contract and then give a response.
 
 `Note`: You should set a different name to every model, so the framework can identify each model separately.
 
@@ -193,7 +193,7 @@ This command takes all the models inside the 'models' folder and translate the J
   - `gifflar compile`: Will compile all the models inside 'models' folder.
   - `gifflar compile MyContractModel`: Will compile only MyContractModel.ts inside 'models' folder.
 
-This command will take all the models indide 'models' folder, and will write and compile them. If you have already written in the [Writing Phase](#write) but made some updates inside the model, this command will rewrite the model and subscribe the corresponding `.sol` file. Plus, the command will also create three files inside 'arctifacts' folder. Assuming that your Gifflar Contract Model name is "MyContract", the following files will be created in the compilation phase:
+This command will take all the models inside 'models' folder, and will write and compile them. The model will only be compiled if there is no compilation files in 'arctifacts' folder. So if you really needs to recompile a contract, you can delete the compilation files and run the command again, `but be careful` if you have already deployed this contract, you will lose its address management inside the framework. Plus, the command will also create three files inside 'arctifacts' folder. Assuming that your Gifflar Contract Model name is "MyContract", the following files will be created in the compilation phase:
 
 ```txt
 arctifacts/
@@ -208,7 +208,7 @@ arctifacts/
 
 `Note`: If you didn't write the contracts with `gifflar write`, the `gifflar compile` will automatically create the `.json` files for you.
 
-`Node`: If you have already compiled once, and these three compilation files still exists in 'arctifacts' folder, the command will not subscribe them. It will maintain the same content. This is just to secure you to not lose the old content if wasn't your intention.
+`Node`: If you have already compiled once, and these three compilation files still exists in 'arctifacts' folder, the command will not subscribe them. It will maintain the same content. This is just to secure you to not lose the old content and address management if wasn't your intention.
 
 ---
 
@@ -222,9 +222,9 @@ arctifacts/
 
 - Example: `gifflar make:script myscript`: Will create the script file inside 'scripts' folder.
 
-This command allows you to create deploy scripts to configure static smart contracts deploys. When you create a script, the framework will rename the file inserting a number in the filename to identify the deploy order. This means, if the filename parameter was `myscript`, and this is the first script to be created, the refactored filename will be `0_myscript`. If this was the second script to be created, the refactored name would be `1_myscript` and so on.
+This command allows you to create deploying scripts to configure static smart contracts deploys. When you create a script, the framework will rename the file inserting a number in the filename to identify the deploy order. This means, if the filename parameter was `myscript`, and this is the first script to be created, the refactored filename will be `0_myscript`. If this is the second script to be created, the refactored name will be `1_myscript` and so on.
 
-The script will already have a default content, so you should update the content and build your own customized script with the right contract deploy args.
+The script will already have a default content, so you should update the content and build your own customized script with the right contract deploying args.
 
 Script's default content:
 
@@ -269,7 +269,7 @@ This command will execute the scripts sequentially (see [Make Script](#make-scri
 
 - Example: `gifflar make:service contractsBuilder` - Will create the service file `contractsBuilderService` inside 'services' folder.
 
-The services are created to manage all the contracts construction steps (modelation, writing, compilation and deploy). It's how you can create dynamic smart contracts through a given service request. You can create your own logic of creating smart contracts code, so then you can use these services in your API or frontend application.
+The services are created to manage all the contracts construction steps (modeling, writing, compiling and deploying). It's how you can create dynamic smart contracts through a given service request. You can create your own logic of creating smart contracts code, so then you can use these services in your API or frontend application.
 
 Note that if you want to work only creating smart contracts on the fly, you can use only Gifflar Services. But if you also or only want to create static smart contracts, you can use the Gifflar Environment to facilitate the smart contracts development using the [Gifflar Models](#make-model).
 
