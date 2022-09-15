@@ -195,6 +195,27 @@ Let's take a look in every property:
 
 This command will create a Gifflar Model inside the models folder (defined in `gifflarconfig.json`) with a default content. You can use the Gifflar Model if you want to create static smart contracts using Gifflar modeling (see [Gifflar Library Docs](https://github.com/GifflarJS-Framework/gifflar-library/wiki)). These models can be written, compiled and deployed through terminal. If you are building an application to generate smart contracts on the fly, you might use [Gifflar Services](#make-service), so you can create a service that receives a request, dinamically creates the smart contract and then give a response.
 
+The default contract model content is the code below. If you want to understand more about the Gifflar Contract Model functions, you can see the [Gifflar Library Docs](https://github.com/GifflarJS-Framework/gifflar-library/wiki)).
+
+```ts
+// Factory
+import { createContract } from "gifflar-library";
+
+// Creating contract model
+const myContract = createContract("MyContract");
+
+// Creating a contract variable
+myContract.createVariable("string", "message", "public");
+
+// Creating a contract constructor function
+myContract
+  .createConstructor("public")
+  .setInput("string", "_message")
+  .setAssignment("message", "_message");
+
+export default myContract;
+```
+
 `Note`: You should set a different name to every model, so the framework can identify each model separately.
 
 ---
