@@ -6,6 +6,10 @@
 
 This is the Gifflar, a command line interface framework that allows you to define Solidity smart contracts creation via TypeScript. The Gifflar uses [Gifflar library](https://github.com/GifflarJS-Framework/gifflar-library) to allow smart contract development through TypeScript functions and JSON model. This enables you to develop systems able to create smart contracts on the fly based on different configurations.
 
+<div align="center">
+    <img src="https://github.com/GifflarJS-Framework/core/blob/dev/assets/terminal.gif" alt="gifflar terminal demo"/>
+</div>
+
 # Project Status
 
 **In development**
