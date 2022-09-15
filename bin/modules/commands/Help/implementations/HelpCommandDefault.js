@@ -43,10 +43,10 @@ var HelpCommandDefault = /** @class */ (function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 console.log("Usage:");
-                console.log(" command [arguments] [options]");
+                console.log(" command [arguments]");
                 console.log("\nAvailable Commands");
-                console.log(" help, --help, -h                           \t Show all the Gifflar available commands.");
-                console.log(" init, --init, -i                           \t Initializes the Gifflar configuration file.");
+                console.log(" help, --help, -h                           \t Shows all the Gifflar available commands.");
+                console.log(" init, --init, -i                           \t Initializes a Gifflar project and creates Gifflar configuration file.");
                 console.log(" make");
                 console.log("  make:model, --make:model, -m:model        \t Make a new Gifflar Contract Model. Required a file name as argument.");
                 console.log("  make:service, --make:service, -m:service \t Make a new Gifflar Service. Required a file name as argument.");

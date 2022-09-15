@@ -65,7 +65,7 @@ var CreateContractModelCommandDefault = /** @class */ (function () {
                 }
                 (0, files_1.copyFile)({
                     sourcePath: path_1.default.resolve(__dirname, "../templates/MakeContractTemplate.template"),
-                    destPath: path_1.default.resolve(process.cwd(), configFile.modelsFolder, "".concat(value, "Contract.ts")),
+                    destPath: path_1.default.resolve(process.cwd(), configFile.modelsFolder, "".concat(value, "Model.ts")),
                 });
                 return [2 /*return*/];
             });

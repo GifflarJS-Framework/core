@@ -78,38 +78,38 @@ var CompileContracts = /** @class */ (function () {
                     if ((0, files_1.fileExists)({
                         path: path_1.default.resolve(configFile.compileFolder, "".concat(gContract.getName(), "_dump.json")),
                     })) {
+                        // If already exists, don't compile again
+                        return;
                         // Getting the dump file stringified
-                        var dumpStringified = (0, files_1.readFile)({
-                            path: path_1.default.resolve(configFile.compileFolder, "".concat(gContract.getName(), "_dump.json")),
-                        });
-                        if (!dumpStringified)
-                            throw new Error("Dump file not found.");
+                        // const dumpStringified = readFile({
+                        //   path: path.resolve(
+                        //     configFile.compileFolder,
+                        //     `${gContract.getName()}_dump.json`
+                        //   ),
+                        // });
+                        // if (!dumpStringified) throw new Error("Dump file not found.");
                         // Parsing the json file
-                        var dumpJson = JSON.parse(dumpStringified);
+                        // const dumpJson: IContractJson = JSON.parse(dumpStringified);
                         // Inserting the compilation json to the dump
-                        dumpJson.json = gContract.json;
-                        gContract.code = dumpJson.code;
+                        // dumpJson.json = gContract.json;
+                        // gContract.code = dumpJson.code;
                     }
                     else {
                         gContract.write();
                     }
-                    // Creating contract .sol if not found
-                    if (!(0, files_1.fileExists)({
-                        path: path_1.default.resolve(configFile.contractsFolder, "".concat(value, ".sol")),
-                    })) {
-                        (0, files_1.writeFile)({
-                            destPath: path_1.default.resolve(configFile.contractsFolder, "".concat(gContract.getName(), ".sol")),
-                            content: gContract.code,
-                        });
-                    }
+                    // Rewriting contract .sol
+                    (0, files_1.writeFile)({
+                        destPath: path_1.default.resolve(configFile.contractsFolder, "".concat(gContract.getName(), ".sol")),
+                        content: gContract.code,
+                    });
                     var json = gContract.compile(function (errors) {
                         if (errors)
                             console.log(errors);
                     });
-                    // Saving ABI
+                    // Saving compiled JSON
                     (0, files_1.writeFile)({
                         destPath: path_1.default.resolve(configFile.compileFolder, "".concat(gContract.getName(), ".json")),
-                        content: JSON.stringify(json.contracts.jsons[gContract.getName()].abi, null, 2),
+                        content: JSON.stringify(json.contracts.jsons[gContract.getName()], null, 2),
                     });
                     // Saving Metadata
                     (0, files_1.writeFile)({

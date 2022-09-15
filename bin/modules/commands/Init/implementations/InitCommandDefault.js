@@ -230,7 +230,7 @@ var InitCommandDefault = /** @class */ (function () {
                         })) {
                             (0, files_1.writeFile)({
                                 destPath: path_1.default.resolve(projectPath, ".gitignore"),
-                                content: "node_modules/\ngifflarconfig.json\nyarn.lock\nyarn-error.log",
+                                content: "node_modules/\ngifflarconfig.json\nyarn.lock\nyarn-error.log\npackage-lock.json",
                             });
                         }
                         console.log("Creating folders structure...");

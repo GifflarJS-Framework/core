@@ -47,7 +47,7 @@ var DeployContractsCommand = /** @class */ (function () {
     }
     DeployContractsCommand.prototype.execute = function (value) {
         return __awaiter(this, void 0, void 0, function () {
-            var content, configFile, networkConfig, web3, account, files, contracts, scriptFiles;
+            var content, configFile, networkConfig, web3, files, contracts, scriptFiles;
             var _this = this;
             return __generator(this, function (_a) {
                 content = (0, files_1.readFile)({
@@ -68,10 +68,7 @@ var DeployContractsCommand = /** @class */ (function () {
                 if (!networkConfig) {
                     throw new Error("No default network found");
                 }
-                web3 = new web3_1.default(new web3_1.default.providers.HttpProvider(networkConfig.nodeLink));
-                account = web3.eth.accounts.privateKeyToAccount(configFile.mainAddressPrivateKey);
-                // Saving account to memory
-                web3.eth.accounts.wallet.add(account);
+                web3 = new web3_1.default();
                 if (configFile.scriptsFolder !== "./" &&
                     !(0, files_1.fileExists)({ path: configFile.scriptsFolder })) {
                     console.log("No scripts folder found. Creating new one...");
@@ -105,9 +102,33 @@ var DeployContractsCommand = /** @class */ (function () {
                         // Inserting the dump file info to the contract
                         gContract.code = dumpJson.code;
                         gContract.json = dumpJson.json;
-                        gContract.instance = dumpJson.instance;
-                        gContract.setWeb3(web3);
                     }
+                    else {
+                        // COMPILING
+                        gContract.write();
+                        gContract.compile(function (errors) {
+                            if (errors)
+                                console.log(errors);
+                        });
+                        // Saving compiled JSON
+                        (0, files_1.writeFile)({
+                            destPath: path_1.default.resolve(configFile.compileFolder, "".concat(gContract.getName(), ".json")),
+                            content: JSON.stringify(gContract.json.contracts.jsons[gContract.getName()], null, 2),
+                        });
+                        // Saving Metadata
+                        (0, files_1.writeFile)({
+                            destPath: path_1.default.resolve(configFile.compileFolder, "".concat(gContract.getName(), "_metadata.json")),
+                            content: JSON.stringify(JSON.parse(gContract.json.contracts.jsons[gContract.getName()].metadata), null, 2),
+                        });
+                        // Saving dump file
+                        (0, files_1.writeFile)({
+                            destPath: path_1.default.resolve(configFile.compileFolder, "".concat(gContract.getName(), "_dump.json")),
+                            content: JSON.stringify(gContract, null, 2),
+                        });
+                    }
+                    gContract.setWeb3(web3);
+                    gContract.setDeployConfig(networkConfig);
+                    gContract.addSigner(configFile.mainAddressPrivateKey);
                     contracts[gContract.getName()] = gContract;
                 });
                 scriptFiles = (0, files_1.listFolderFiles)({
@@ -130,6 +151,20 @@ var DeployContractsCommand = /** @class */ (function () {
                             case 2:
                                 // Executing script
                                 _a.sent();
+                                Object.keys(contracts).map(function (contractName) {
+                                    var gContract = contracts[contractName];
+                                    // Updating compiled JSON
+                                    (0, files_1.writeFile)({
+                                        destPath: path_1.default.resolve(configFile.compileFolder, "".concat(gContract.getName(), ".json")),
+                                        content: JSON.stringify(gContract.json.contracts.jsons[gContract.getName()], null, 2),
+                                    });
+                                    gContract.instance = undefined;
+                                    // Updating dump file
+                                    (0, files_1.writeFile)({
+                                        destPath: path_1.default.resolve(configFile.compileFolder, "".concat(gContract.getName(), "_dump.json")),
+                                        content: JSON.stringify(gContract, null, 2),
+                                    });
+                                });
                                 return [2 /*return*/];
                         }
                     });
