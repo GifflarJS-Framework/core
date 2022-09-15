@@ -4,6 +4,7 @@ import {
   listFolderFiles,
   makeDirectory,
   readFile,
+  writeFile,
 } from "@utils/files";
 
 import path from "path";
@@ -42,16 +43,7 @@ class DeployContractsCommand implements IDeployContractsCommand {
     }
 
     // Creating web3 through network config
-    const web3 = new Web3(
-      new Web3.providers.HttpProvider(networkConfig.nodeLink)
-    );
-
-    // Recovering account from private key
-    const account = web3.eth.accounts.privateKeyToAccount(
-      configFile.mainAddressPrivateKey
-    );
-    // Saving account to memory
-    web3.eth.accounts.wallet.add(account);
+    const web3 = new Web3();
 
     if (
       configFile.scriptsFolder !== "./" &&
@@ -109,9 +101,54 @@ class DeployContractsCommand implements IDeployContractsCommand {
         // Inserting the dump file info to the contract
         gContract.code = dumpJson.code;
         gContract.json = dumpJson.json;
-        gContract.instance = dumpJson.instance;
-        gContract.setWeb3(web3);
+      } else {
+        // COMPILING
+        gContract.write();
+        gContract.compile((errors) => {
+          if (errors) console.log(errors);
+        });
+
+        // Saving compiled JSON
+        writeFile({
+          destPath: path.resolve(
+            configFile.compileFolder,
+            `${gContract.getName()}.json`
+          ),
+          content: JSON.stringify(
+            gContract.json.contracts.jsons[gContract.getName()],
+            null,
+            2
+          ),
+        });
+
+        // Saving Metadata
+        writeFile({
+          destPath: path.resolve(
+            configFile.compileFolder,
+            `${gContract.getName()}_metadata.json`
+          ),
+          content: JSON.stringify(
+            JSON.parse(
+              gContract.json.contracts.jsons[gContract.getName()].metadata
+            ),
+            null,
+            2
+          ),
+        });
+
+        // Saving dump file
+        writeFile({
+          destPath: path.resolve(
+            configFile.compileFolder,
+            `${gContract.getName()}_dump.json`
+          ),
+          content: JSON.stringify(gContract, null, 2),
+        });
       }
+
+      gContract.setWeb3(web3);
+      gContract.setDeployConfig(networkConfig);
+      gContract.addSigner(configFile.mainAddressPrivateKey);
 
       contracts[gContract.getName()] = gContract;
     });
@@ -140,6 +177,33 @@ class DeployContractsCommand implements IDeployContractsCommand {
 
       // Executing script
       await scriptFunction({ contracts });
+
+      Object.keys(contracts).map((contractName) => {
+        const gContract = contracts[contractName];
+
+        // Updating compiled JSON
+        writeFile({
+          destPath: path.resolve(
+            configFile.compileFolder,
+            `${gContract.getName()}.json`
+          ),
+          content: JSON.stringify(
+            gContract.json.contracts.jsons[gContract.getName()],
+            null,
+            2
+          ),
+        });
+
+        gContract.instance = undefined;
+        // Updating dump file
+        writeFile({
+          destPath: path.resolve(
+            configFile.compileFolder,
+            `${gContract.getName()}_dump.json`
+          ),
+          content: JSON.stringify(gContract, null, 2),
+        });
+      });
     }, Promise.resolve());
   }
 }
