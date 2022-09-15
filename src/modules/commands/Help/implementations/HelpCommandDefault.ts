@@ -7,7 +7,7 @@ class HelpCommandDefault implements IHelpCommand {
 
     console.log("\nAvailable Commands");
     console.log(
-      " help, --help, -h                           \t Show all the Gifflar available commands."
+      " help, --help, -h                           \t Shows all the Gifflar available commands."
     );
     console.log(
       " init, --init, -i                           \t Initializes a Gifflar project and creates Gifflar configuration file."

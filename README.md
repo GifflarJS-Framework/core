@@ -4,23 +4,23 @@
 
 # Gifflar
 
-This is the Gifflar, a command line interface framework that allows you to define Solidity smart contracts creation via JavaScript. The Gifflar uses [Gifflar library](https://github.com/GifflarJS-Framework/gifflar-library) to allow smart contract development through javascript functions and JSON model. This enables you to develop systems able to create smart contracts on the fly based on different configurations.
+This is the Gifflar, a command line interface framework that allows you to define Solidity smart contracts creation via TypeScript. The Gifflar uses [Gifflar library](https://github.com/GifflarJS-Framework/gifflar-library) to allow smart contract development through TypeScript functions and JSON model. This enables you to develop systems able to create smart contracts on the fly based on different configurations.
 
-## Project Status
+# Project Status
 
 **In development**
 
 - Version: `alpha`.
 
-## Getting started
+# Getting started
 
-### Installation
+## Installation
 
-#### Node version
+### Node version
 
 - v14.XX.X
 
-#### Install Gifflar
+### Install Gifflar
 
 As Gifflar is yet in development phase, you must install it through `build` branch. Soon it will be available in `npm`.
 
@@ -28,14 +28,12 @@ As Gifflar is yet in development phase, you must install it through `build` bran
 $ npm install -g git+https://github.com/GifflarJS-Framework/core.git#build
 ```
 
-### Commands
+## Commands
 
 ```
 Usage:
 command [arguments]
 ```
-
-#### Commands Table
 
 | Command                       | Args                                                                                             | Mandatory args | Description                                                                                                    |
 | ----------------------------- | ------------------------------------------------------------------------------------------------ | -------------- | -------------------------------------------------------------------------------------------------------------- |
@@ -50,7 +48,7 @@ command [arguments]
 
 ---
 
-#### Help
+### Help
 
 - Command variations:
   - `gifflar help`
@@ -66,8 +64,8 @@ Usage:
  command [arguments]
 
 Available Commands
- help, --help, -h                                Show all the Gifflar available commands.
- init, --init, -i                                Initializes the Gifflar configuration file.
+ help, --help, -h                                Shows all the Gifflar available commands.
+ init, --init, -i                                Initializes a Gifflar project and creates Gifflar configuration file.
  make
   make:model, --make:model, -m:model             Make a new Gifflar Contract Model. Required a file name as argument.
   make:service, --make:service, -m:service       Make a new Gifflar Service. Required a file name as argument.
