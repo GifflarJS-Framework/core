@@ -189,10 +189,74 @@ Note that the contracts models are already included in the script input. You jus
 
 - Command variations: `gifflar deploy`.
 
-This command will execute the scripts sequentially (see [Make Script](#make-script)). In this phase, you must have compiled the contracts you want to deploy. Also, this command will use the network configuration set in `gifflarconfig.json`.
+This command will execute the scripts sequentially (see [Make Script](#make-script)). In this phase, you might have compiled the contracts you want to deploy, if not, the command will automatically compile them for you. Also, this command will use the network configuration set in `gifflarconfig.json`.
 
 ---
 
 ### Make Service
+
+- Command variations: `gifflar make:service [filename]`, `gifflar --make:service [filename]`, `gifflar -m:service [filename]`.
+
+- Example: `gifflar make:service contractsBuilder`: Will create the service file `contractsBuilderService` inside 'services' folder`.
+
+The services are created to manage all the contracts construction steps (modelation, writing, compilation and deploy). It's how you can create dynamic smart contracts through a given service request. You can create your own logic of creating smart contracts code, so then you can use these services in your API or frontend application.
+
+Note that if you want to work only creating smart contracts on the fly, you can use only Gifflar Services. But if you also or only want to create static smart contracts, you can use the Gifflar Environment to facilitate the smart contracts development using the [Gifflar Models](#make-model).
+
+The created service will have a default code to guide you on the service creation. This code uses the Gifflar Manager to manage many contracts creation, so the service can keep the contracts in only one object. The default service also exports the functions `createModel`, `write`, `compile` and `deploy`, that are the basic Gifflar functions, but you can also customize the services the way you'd like to. This is the service default code:
+
+```
+import { createGifflarManager } from "gifflar-library";
+import { IContractDeployDTO } from "gifflar-library/bin/modules/managing/gifflarContract/types/IContractDeployDTO";
+import { IGifflarManager } from "gifflar-library/bin/modules/managing/gifflarManager/types/IGifflarManager";
+import { IGifflarContract } from "gifflar-library/bin/modules/managing/gifflarContract/types/IGifflarContract";
+import { INetworkConfig } from "gifflar-library/bin/modules/deployer/types/INetworkConfig";
+import { Contract } from "web3-eth-contract";
+
+class ContractService {
+  // Creating contract manager
+  private myGifflarManager: IGifflarManager = createGifflarManager();
+
+  constructor(accountPrivateKey?: string) {
+    const network: INetworkConfig = networks.filter((network) => {
+      return network.key === defaultNetwork;
+    })[0];
+    this.myGifflarManager.setDeployConfig(network);
+    if (accountPrivateKey) this.myGifflarManager.addSigner(accountPrivateKey);
+  }
+
+  createModel(contractName: string): any {
+    // Creating new contract
+    const myContract: IGifflarContract =
+      this.myGifflarManager.newContract(contractName);
+
+    // Creating a contract variable
+    myContract.createVariable({ regularType: "string" }, "message", "public");
+
+    // Creating a contract constructor function
+    myContract
+      .createConstructor("public")
+      .setInput({ regularType: "string" }, "_message")
+      .setAssignment("message", { customExpression: "_message" });
+
+    return myContract.toJson();
+  }
+
+  write(): string {
+    return this.myGifflarManager.writeAll();
+  }
+
+  compile(contractName: string, callback: (errors: any) => void): any {
+    return this.myGifflarManager.compile(contractName, callback);
+  }
+
+  deploy(contractName: string, inputs: IContractDeployDTO): Promise<Contract> {
+    return this.myGifflarManager.deploy(contractName, inputs);
+  }
+}
+
+export default ContractService;
+
+```
 
 ---
