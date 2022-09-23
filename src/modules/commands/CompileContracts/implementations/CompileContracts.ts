@@ -1,4 +1,5 @@
 import { IConfigFile } from "@modules/commands/Init/types/IConfigFile";
+import * as tsImport from "ts-import";
 import {
   fileExists,
   listFolderFiles,
@@ -52,7 +53,7 @@ class CompileContracts implements ICompileContractsCommand {
       file: string;
       configFile: IConfigFile;
     }): Promise<void> => {
-      const gContractModule = await import(
+      const gContractModule = await tsImport.load(
         path.resolve(process.cwd(), configFile.modelsFolder, file)
       );
       const gContract: IGifflarContract = gContractModule.default;

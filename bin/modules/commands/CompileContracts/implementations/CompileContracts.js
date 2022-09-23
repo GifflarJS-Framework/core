@@ -62,6 +62,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var tsImport = __importStar(require("ts-import"));
 var files_1 = require("../../../../utils/files");
 var path_1 = __importDefault(require("path"));
 var CompileContracts = /** @class */ (function () {
@@ -103,7 +104,7 @@ var CompileContracts = /** @class */ (function () {
                                 var gContractModule, gContract, json;
                                 return __generator(this, function (_b) {
                                     switch (_b.label) {
-                                        case 0: return [4 /*yield*/, Promise.resolve().then(function () { return __importStar(require(path_1.default.resolve(process.cwd(), configFile.modelsFolder, file))); })];
+                                        case 0: return [4 /*yield*/, tsImport.load(path_1.default.resolve(process.cwd(), configFile.modelsFolder, file))];
                                         case 1:
                                             gContractModule = _b.sent();
                                             gContract = gContractModule.default;
