@@ -12,7 +12,7 @@ import { IContractJson } from "gifflar-library/bin/modules/models/toplevels/cont
 import { IWriteContractsCommand } from "../types/IWriteContractsCommand";
 
 class WriteContractsCommand implements IWriteContractsCommand {
-  async execute(value: string): Promise<void> {
+  execute = async (value: string): Promise<void> => {
     const content = readFile({
       path: path.resolve(process.cwd(), "gifflarconfig.json"),
     });
@@ -100,7 +100,7 @@ class WriteContractsCommand implements IWriteContractsCommand {
         }
       })
     );
-  }
+  };
 }
 
 export default WriteContractsCommand;
