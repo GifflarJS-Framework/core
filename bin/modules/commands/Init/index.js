@@ -1,13 +1,11 @@
 "use strict";
-
-var _tsyringe = require("tsyringe");
-
-var _InitCommandDefault = _interopRequireDefault(require("./implementations/InitCommandDefault"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-const implementations = {
-  default: _InitCommandDefault.default
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-
-_tsyringe.container.registerSingleton("InitCommand", implementations.default);
+Object.defineProperty(exports, "__esModule", { value: true });
+var tsyringe_1 = require("tsyringe");
+var InitCommandDefault_1 = __importDefault(require("./implementations/InitCommandDefault"));
+var implementations = {
+    default: InitCommandDefault_1.default,
+};
+tsyringe_1.container.registerSingleton("InitCommand", implementations.default);
