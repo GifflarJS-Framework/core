@@ -66,9 +66,8 @@ var files_1 = require("../../../../utils/files");
 var path_1 = __importDefault(require("path"));
 var WriteContractsCommand = /** @class */ (function () {
     function WriteContractsCommand() {
-    }
-    WriteContractsCommand.prototype.execute = function (value) {
-        return __awaiter(this, void 0, void 0, function () {
+        var _this = this;
+        this.execute = function (value) { return __awaiter(_this, void 0, void 0, function () {
             var content, configFile, files;
             var _this = this;
             return __generator(this, function (_a) {
@@ -141,8 +140,8 @@ var WriteContractsCommand = /** @class */ (function () {
                         return [2 /*return*/];
                 }
             });
-        });
-    };
+        }); };
+    }
     return WriteContractsCommand;
 }());
 exports.default = WriteContractsCommand;
