@@ -1,4 +1,27 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -39,6 +62,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var tsImport = __importStar(require("ts-import"));
 var files_1 = require("../../../../utils/files");
 var path_1 = __importDefault(require("path"));
 var web3_1 = __importDefault(require("web3"));
@@ -50,126 +74,141 @@ var DeployContractsCommand = /** @class */ (function () {
             var content, configFile, networkConfig, web3, files, contracts, scriptFiles;
             var _this = this;
             return __generator(this, function (_a) {
-                content = (0, files_1.readFile)({
-                    path: path_1.default.resolve(process.cwd(), "gifflarconfig.json"),
-                });
-                if (!content) {
-                    throw new Error("Configuration file 'gifflarconfig.json' not found. Run 'gifflar init' first.");
-                }
-                configFile = JSON.parse(content);
-                // Checking if default network is defined
-                if (!configFile.defaultNetwork || !configFile.networks) {
-                    throw new Error("No default network found");
-                }
-                networkConfig = configFile.networks.filter(function (config) {
-                    return config.key === configFile.defaultNetwork;
-                })[0];
-                // Checking if default network was found by key
-                if (!networkConfig) {
-                    throw new Error("No default network found");
-                }
-                web3 = new web3_1.default();
-                if (configFile.scriptsFolder !== "./" &&
-                    !(0, files_1.fileExists)({ path: configFile.scriptsFolder })) {
-                    console.log("No scripts folder found. Creating new one...");
-                    // Creating contracts directory
-                    (0, files_1.makeDirectory)({
-                        path: path_1.default.resolve(process.cwd(), configFile.scriptsFolder),
-                    });
-                    console.log("Scripts folder created in: ".concat(configFile.scriptsFolder));
-                }
-                if (!(0, files_1.fileExists)({ path: configFile.modelsFolder })) {
-                    throw new Error("None contract model were found. If you have the contract models, please, your 'gifflarconfig.json' is correct.");
-                }
-                files = (0, files_1.listFolderFiles)({
-                    path: configFile.modelsFolder,
-                });
-                contracts = {};
-                files.map(function (file) {
-                    var gContract = require(path_1.default.resolve(process.cwd(), configFile.modelsFolder, file)).default;
-                    // Verifying if contract dump file exists
-                    if ((0, files_1.fileExists)({
-                        path: path_1.default.resolve(configFile.compileFolder, "".concat(gContract.getName(), "_dump.json")),
-                    })) {
-                        // Getting the dump file stringified
-                        var dumpStringified = (0, files_1.readFile)({
-                            path: path_1.default.resolve(configFile.compileFolder, "".concat(gContract.getName(), "_dump.json")),
+                switch (_a.label) {
+                    case 0:
+                        content = (0, files_1.readFile)({
+                            path: path_1.default.resolve(process.cwd(), "gifflarconfig.json"),
                         });
-                        if (!dumpStringified)
-                            throw new Error("Dump file not found.");
-                        // Parsing the json file
-                        var dumpJson = JSON.parse(dumpStringified);
-                        // Inserting the dump file info to the contract
-                        gContract.code = dumpJson.code;
-                        gContract.json = dumpJson.json;
-                    }
-                    else {
-                        // COMPILING
-                        gContract.write();
-                        gContract.compile(function (errors) {
-                            if (errors)
-                                console.log(errors);
-                        });
-                        // Saving compiled JSON
-                        (0, files_1.writeFile)({
-                            destPath: path_1.default.resolve(configFile.compileFolder, "".concat(gContract.getName(), ".json")),
-                            content: JSON.stringify(gContract.json.contracts.jsons[gContract.getName()], null, 2),
-                        });
-                        // Saving Metadata
-                        (0, files_1.writeFile)({
-                            destPath: path_1.default.resolve(configFile.compileFolder, "".concat(gContract.getName(), "_metadata.json")),
-                            content: JSON.stringify(JSON.parse(gContract.json.contracts.jsons[gContract.getName()].metadata), null, 2),
-                        });
-                        // Saving dump file
-                        (0, files_1.writeFile)({
-                            destPath: path_1.default.resolve(configFile.compileFolder, "".concat(gContract.getName(), "_dump.json")),
-                            content: JSON.stringify(gContract, null, 2),
-                        });
-                    }
-                    gContract.setWeb3(web3);
-                    gContract.setDeployConfig(networkConfig);
-                    gContract.addSigner(configFile.mainAddressPrivateKey);
-                    contracts[gContract.getName()] = gContract;
-                });
-                scriptFiles = (0, files_1.listFolderFiles)({
-                    path: configFile.scriptsFolder,
-                });
-                if (!scriptFiles.length) {
-                    throw new Error("No scripts created yet.");
-                }
-                // Iterating the scripts sequentially
-                scriptFiles.reduce(function (accumulator, file) { return __awaiter(_this, void 0, void 0, function () {
-                    var scriptFunction;
-                    return __generator(this, function (_a) {
-                        switch (_a.label) {
-                            case 0: return [4 /*yield*/, accumulator];
-                            case 1:
-                                _a.sent();
-                                scriptFunction = require(path_1.default.resolve(process.cwd(), configFile.scriptsFolder, file)).default;
-                                // Executing script
-                                return [4 /*yield*/, scriptFunction({ contracts: contracts })];
-                            case 2:
-                                // Executing script
-                                _a.sent();
-                                Object.keys(contracts).map(function (contractName) {
-                                    var gContract = contracts[contractName];
-                                    // Updating compiled JSON
-                                    (0, files_1.writeFile)({
-                                        destPath: path_1.default.resolve(configFile.compileFolder, "".concat(gContract.getName(), ".json")),
-                                        content: JSON.stringify(gContract.json.contracts.jsons[gContract.getName()], null, 2),
-                                    });
-                                    gContract.instance = undefined;
-                                    // Updating dump file
-                                    (0, files_1.writeFile)({
-                                        destPath: path_1.default.resolve(configFile.compileFolder, "".concat(gContract.getName(), "_dump.json")),
-                                        content: JSON.stringify(gContract, null, 2),
-                                    });
-                                });
-                                return [2 /*return*/];
+                        if (!content) {
+                            throw new Error("Configuration file 'gifflarconfig.json' not found. Run 'gifflar init' first.");
                         }
-                    });
-                }); }, Promise.resolve());
-                return [2 /*return*/];
+                        configFile = JSON.parse(content);
+                        // Checking if default network is defined
+                        if (!configFile.defaultNetwork || !configFile.networks) {
+                            throw new Error("No default network found");
+                        }
+                        networkConfig = configFile.networks.filter(function (config) {
+                            return config.key === configFile.defaultNetwork;
+                        })[0];
+                        // Checking if default network was found by key
+                        if (!networkConfig) {
+                            throw new Error("No default network found");
+                        }
+                        web3 = new web3_1.default();
+                        if (configFile.scriptsFolder !== "./" &&
+                            !(0, files_1.fileExists)({ path: configFile.scriptsFolder })) {
+                            console.log("No scripts folder found. Creating new one...");
+                            // Creating contracts directory
+                            (0, files_1.makeDirectory)({
+                                path: path_1.default.resolve(process.cwd(), configFile.scriptsFolder),
+                            });
+                            console.log("Scripts folder created in: ".concat(configFile.scriptsFolder));
+                        }
+                        if (!(0, files_1.fileExists)({ path: configFile.modelsFolder })) {
+                            throw new Error("None contract model were found. If you have the contract models, please, your 'gifflarconfig.json' is correct.");
+                        }
+                        files = (0, files_1.listFolderFiles)({
+                            path: configFile.modelsFolder,
+                        });
+                        contracts = {};
+                        return [4 /*yield*/, Promise.all(files.map(function (file) { return __awaiter(_this, void 0, void 0, function () {
+                                var gContractModule, gContract, dumpStringified, dumpJson;
+                                return __generator(this, function (_a) {
+                                    switch (_a.label) {
+                                        case 0: return [4 /*yield*/, tsImport.load(path_1.default.resolve(process.cwd(), configFile.modelsFolder, file))];
+                                        case 1:
+                                            gContractModule = _a.sent();
+                                            gContract = gContractModule.default;
+                                            // Verifying if contract dump file exists
+                                            if ((0, files_1.fileExists)({
+                                                path: path_1.default.resolve(configFile.compileFolder, "".concat(gContract.getName(), "_dump.json")),
+                                            })) {
+                                                dumpStringified = (0, files_1.readFile)({
+                                                    path: path_1.default.resolve(configFile.compileFolder, "".concat(gContract.getName(), "_dump.json")),
+                                                });
+                                                if (!dumpStringified)
+                                                    throw new Error("Dump file not found.");
+                                                dumpJson = JSON.parse(dumpStringified);
+                                                // Inserting the dump file info to the contract
+                                                gContract.code = dumpJson.code;
+                                                gContract.json = dumpJson.json;
+                                            }
+                                            else {
+                                                // COMPILING
+                                                gContract.write();
+                                                gContract.compile(function (errors) {
+                                                    if (errors)
+                                                        console.log(errors);
+                                                });
+                                                // Saving compiled JSON
+                                                (0, files_1.writeFile)({
+                                                    destPath: path_1.default.resolve(configFile.compileFolder, "".concat(gContract.getName(), ".json")),
+                                                    content: JSON.stringify(gContract.json.contracts.jsons[gContract.getName()], null, 2),
+                                                });
+                                                // Saving Metadata
+                                                (0, files_1.writeFile)({
+                                                    destPath: path_1.default.resolve(configFile.compileFolder, "".concat(gContract.getName(), "_metadata.json")),
+                                                    content: JSON.stringify(JSON.parse(gContract.json.contracts.jsons[gContract.getName()].metadata), null, 2),
+                                                });
+                                                // Saving dump file
+                                                (0, files_1.writeFile)({
+                                                    destPath: path_1.default.resolve(configFile.compileFolder, "".concat(gContract.getName(), "_dump.json")),
+                                                    content: JSON.stringify(gContract, null, 2),
+                                                });
+                                            }
+                                            gContract.setWeb3(web3);
+                                            gContract.setDeployConfig(networkConfig);
+                                            gContract.addSigner(configFile.mainAddressPrivateKey);
+                                            contracts[gContract.getName()] = gContract;
+                                            return [2 /*return*/];
+                                    }
+                                });
+                            }); }))];
+                    case 1:
+                        _a.sent();
+                        scriptFiles = (0, files_1.listFolderFiles)({
+                            path: configFile.scriptsFolder,
+                        });
+                        if (!scriptFiles.length) {
+                            throw new Error("No scripts created yet.");
+                        }
+                        // Iterating the scripts sequentially
+                        scriptFiles.reduce(function (accumulator, file) { return __awaiter(_this, void 0, void 0, function () {
+                            var fileModule, scriptFunction;
+                            return __generator(this, function (_a) {
+                                switch (_a.label) {
+                                    case 0: return [4 /*yield*/, accumulator];
+                                    case 1:
+                                        _a.sent();
+                                        return [4 /*yield*/, tsImport.load(path_1.default.resolve(process.cwd(), configFile.scriptsFolder, file))];
+                                    case 2:
+                                        fileModule = _a.sent();
+                                        scriptFunction = fileModule.default;
+                                        // Executing script
+                                        return [4 /*yield*/, scriptFunction({ contracts: contracts })];
+                                    case 3:
+                                        // Executing script
+                                        _a.sent();
+                                        Object.keys(contracts).map(function (contractName) {
+                                            var gContract = contracts[contractName];
+                                            // Updating compiled JSON
+                                            (0, files_1.writeFile)({
+                                                destPath: path_1.default.resolve(configFile.compileFolder, "".concat(gContract.getName(), ".json")),
+                                                content: JSON.stringify(gContract.json.contracts.jsons[gContract.getName()], null, 2),
+                                            });
+                                            gContract.instance = undefined;
+                                            // Updating dump file
+                                            (0, files_1.writeFile)({
+                                                destPath: path_1.default.resolve(configFile.compileFolder, "".concat(gContract.getName(), "_dump.json")),
+                                                content: JSON.stringify(gContract, null, 2),
+                                            });
+                                        });
+                                        return [2 /*return*/];
+                                }
+                            });
+                        }); }, Promise.resolve());
+                        return [2 /*return*/];
+                }
             });
         });
     };
