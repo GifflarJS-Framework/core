@@ -1,4 +1,27 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -47,98 +70,126 @@ var CompileContracts = /** @class */ (function () {
     CompileContracts.prototype.execute = function (value) {
         return __awaiter(this, void 0, void 0, function () {
             var content, configFile, files, compile;
+            var _this = this;
             return __generator(this, function (_a) {
-                content = (0, files_1.readFile)({
-                    path: path_1.default.resolve(process.cwd(), "gifflarconfig.json"),
-                });
-                if (!content) {
-                    throw Error("Configuration file 'gifflarconfig.json' not found. Run 'gifflar init' first.");
-                }
-                configFile = JSON.parse(content);
-                if (configFile.root !== "./") {
-                    // Creating root directory
-                    (0, files_1.makeDirectory)({ path: "".concat(process.cwd(), "/").concat(configFile.root) });
-                }
-                if (configFile.compileFolder !== "./") {
-                    // Creating compilations directory
-                    (0, files_1.makeDirectory)({
-                        path: "".concat(process.cwd(), "/").concat(configFile.compileFolder),
-                    });
-                }
-                if (!(0, files_1.fileExists)({ path: configFile.modelsFolder })) {
-                    throw new Error("None contract model were found. If you have the contract models, please, your 'gifflarconfig.json' is correct.");
-                }
-                files = (0, files_1.listFolderFiles)({
-                    path: configFile.modelsFolder,
-                });
-                compile = function (_a) {
-                    var file = _a.file, configFile = _a.configFile;
-                    var gContract = require(path_1.default.resolve(process.cwd(), configFile.modelsFolder, file)).default;
-                    // Verifying if contract dump file exists
-                    if ((0, files_1.fileExists)({
-                        path: path_1.default.resolve(configFile.compileFolder, "".concat(gContract.getName(), "_dump.json")),
-                    })) {
-                        // If already exists, don't compile again
-                        return;
-                        // Getting the dump file stringified
-                        // const dumpStringified = readFile({
-                        //   path: path.resolve(
-                        //     configFile.compileFolder,
-                        //     `${gContract.getName()}_dump.json`
-                        //   ),
-                        // });
-                        // if (!dumpStringified) throw new Error("Dump file not found.");
-                        // Parsing the json file
-                        // const dumpJson: IContractJson = JSON.parse(dumpStringified);
-                        // Inserting the compilation json to the dump
-                        // dumpJson.json = gContract.json;
-                        // gContract.code = dumpJson.code;
-                    }
-                    else {
-                        gContract.write();
-                    }
-                    // Rewriting contract .sol
-                    (0, files_1.writeFile)({
-                        destPath: path_1.default.resolve(configFile.contractsFolder, "".concat(gContract.getName(), ".sol")),
-                        content: gContract.code,
-                    });
-                    var json = gContract.compile(function (errors) {
-                        if (errors)
-                            console.log(errors);
-                    });
-                    // Saving compiled JSON
-                    (0, files_1.writeFile)({
-                        destPath: path_1.default.resolve(configFile.compileFolder, "".concat(gContract.getName(), ".json")),
-                        content: JSON.stringify(json.contracts.jsons[gContract.getName()], null, 2),
-                    });
-                    // Saving Metadata
-                    (0, files_1.writeFile)({
-                        destPath: path_1.default.resolve(configFile.compileFolder, "".concat(gContract.getName(), "_metadata.json")),
-                        content: JSON.stringify(JSON.parse(json.contracts.jsons[gContract.getName()].metadata), null, 2),
-                    });
-                    // Saving dump file
-                    (0, files_1.writeFile)({
-                        destPath: path_1.default.resolve(configFile.compileFolder, "".concat(gContract.getName(), "_dump.json")),
-                        content: JSON.stringify(gContract, null, 2),
-                    });
-                };
-                if (value) {
-                    // Verifying if single contract file exists
-                    if (!(0, files_1.fileExists)({
-                        path: path_1.default.resolve(configFile.modelsFolder, "".concat(value, ".ts")),
-                    })) {
-                        throw new Error("Requested contract model were not found.");
-                    }
-                    // Compiling single contract
-                    compile({ file: value, configFile: configFile });
-                }
-                else {
+                switch (_a.label) {
+                    case 0:
+                        content = (0, files_1.readFile)({
+                            path: path_1.default.resolve(process.cwd(), "gifflarconfig.json"),
+                        });
+                        if (!content) {
+                            throw Error("Configuration file 'gifflarconfig.json' not found. Run 'gifflar init' first.");
+                        }
+                        configFile = JSON.parse(content);
+                        if (configFile.root !== "./") {
+                            // Creating root directory
+                            (0, files_1.makeDirectory)({ path: "".concat(process.cwd(), "/").concat(configFile.root) });
+                        }
+                        if (configFile.compileFolder !== "./") {
+                            // Creating compilations directory
+                            (0, files_1.makeDirectory)({
+                                path: "".concat(process.cwd(), "/").concat(configFile.compileFolder),
+                            });
+                        }
+                        if (!(0, files_1.fileExists)({ path: configFile.modelsFolder })) {
+                            throw new Error("None contract model were found. If you have the contract models, please, your 'gifflarconfig.json' is correct.");
+                        }
+                        files = (0, files_1.listFolderFiles)({
+                            path: configFile.modelsFolder,
+                        });
+                        compile = function (_a) {
+                            var file = _a.file, configFile = _a.configFile;
+                            return __awaiter(_this, void 0, void 0, function () {
+                                var gContractModule, gContract, json;
+                                return __generator(this, function (_b) {
+                                    switch (_b.label) {
+                                        case 0: return [4 /*yield*/, Promise.resolve().then(function () { return __importStar(require(path_1.default.resolve(process.cwd(), configFile.modelsFolder, file))); })];
+                                        case 1:
+                                            gContractModule = _b.sent();
+                                            gContract = gContractModule.default;
+                                            // Verifying if contract dump file exists
+                                            if ((0, files_1.fileExists)({
+                                                path: path_1.default.resolve(configFile.compileFolder, "".concat(gContract.getName(), "_dump.json")),
+                                            })) {
+                                                // If already exists, don't compile again
+                                                return [2 /*return*/];
+                                                // Getting the dump file stringified
+                                                // const dumpStringified = readFile({
+                                                //   path: path.resolve(
+                                                //     configFile.compileFolder,
+                                                //     `${gContract.getName()}_dump.json`
+                                                //   ),
+                                                // });
+                                                // if (!dumpStringified) throw new Error("Dump file not found.");
+                                                // Parsing the json file
+                                                // const dumpJson: IContractJson = JSON.parse(dumpStringified);
+                                                // Inserting the compilation json to the dump
+                                                // dumpJson.json = gContract.json;
+                                                // gContract.code = dumpJson.code;
+                                            }
+                                            else {
+                                                gContract.write();
+                                            }
+                                            // Rewriting contract .sol
+                                            (0, files_1.writeFile)({
+                                                destPath: path_1.default.resolve(configFile.contractsFolder, "".concat(gContract.getName(), ".sol")),
+                                                content: gContract.code,
+                                            });
+                                            json = gContract.compile(function (errors) {
+                                                if (errors)
+                                                    console.log(errors);
+                                            });
+                                            // Saving compiled JSON
+                                            (0, files_1.writeFile)({
+                                                destPath: path_1.default.resolve(configFile.compileFolder, "".concat(gContract.getName(), ".json")),
+                                                content: JSON.stringify(json.contracts.jsons[gContract.getName()], null, 2),
+                                            });
+                                            // Saving Metadata
+                                            (0, files_1.writeFile)({
+                                                destPath: path_1.default.resolve(configFile.compileFolder, "".concat(gContract.getName(), "_metadata.json")),
+                                                content: JSON.stringify(JSON.parse(json.contracts.jsons[gContract.getName()].metadata), null, 2),
+                                            });
+                                            // Saving dump file
+                                            (0, files_1.writeFile)({
+                                                destPath: path_1.default.resolve(configFile.compileFolder, "".concat(gContract.getName(), "_dump.json")),
+                                                content: JSON.stringify(gContract, null, 2),
+                                            });
+                                            return [2 /*return*/];
+                                    }
+                                });
+                            });
+                        };
+                        if (!value) return [3 /*break*/, 2];
+                        // Verifying if single contract file exists
+                        if (!(0, files_1.fileExists)({
+                            path: path_1.default.resolve(configFile.modelsFolder, "".concat(value, ".ts")),
+                        })) {
+                            throw new Error("Requested contract model were not found.");
+                        }
+                        // Compiling single contract
+                        return [4 /*yield*/, compile({ file: value, configFile: configFile })];
+                    case 1:
+                        // Compiling single contract
+                        _a.sent();
+                        return [3 /*break*/, 4];
+                    case 2: 
                     // Creating code and ABIs for all contracts in contracts folder
-                    files.map(function (file) {
-                        compile({ file: file, configFile: configFile });
-                    });
+                    return [4 /*yield*/, Promise.all(files.map(function (file) { return __awaiter(_this, void 0, void 0, function () {
+                            return __generator(this, function (_a) {
+                                switch (_a.label) {
+                                    case 0: return [4 /*yield*/, compile({ file: file, configFile: configFile })];
+                                    case 1:
+                                        _a.sent();
+                                        return [2 /*return*/];
+                                }
+                            });
+                        }); }))];
+                    case 3:
+                        // Creating code and ABIs for all contracts in contracts folder
+                        _a.sent();
+                        _a.label = 4;
+                    case 4: return [2 /*return*/];
                 }
-                return [2 /*return*/];
             });
         });
     };

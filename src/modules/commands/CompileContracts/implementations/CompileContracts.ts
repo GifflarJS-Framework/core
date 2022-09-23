@@ -45,18 +45,17 @@ class CompileContracts implements ICompileContractsCommand {
       path: configFile.modelsFolder,
     });
 
-    const compile = ({
+    const compile = async ({
       file,
       configFile,
     }: {
       file: string;
       configFile: IConfigFile;
-    }): void => {
-      const gContract: IGifflarContract = require(path.resolve(
-        process.cwd(),
-        configFile.modelsFolder,
-        file
-      )).default;
+    }): Promise<void> => {
+      const gContractModule = await import(
+        path.resolve(process.cwd(), configFile.modelsFolder, file)
+      );
+      const gContract: IGifflarContract = gContractModule.default;
 
       // Verifying if contract dump file exists
       if (
@@ -148,12 +147,14 @@ class CompileContracts implements ICompileContractsCommand {
       }
 
       // Compiling single contract
-      compile({ file: value, configFile });
+      await compile({ file: value, configFile });
     } else {
       // Creating code and ABIs for all contracts in contracts folder
-      files.map((file) => {
-        compile({ file, configFile });
-      });
+      await Promise.all(
+        files.map(async (file) => {
+          await compile({ file, configFile });
+        })
+      );
     }
   }
 }
