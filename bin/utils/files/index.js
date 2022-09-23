@@ -1,58 +1,85 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.writeFile = exports.readFile = exports.makeDirectory = exports.listFolderFiles = exports.fileExists = exports.copyFile = void 0;
+
+var _fs = _interopRequireDefault(require("fs"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+const makeDirectory = ({
+  path
+}) => {
+  _fs.default.mkdirSync(path, {
+    recursive: true
+  });
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.listFolderFiles = exports.readFile = exports.fileExists = exports.writeFile = exports.copyFile = exports.makeDirectory = void 0;
-var fs_1 = __importDefault(require("fs"));
-var makeDirectory = function (_a) {
-    var path = _a.path;
-    fs_1.default.mkdirSync(path, { recursive: true });
-};
+
 exports.makeDirectory = makeDirectory;
-var copyFile = function (_a) {
-    var sourcePath = _a.sourcePath, destPath = _a.destPath;
-    fs_1.default.copyFile(sourcePath, destPath, fs_1.default.constants.COPYFILE_EXCL, function (err) {
-        if (err)
-            throw err;
-        //console.log("source.txt was copied to destination.txt");
-    });
+
+const copyFile = ({
+  sourcePath,
+  destPath
+}) => {
+  _fs.default.copyFile(sourcePath, destPath, _fs.default.constants.COPYFILE_EXCL, err => {
+    if (err) throw err; //console.log("source.txt was copied to destination.txt");
+  });
 };
+
 exports.copyFile = copyFile;
-var writeFile = function (_a) {
-    var destPath = _a.destPath, content = _a.content;
-    fs_1.default.writeFile(destPath, content, { flag: "w" }, function (err) {
-        if (err)
-            throw err;
-        //console.log("source.txt was copied to destination.txt");
-    });
+
+const writeFile = ({
+  destPath,
+  content
+}) => {
+  _fs.default.writeFile(destPath, content, {
+    flag: "w"
+  }, err => {
+    if (err) throw err; //console.log("source.txt was copied to destination.txt");
+  });
 };
+
 exports.writeFile = writeFile;
-var fileExists = function (_a) {
-    var path = _a.path;
-    return fs_1.default.existsSync(path);
+
+const fileExists = ({
+  path
+}) => {
+  return _fs.default.existsSync(path);
 };
+
 exports.fileExists = fileExists;
-var readFile = function (_a) {
-    var path = _a.path;
-    try {
-        var content = fs_1.default.readFileSync(path, { encoding: "utf-8" });
-        return content;
-    }
-    catch (e) {
-        console.log(e);
-        return undefined;
-    }
+
+const readFile = ({
+  path
+}) => {
+  try {
+    const content = _fs.default.readFileSync(path, {
+      encoding: "utf-8"
+    });
+
+    return content;
+  } catch (e) {
+    console.log(e);
+    return undefined;
+  }
 };
+
 exports.readFile = readFile;
-var listFolderFiles = function (_a) {
-    var path = _a.path;
-    try {
-        var files = fs_1.default.readdirSync(path, { encoding: "utf-8" });
-        return files;
-    }
-    catch (e) {
-        return null;
-    }
+
+const listFolderFiles = ({
+  path
+}) => {
+  try {
+    const files = _fs.default.readdirSync(path, {
+      encoding: "utf-8"
+    });
+
+    return files;
+  } catch (e) {
+    return null;
+  }
 };
+
 exports.listFolderFiles = listFolderFiles;

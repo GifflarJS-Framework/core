@@ -1,11 +1,13 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
+
+var _tsyringe = require("tsyringe");
+
+var _CompileContracts = _interopRequireDefault(require("./implementations/CompileContracts"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+const implementations = {
+  default: _CompileContracts.default
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-var tsyringe_1 = require("tsyringe");
-var CompileContracts_1 = __importDefault(require("./implementations/CompileContracts"));
-var implementations = {
-    default: CompileContracts_1.default,
-};
-tsyringe_1.container.registerSingleton("CompileContractsCommand", implementations.default);
+
+_tsyringe.container.registerSingleton("CompileContractsCommand", implementations.default);
