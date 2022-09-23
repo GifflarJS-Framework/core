@@ -1,4 +1,5 @@
 import { IConfigFile } from "@modules/commands/Init/types/IConfigFile";
+import * as tsImport from "ts-import";
 import {
   fileExists,
   listFolderFiles,
@@ -51,7 +52,7 @@ class WriteContractsCommand implements IWriteContractsCommand {
     // Creating code for all contracts in contracts folder
     await Promise.all(
       files.map(async (file) => {
-        const gContractModule = await import(
+        const gContractModule = await tsImport.load(
           path.resolve(process.cwd(), configFile.modelsFolder, file)
         );
         const gContract: IGifflarContract = gContractModule.default;

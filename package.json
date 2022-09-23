@@ -41,14 +41,14 @@
     "ts-node-dev": "1.1.8",
     "tsconfig-paths": "^3.12.0",
     "tscpaths": "^0.0.9",
-    "types-gifflar": "git+https://github.com/GifflarJS-Framework/types-gifflar.git",
-    "typescript": "4.6.3"
+    "types-gifflar": "git+https://github.com/GifflarJS-Framework/types-gifflar.git"
   },
   "dependencies": {
     "gifflar-library": "git+https://github.com/GifflarJS-Framework/gifflar-library.git#build",
     "prompt-sync": "^4.2.0",
     "reflect-metadata": "^0.1.13",
     "solc": "0.5.17",
-    "tsyringe": "^4.6.0"
+    "tsyringe": "^4.6.0",
+    "typescript": "4.6.3"
   }
 }
