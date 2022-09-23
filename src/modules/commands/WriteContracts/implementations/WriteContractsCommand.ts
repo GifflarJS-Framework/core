@@ -97,15 +97,6 @@ class WriteContractsCommand implements IWriteContractsCommand {
             ),
             content: JSON.stringify(dumpJson, null, 2),
           });
-        } else {
-          // Saving dump file
-          writeFile({
-            destPath: path.resolve(
-              configFile.compileFolder,
-              `${gContract.getName()}_dump.json`
-            ),
-            content: JSON.stringify(gContract, null, 2),
-          });
         }
       })
     );
