@@ -6,6 +6,7 @@
   "bin": {
     "gifflar": "bin/index.js"
   },
+  "type": "module",
   "scripts": {
     "compile": "babel src --extensions \".js,.ts\" --out-dir bin --copy-files --no-copy-ignored",
     "build": "rm -rf bin && npm run compile && tsc --project tsconfig.json && tscpaths -p tsconfig.json -s ./src -o ./bin",
