@@ -131,13 +131,6 @@ var WriteContractsCommand = /** @class */ (function () {
                                                     content: JSON.stringify(dumpJson, null, 2),
                                                 });
                                             }
-                                            else {
-                                                // Saving dump file
-                                                (0, files_1.writeFile)({
-                                                    destPath: path_1.default.resolve(configFile.compileFolder, "".concat(gContract.getName(), "_dump.json")),
-                                                    content: JSON.stringify(gContract, null, 2),
-                                                });
-                                            }
                                             return [2 /*return*/];
                                     }
                                 });
