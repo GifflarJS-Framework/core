@@ -1,16 +1,16 @@
 // Factory
-import { createContract } from "gifflar-library";
+import { createGifflarContract } from "gifflar-library";
 
 // Creating contract model
-const myContract = createContract("MyContract");
+const myContract = createGifflarContract("MyContract");
 
 // Creating a contract variable
-myContract.createVariable("string", "message", "public");
+myContract.createVariable({ regularType: "string" }, "message", "public");
 
 // Creating a contract constructor function
 myContract
   .createConstructor("public")
-  .setInput("string", "_message")
-  .setAssignment("message", "_message");
+  .setInput({ regularType: "string" }, "_message")
+  .setAssignment("message", { customExpression: "_message" });
 
 export default myContract;
