@@ -136,11 +136,11 @@ import { IScriptFunctionInputs } from "types-gifflar/modules/commands/DeployCont
 export default async ({ contracts }: IScriptFunctionInputs) => {
   const MessageContract = contracts["MessageContract"];
 
-  // EXECUTE AQUI O MÉTODO DE COMPILAÇÃO
+  // DEFINA AQUI O MÉTODO DE COMPILAÇÃO
 
-  // EXECUTE AQUI O MÉTODO DE IMPLANTAÇÃO
+  // DEFINA AQUI O MÉTODO DE IMPLANTAÇÃO
 
-  // EXECUTE AQUI O MÉTODO QUE RETORNA A INSTÂNCIA DO CONTRATO NA REDE
+  // DEFINA AQUI O MÉTODO QUE RETORNA A INSTÂNCIA DO CONTRATO NA REDE
 };
 ```
 
@@ -148,7 +148,7 @@ export default async ({ contracts }: IScriptFunctionInputs) => {
 
 - Uma vez que estamos evitando a linha de comandos do Gifflar, teremos que compilar o contrato dentro deste script (normalmente seria utilizado um comando específico da linha de comandos do Gifflar).
 
-  - Utilize o Gifflar Contract `MessageContract` para chamar o método responsável por compilar o seu modelo de contrato abaixo de `EXECUTE O MÉTODO DE COMPILAÇÃO AQUI`.
+  - Utilize o Gifflar Contract `MessageContract` para chamar o método responsável por compilar o seu modelo de contrato abaixo de `DEFINA O MÉTODO DE COMPILAÇÃO AQUI`.
 
 ## Task 5: Construindo script de implantação na rede blockchain testnet
 
