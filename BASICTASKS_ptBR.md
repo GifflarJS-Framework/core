@@ -36,10 +36,9 @@ Aqui está definido um protocolo básico de tasks que direciona você a aprender
 
 ## Como prosseguir?
 
-Você deve seguir somente este arquivo, sem o apoio a nenhum outro arquivo de documentação do Gifflar. Como suporte você deve usar somente a própria documentação que aparece no editor de texto ao selecionar o nome de um método.
-
 Siga as tasks deste protocolo até o final. Se este protocolo está sendo usado como avaliação de usabilidade do framework, recomenda-se:
 
+- Você deve seguir somente este arquivo, sem o apoio a nenhum outro arquivo de documentação do Gifflar. Como suporte você deve usar somente a própria documentação que aparece no editor de texto ao selecionar o nome de um método.
 - Utilizar o método de avaliação de usabilidade (UEM) Thinking-aloud para que o condutor consiga ouvir de você qualquer dificuldade ou recomendação que surge enquanto está seguindo o protocolo. Basicamente, qualquer pensamento que você tiver sobre a API do framework durante as tasks pode falar em voz alta.
 - Você não precisa saber programar em Solidity para realizar as tasks, somente precisa saber JavaScript. O TypeScript também é opicional.
 - O condutor deve interferir o mínimo possível, somente tirando dúvidas de algo que não comprometa a avaliação de usabilidade.
