@@ -69,6 +69,8 @@ Use o comando abaixo para iniciar um comando. Sendo que `[path]` é o caminho pa
 $ gifflar init [path]
 ```
 
+Este comando irá iniciar a estrutura de pastas padrão do Gifflar e o arquivo de configuração `gifflarconfig.json` que contém toda a configuração e caminhos das pastas, configurações de rede blockchain e chave privada de endereço blockchain padrão.
+
 # Tasks
 
 ## Task 1: Criando Gifflar Model
