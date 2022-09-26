@@ -3,18 +3,23 @@
 ## Contextualização e motivação
 
 **Blockchain**
+
 A blockchain uma tecnologia que oferece uma rede distribuída de nós que seguem um consenso sobre os dados que estão sendo armazenados. É como um banco de dados distribuído que oferece imutabildade dos dados, rastreabilidade e segurança.
 
 **Contratos Inteligentes**
+
 A Ethereum trouxe a possibilidade de criar contratos inteligentes. Os contratos inteligentes são códigos que podem ser executados dentro da rede blockchain e acessados por sistemas tradicionais através de uma API. O Solidity foi a primeira linguagem de desenvolvimento de contratos inteligentes, hoje já existem várias outras, assim como outros tipos de rede blockchain também.
 
 **Web3 e DApps**
+
 A biblioteca mais utilizada para acessar dados da rede blockchain é a Web3. Dependendo do tipo de blockchain, existem outras formas de acesso aos dados. As aplicações que utilizam a blockchain como principal base de dados, são chamadas de DApps.
 
 **Problema**
+
 Desenvolver contratos inteligentes e DApps traz consigo uma complexidade por ser bem diferente dos sistemas tradicionais. Além disso, foi identificado em alguns projetos da literatura que uma ferramenta para gerar contratos de forma dinâmica seria uma boa contribuição que possibilitaria uma evolução mais rápida.
 
 **Solução**
+
 O Gifflar juntou as duas abordagens e criou uma camada de modelagem de contratos via linguagem de programação de sistemas tradicionais. Assim, além de simplificar o desenvolvimento de contratos, também possibilita um sistema gerar diferentes tipos de contratos de forma dinâmica, de acordo com as próprias condições.
 
 ## Sobre o Gifflar
