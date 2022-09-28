@@ -149,6 +149,8 @@ export default async ({ contracts }: IScriptFunctionInputs) => {
   // DEFINA AQUI O MÉTODO DE IMPLANTAÇÃO
 
   // DEFINA AQUI O MÉTODO QUE RETORNA A INSTÂNCIA DO CONTRATO NA REDE
+
+  // COLE AQUI O RESTO DO CONTEÚDO DO SCRIPT
 };
 ```
 
@@ -179,8 +181,8 @@ if (contractInstance) {
   );
 
   // Capturando mensagem inicial
-  const message = await contractInstance.methods.message().call();
-  console.log(`Mensagem inicial: ${message}`);
+  const initialMessage = await contractInstance.methods.message().call();
+  console.log(`Mensagem inicial: ${initialMessage}`);
 
   // Alterando mensagem
   const receita = await contractInstance.methods.setMessage().send();
@@ -189,8 +191,8 @@ if (contractInstance) {
   );
 
   // Capturando mensagem alterada
-  const message = await contractInstance.methods.message().call();
-  console.log(`Mensagem alterada: ${message}`);
+  const updatedMessage = await contractInstance.methods.message().call();
+  console.log(`Mensagem alterada: ${updatedMessage}`);
 }
 ```
 
