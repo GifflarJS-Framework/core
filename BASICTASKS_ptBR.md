@@ -185,7 +185,12 @@ if (contractInstance) {
   console.log(`Mensagem inicial: ${initialMessage}`);
 
   // Alterando mensagem
-  const receita = await contractInstance.methods.setMessage().send();
+  const receita = await contractInstance.methods
+    .setMessage("Hello! I'm using Gifflar!")
+    .send({
+      from: "0xF0A2237caEC496B04A9EA9BA8d145AeCBD722664",
+      gas: 3000000,
+    });
   console.log(
     `Veja sua transação em: https://testnet.bscscan.com/tx/${receita.transactionHash}`
   );
