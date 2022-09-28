@@ -189,8 +189,9 @@ class DeployContractsCommand implements IDeployContractsCommand {
         // Executing script
         try {
           await scriptFunction({ contracts });
-        } catch (e) {
+        } catch (e: any) {
           Promise.reject(e);
+          return;
         }
 
         Object.keys(contracts).map((contractName) => {
