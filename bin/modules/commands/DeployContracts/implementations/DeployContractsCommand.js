@@ -137,8 +137,10 @@ var DeployContractsCommand = /** @class */ (function () {
                                                 // COMPILING
                                                 gContract.write();
                                                 gContract.compile(function (errors) {
-                                                    if (errors)
+                                                    if (errors) {
                                                         console.log(errors);
+                                                        throw new Error(errors);
+                                                    }
                                                 });
                                                 // Saving compiled JSON
                                                 (0, files_1.writeFile)({
