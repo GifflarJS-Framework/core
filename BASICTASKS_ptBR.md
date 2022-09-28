@@ -188,7 +188,7 @@ if (contractInstance) {
   const receita = await contractInstance.methods
     .setMessage("Hello! I'm using Gifflar!")
     .send({
-      from: "0xF0A2237caEC496B04A9EA9BA8d145AeCBD722664",
+      from: "0xc49d80472ffa30a9a7b1c7b137dd05ff528f4e1d",
       gas: 3000000,
     });
   console.log(
