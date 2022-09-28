@@ -199,7 +199,7 @@ var DeployContractsCommand = /** @class */ (function () {
                                     case 5:
                                         e_2 = _a.sent();
                                         Promise.reject(e_2);
-                                        return [3 /*break*/, 6];
+                                        return [2 /*return*/];
                                     case 6:
                                         Object.keys(contracts).map(function (contractName) {
                                             var gContract = contracts[contractName];
