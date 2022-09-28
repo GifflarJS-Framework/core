@@ -179,7 +179,7 @@ var DeployContractsCommand = /** @class */ (function () {
                         }
                         // Iterating the scripts sequentially
                         scriptFiles.reduce(function (accumulator, file) { return __awaiter(_this, void 0, void 0, function () {
-                            var fileModule, scriptFunction;
+                            var fileModule, scriptFunction, e_2;
                             return __generator(this, function (_a) {
                                 switch (_a.label) {
                                     case 0: return [4 /*yield*/, accumulator];
@@ -189,11 +189,18 @@ var DeployContractsCommand = /** @class */ (function () {
                                     case 2:
                                         fileModule = _a.sent();
                                         scriptFunction = fileModule.default;
-                                        // Executing script
-                                        return [4 /*yield*/, scriptFunction({ contracts: contracts })];
+                                        _a.label = 3;
                                     case 3:
-                                        // Executing script
+                                        _a.trys.push([3, 5, , 6]);
+                                        return [4 /*yield*/, scriptFunction({ contracts: contracts })];
+                                    case 4:
                                         _a.sent();
+                                        return [3 /*break*/, 6];
+                                    case 5:
+                                        e_2 = _a.sent();
+                                        Promise.reject(e_2);
+                                        return [3 /*break*/, 6];
+                                    case 6:
                                         Object.keys(contracts).map(function (contractName) {
                                             var gContract = contracts[contractName];
                                             // Updating compiled JSON
