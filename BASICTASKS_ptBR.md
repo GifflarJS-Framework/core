@@ -175,7 +175,7 @@ export default async ({ contracts }: IScriptFunctionInputs) => {
 
 ```ts
 if (contractInstance) {
-  // Imprimmindo endereço de contrato
+  // Imprimindo endereço de contrato
   console.log(
     `Veja seu contrato em: https://testnet.bscscan.com/address/${contractInstance.options.address}`
   );
