@@ -4,7 +4,7 @@
 
 **Blockchain**
 
-A blockchain uma tecnologia que oferece uma rede distribuída de nós que seguem um consenso sobre os dados que estão sendo armazenados. É como um banco de dados distribuído que oferece imutabildade dos dados, rastreabilidade e segurança.
+A blockchain é uma tecnologia que oferece uma rede distribuída de nós que seguem um consenso sobre os dados que estão sendo armazenados. É como um banco de dados distribuído que oferece imutabildade dos dados, rastreabilidade e segurança.
 
 **Contratos Inteligentes**
 
