@@ -71,7 +71,7 @@ var DeployContractsCommand = /** @class */ (function () {
     }
     DeployContractsCommand.prototype.execute = function (value) {
         return __awaiter(this, void 0, void 0, function () {
-            var content, configFile, networkConfig, web3, files, contracts, e_1, scriptFiles;
+            var content, configFile, networkConfig, web3, files, contracts, scriptFiles, e_1;
             var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -171,12 +171,6 @@ var DeployContractsCommand = /** @class */ (function () {
                             }); }))];
                     case 2:
                         _a.sent();
-                        return [3 /*break*/, 4];
-                    case 3:
-                        e_1 = _a.sent();
-                        console.log(e_1.message);
-                        return [2 /*return*/];
-                    case 4:
                         scriptFiles = (0, files_1.listFolderFiles)({
                             path: configFile.scriptsFolder,
                         });
@@ -218,7 +212,12 @@ var DeployContractsCommand = /** @class */ (function () {
                                 }
                             });
                         }); }, Promise.resolve());
+                        return [3 /*break*/, 4];
+                    case 3:
+                        e_1 = _a.sent();
+                        console.log(e_1.message);
                         return [2 /*return*/];
+                    case 4: return [2 /*return*/];
                 }
             });
         });
