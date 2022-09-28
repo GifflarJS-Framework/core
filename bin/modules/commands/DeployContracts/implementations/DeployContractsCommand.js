@@ -127,7 +127,7 @@ var DeployContractsCommand = /** @class */ (function () {
                                                 path: path_1.default.resolve(configFile.compileFolder, "".concat(gContract.getName(), "_dump.json")),
                                             })) {
                                                 dumpStringified = (0, files_1.readFile)({
-                                                    path: path_1.default.resolve(configFile.compileFolder, "".concat(gContract.getName(), "_dump.json")),
+                                                    path: path_1.default.resolve(process.cwd(), configFile.compileFolder, "".concat(gContract.getName(), "_dump.json")),
                                                 });
                                                 if (!dumpStringified)
                                                     throw new Error("Dump file not found.");
@@ -147,17 +147,17 @@ var DeployContractsCommand = /** @class */ (function () {
                                                 });
                                                 // Saving compiled JSON
                                                 (0, files_1.writeFile)({
-                                                    destPath: path_1.default.resolve(configFile.compileFolder, "".concat(gContract.getName(), ".json")),
+                                                    destPath: path_1.default.resolve(process.cwd(), configFile.compileFolder, "".concat(gContract.getName(), ".json")),
                                                     content: JSON.stringify(gContract.json.contracts.jsons[gContract.getName()], null, 2),
                                                 });
                                                 // Saving Metadata
                                                 (0, files_1.writeFile)({
-                                                    destPath: path_1.default.resolve(configFile.compileFolder, "".concat(gContract.getName(), "_metadata.json")),
+                                                    destPath: path_1.default.resolve(process.cwd(), configFile.compileFolder, "".concat(gContract.getName(), "_metadata.json")),
                                                     content: JSON.stringify(JSON.parse(gContract.json.contracts.jsons[gContract.getName()].metadata), null, 2),
                                                 });
                                                 // Saving dump file
                                                 (0, files_1.writeFile)({
-                                                    destPath: path_1.default.resolve(configFile.compileFolder, "".concat(gContract.getName(), "_dump.json")),
+                                                    destPath: path_1.default.resolve(process.cwd(), configFile.compileFolder, "".concat(gContract.getName(), "_dump.json")),
                                                     content: JSON.stringify(gContract, null, 2),
                                                 });
                                             }
@@ -205,13 +205,13 @@ var DeployContractsCommand = /** @class */ (function () {
                                             var gContract = contracts[contractName];
                                             // Updating compiled JSON
                                             (0, files_1.writeFile)({
-                                                destPath: path_1.default.resolve(configFile.compileFolder, "".concat(gContract.getName(), ".json")),
+                                                destPath: path_1.default.resolve(process.cwd(), configFile.compileFolder, "".concat(gContract.getName(), ".json")),
                                                 content: JSON.stringify(gContract.json.contracts.jsons[gContract.getName()], null, 2),
                                             });
                                             gContract.instance = undefined;
                                             // Updating dump file
                                             (0, files_1.writeFile)({
-                                                destPath: path_1.default.resolve(configFile.compileFolder, "".concat(gContract.getName(), "_dump.json")),
+                                                destPath: path_1.default.resolve(process.cwd(), configFile.compileFolder, "".concat(gContract.getName(), "_dump.json")),
                                                 content: JSON.stringify(gContract, null, 2),
                                             });
                                         });

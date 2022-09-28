@@ -113,14 +113,14 @@ var WriteContractsCommand = /** @class */ (function () {
                                             gContract = gContractModule.default;
                                             code = gContract.write();
                                             (0, files_1.writeFile)({
-                                                destPath: path_1.default.resolve(configFile.contractsFolder, "".concat(gContract.getName(), ".sol")),
+                                                destPath: path_1.default.resolve(process.cwd(), configFile.contractsFolder, "".concat(gContract.getName(), ".sol")),
                                                 content: code,
                                             });
                                             if (!(0, files_1.fileExists)({
-                                                path: path_1.default.resolve(configFile.compileFolder, "".concat(gContract.getName(), "_dump.json")),
+                                                path: path_1.default.resolve(process.cwd(), configFile.compileFolder, "".concat(gContract.getName(), "_dump.json")),
                                             })) return [3 /*break*/, 3];
                                             return [4 /*yield*/, (0, files_1.readFile)({
-                                                    path: path_1.default.resolve(configFile.compileFolder, "".concat(gContract.getName(), "_dump.json")),
+                                                    path: path_1.default.resolve(process.cwd(), configFile.compileFolder, "".concat(gContract.getName(), "_dump.json")),
                                                 })];
                                         case 2:
                                             dumpStringified = _a.sent();
@@ -131,7 +131,7 @@ var WriteContractsCommand = /** @class */ (function () {
                                             dumpJson.code = gContract.code;
                                             // Updating dump file
                                             (0, files_1.writeFile)({
-                                                destPath: path_1.default.resolve(configFile.compileFolder, "".concat(gContract.getName(), "_dump.json")),
+                                                destPath: path_1.default.resolve(process.cwd(), configFile.compileFolder, "".concat(gContract.getName(), "_dump.json")),
                                                 content: JSON.stringify(dumpJson, null, 2),
                                             });
                                             _a.label = 3;
