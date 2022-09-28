@@ -159,63 +159,63 @@ class DeployContractsCommand implements IDeployContractsCommand {
           contracts[gContract.getName()] = gContract;
         })
       );
+
+      // listing all files in scripts folder
+      const scriptFiles: string[] = listFolderFiles({
+        path: configFile.scriptsFolder,
+      });
+
+      if (!scriptFiles.length) {
+        throw new Error("No scripts created yet.");
+      }
+
+      // Iterating the scripts sequentially
+      scriptFiles.reduce(async (accumulator, file) => {
+        await accumulator;
+
+        const fileModule = await tsImport.load(
+          path.resolve(process.cwd(), configFile.scriptsFolder, file)
+        );
+
+        // Getting script function
+        const scriptFunction: ({
+          contracts,
+        }: IScriptFunctionInputs) => Promise<void> = fileModule.default;
+
+        // Executing script
+        await scriptFunction({ contracts });
+
+        Object.keys(contracts).map((contractName) => {
+          const gContract = contracts[contractName];
+
+          // Updating compiled JSON
+          writeFile({
+            destPath: path.resolve(
+              configFile.compileFolder,
+              `${gContract.getName()}.json`
+            ),
+            content: JSON.stringify(
+              gContract.json.contracts.jsons[gContract.getName()],
+              null,
+              2
+            ),
+          });
+
+          gContract.instance = undefined;
+          // Updating dump file
+          writeFile({
+            destPath: path.resolve(
+              configFile.compileFolder,
+              `${gContract.getName()}_dump.json`
+            ),
+            content: JSON.stringify(gContract, null, 2),
+          });
+        });
+      }, Promise.resolve());
     } catch (e: any) {
       console.log(e.message);
       return;
     }
-
-    // listing all files in scripts folder
-    const scriptFiles: string[] = listFolderFiles({
-      path: configFile.scriptsFolder,
-    });
-
-    if (!scriptFiles.length) {
-      throw new Error("No scripts created yet.");
-    }
-
-    // Iterating the scripts sequentially
-    scriptFiles.reduce(async (accumulator, file) => {
-      await accumulator;
-
-      const fileModule = await tsImport.load(
-        path.resolve(process.cwd(), configFile.scriptsFolder, file)
-      );
-
-      // Getting script function
-      const scriptFunction: ({
-        contracts,
-      }: IScriptFunctionInputs) => Promise<void> = fileModule.default;
-
-      // Executing script
-      await scriptFunction({ contracts });
-
-      Object.keys(contracts).map((contractName) => {
-        const gContract = contracts[contractName];
-
-        // Updating compiled JSON
-        writeFile({
-          destPath: path.resolve(
-            configFile.compileFolder,
-            `${gContract.getName()}.json`
-          ),
-          content: JSON.stringify(
-            gContract.json.contracts.jsons[gContract.getName()],
-            null,
-            2
-          ),
-        });
-
-        gContract.instance = undefined;
-        // Updating dump file
-        writeFile({
-          destPath: path.resolve(
-            configFile.compileFolder,
-            `${gContract.getName()}_dump.json`
-          ),
-          content: JSON.stringify(gContract, null, 2),
-        });
-      });
-    }, Promise.resolve());
   }
 }
 
