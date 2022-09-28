@@ -71,6 +71,8 @@ $ gifflar init [path]
 
 Este comando irá iniciar a estrutura de pastas padrão do Gifflar e o arquivo de configuração `gifflarconfig.json` que contém toda a configuração e caminhos das pastas, configurações de rede blockchain e chave privada de endereço blockchain padrão.
 
+A partir de agora, pode acessar a pasta do projeto e abrir o VSCode neste diretório.
+
 # Tasks
 
 ## Task 1: Criando Gifflar Model
