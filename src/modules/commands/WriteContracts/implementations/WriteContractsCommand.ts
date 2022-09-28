@@ -62,6 +62,7 @@ class WriteContractsCommand implements IWriteContractsCommand {
 
           writeFile({
             destPath: path.resolve(
+              process.cwd(),
               configFile.contractsFolder,
               `${gContract.getName()}.sol`
             ),
@@ -72,6 +73,7 @@ class WriteContractsCommand implements IWriteContractsCommand {
           if (
             fileExists({
               path: path.resolve(
+                process.cwd(),
                 configFile.compileFolder,
                 `${gContract.getName()}_dump.json`
               ),
@@ -80,6 +82,7 @@ class WriteContractsCommand implements IWriteContractsCommand {
             // Getting the dump file stringified
             const dumpStringified = await readFile({
               path: path.resolve(
+                process.cwd(),
                 configFile.compileFolder,
                 `${gContract.getName()}_dump.json`
               ),
@@ -94,6 +97,7 @@ class WriteContractsCommand implements IWriteContractsCommand {
             // Updating dump file
             writeFile({
               destPath: path.resolve(
+                process.cwd(),
                 configFile.compileFolder,
                 `${gContract.getName()}_dump.json`
               ),

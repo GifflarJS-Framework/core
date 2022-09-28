@@ -92,6 +92,7 @@ class DeployContractsCommand implements IDeployContractsCommand {
             // Getting the dump file stringified
             const dumpStringified = readFile({
               path: path.resolve(
+                process.cwd(),
                 configFile.compileFolder,
                 `${gContract.getName()}_dump.json`
               ),
@@ -117,6 +118,7 @@ class DeployContractsCommand implements IDeployContractsCommand {
             // Saving compiled JSON
             writeFile({
               destPath: path.resolve(
+                process.cwd(),
                 configFile.compileFolder,
                 `${gContract.getName()}.json`
               ),
@@ -130,6 +132,7 @@ class DeployContractsCommand implements IDeployContractsCommand {
             // Saving Metadata
             writeFile({
               destPath: path.resolve(
+                process.cwd(),
                 configFile.compileFolder,
                 `${gContract.getName()}_metadata.json`
               ),
@@ -145,6 +148,7 @@ class DeployContractsCommand implements IDeployContractsCommand {
             // Saving dump file
             writeFile({
               destPath: path.resolve(
+                process.cwd(),
                 configFile.compileFolder,
                 `${gContract.getName()}_dump.json`
               ),
@@ -195,6 +199,7 @@ class DeployContractsCommand implements IDeployContractsCommand {
           // Updating compiled JSON
           writeFile({
             destPath: path.resolve(
+              process.cwd(),
               configFile.compileFolder,
               `${gContract.getName()}.json`
             ),
@@ -209,6 +214,7 @@ class DeployContractsCommand implements IDeployContractsCommand {
           // Updating dump file
           writeFile({
             destPath: path.resolve(
+              process.cwd(),
               configFile.compileFolder,
               `${gContract.getName()}_dump.json`
             ),
