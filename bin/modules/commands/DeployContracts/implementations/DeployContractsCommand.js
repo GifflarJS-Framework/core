@@ -71,7 +71,7 @@ var DeployContractsCommand = /** @class */ (function () {
     }
     DeployContractsCommand.prototype.execute = function (value) {
         return __awaiter(this, void 0, void 0, function () {
-            var content, configFile, networkConfig, web3, files, contracts, scriptFiles;
+            var content, configFile, networkConfig, web3, files, contracts, e_1, scriptFiles;
             var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -111,6 +111,9 @@ var DeployContractsCommand = /** @class */ (function () {
                             path: configFile.modelsFolder,
                         });
                         contracts = {};
+                        _a.label = 1;
+                    case 1:
+                        _a.trys.push([1, 3, , 4]);
                         return [4 /*yield*/, Promise.all(files.map(function (file) { return __awaiter(_this, void 0, void 0, function () {
                                 var gContractModule, gContract, dumpStringified, dumpJson;
                                 return __generator(this, function (_a) {
@@ -138,8 +141,8 @@ var DeployContractsCommand = /** @class */ (function () {
                                                 gContract.write();
                                                 gContract.compile(function (errors) {
                                                     if (errors) {
-                                                        console.log(errors);
-                                                        throw new Error(JSON.stringify(errors));
+                                                        errors.map(function (e) { return console.log(e); });
+                                                        throw new Error("Error while compiling contracts");
                                                     }
                                                 });
                                                 // Saving compiled JSON
@@ -166,8 +169,13 @@ var DeployContractsCommand = /** @class */ (function () {
                                     }
                                 });
                             }); }))];
-                    case 1:
+                    case 2:
                         _a.sent();
+                        return [3 /*break*/, 4];
+                    case 3:
+                        e_1 = _a.sent();
+                        return [2 /*return*/];
+                    case 4:
                         scriptFiles = (0, files_1.listFolderFiles)({
                             path: configFile.scriptsFolder,
                         });
