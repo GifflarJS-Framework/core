@@ -69,7 +69,7 @@ var WriteContractsCommand = /** @class */ (function () {
     function WriteContractsCommand() {
         var _this = this;
         this.execute = function (value) { return __awaiter(_this, void 0, void 0, function () {
-            var content, configFile, files;
+            var content, configFile, files, e_1;
             var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -99,6 +99,9 @@ var WriteContractsCommand = /** @class */ (function () {
                         files = (0, files_1.listFolderFiles)({
                             path: configFile.modelsFolder,
                         });
+                        _a.label = 1;
+                    case 1:
+                        _a.trys.push([1, 3, , 4]);
                         // Creating code for all contracts in contracts folder
                         return [4 /*yield*/, Promise.all(files.map(function (file) { return __awaiter(_this, void 0, void 0, function () {
                                 var gContractModule, gContract, code, dumpStringified, dumpJson;
@@ -113,32 +116,38 @@ var WriteContractsCommand = /** @class */ (function () {
                                                 destPath: path_1.default.resolve(configFile.contractsFolder, "".concat(gContract.getName(), ".sol")),
                                                 content: code,
                                             });
-                                            // Verifying if contract dump file exists
-                                            if ((0, files_1.fileExists)({
+                                            if (!(0, files_1.fileExists)({
                                                 path: path_1.default.resolve(configFile.compileFolder, "".concat(gContract.getName(), "_dump.json")),
-                                            })) {
-                                                dumpStringified = (0, files_1.readFile)({
+                                            })) return [3 /*break*/, 3];
+                                            return [4 /*yield*/, (0, files_1.readFile)({
                                                     path: path_1.default.resolve(configFile.compileFolder, "".concat(gContract.getName(), "_dump.json")),
-                                                });
-                                                if (!dumpStringified)
-                                                    throw new Error("Dump file not found.");
-                                                dumpJson = JSON.parse(dumpStringified);
-                                                // Inserting the code to the dump
-                                                dumpJson.code = gContract.code;
-                                                // Updating dump file
-                                                (0, files_1.writeFile)({
-                                                    destPath: path_1.default.resolve(configFile.compileFolder, "".concat(gContract.getName(), "_dump.json")),
-                                                    content: JSON.stringify(dumpJson, null, 2),
-                                                });
-                                            }
-                                            return [2 /*return*/];
+                                                })];
+                                        case 2:
+                                            dumpStringified = _a.sent();
+                                            if (!dumpStringified)
+                                                throw new Error("Dump file not found.");
+                                            dumpJson = JSON.parse(dumpStringified);
+                                            // Inserting the code to the dump
+                                            dumpJson.code = gContract.code;
+                                            // Updating dump file
+                                            (0, files_1.writeFile)({
+                                                destPath: path_1.default.resolve(configFile.compileFolder, "".concat(gContract.getName(), "_dump.json")),
+                                                content: JSON.stringify(dumpJson, null, 2),
+                                            });
+                                            _a.label = 3;
+                                        case 3: return [2 /*return*/];
                                     }
                                 });
                             }); }))];
-                    case 1:
+                    case 2:
                         // Creating code for all contracts in contracts folder
                         _a.sent();
-                        return [2 /*return*/];
+                        return [3 /*break*/, 4];
+                    case 3:
+                        e_1 = _a.sent();
+                        console.log(e_1.message);
+                        return [3 /*break*/, 4];
+                    case 4: return [2 /*return*/];
                 }
             });
         }); };
