@@ -169,7 +169,7 @@ export default async ({ contracts }: IScriptFunctionInputs) => {
 
 - Chame o método do `MessageContract` responsável por retornar a instância do contrato implantada na rede e salve dentro da variável chamada `contractInstance`.
 
-- Agora copie e adicione este código ao conteúdo do script em `0_message.ts` a fim de usar a instância de seu contrato do web3 para alterar a mensagem.
+- Agora copie e adicione este código abaixo ao conteúdo do script em `0_message.ts` a fim de usar a instância de seu contrato do web3 para alterar a mensagem.
 
 ```ts
 if (contractInstance) {
