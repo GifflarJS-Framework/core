@@ -124,6 +124,12 @@ function setMessage(string memory _message) public{
 }
 ```
 
+- Agora que o contrato já está modelado, vamos exportar o modelo para o ambiente Gifflar o encontre. Adicione a exportação no arquivo `MessageModel.ts`:
+
+```ts
+export default MessageContract;
+```
+
 ## Task 3: Criando Gifflar Script para implantação do contrato na blockchain
 
 Vamos agora criar um script para realizar o deploy do contrato na rede blockchain.
@@ -156,11 +162,12 @@ export default async ({ contracts }: IScriptFunctionInputs) => {
 
 - Utilize o Gifflar Contract `MessageContract` para chamar o método responsável por implantar o contrato na rede.
 
-  - Utilize o endereço `0xc49d80472ffa30a9a7b1c7b137dd05ff528f4e1d` como o endereço blockchain que fará a implantação do contrato.
+  - Utilize o endereço `"0xc49d80472ffa30a9a7b1c7b137dd05ff528f4e1d"` como o endereço blockchain que fará a implantação do contrato.
   - Insira a chave privada deste endereço no `gifflarconfig.json` em `mainAddressPrivateKey`.
+  - Utilize como argumento do construtor do contrato a frase: `"Hello World!"`.
   - Defina o valor do `defaultNetwork` em `gifflarconfig.json` como `bsc_testnet`.
 
-- Chame a função responsável por retornar a instância do contrato implantada na rede e salve dentro da variável chamada `contractInstance`.
+- Chame o método do `MessageContract` responsável por retornar a instância do contrato implantada na rede e salve dentro da variável chamada `contractInstance`.
 
 - Agora copie e adicione este código ao conteúdo do script em `0_message.ts` a fim de usar a instância de seu contrato do web3 para alterar a mensagem.
 
