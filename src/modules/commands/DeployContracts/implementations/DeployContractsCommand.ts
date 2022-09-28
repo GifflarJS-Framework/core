@@ -108,7 +108,7 @@ class DeployContractsCommand implements IDeployContractsCommand {
           gContract.compile((errors) => {
             if (errors) {
               console.log(errors);
-              throw new Error(errors);
+              throw new Error(JSON.stringify(errors));
             }
           });
 
