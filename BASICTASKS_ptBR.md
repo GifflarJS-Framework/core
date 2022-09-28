@@ -104,7 +104,7 @@ string public message;
 event MessageUpdated(string oldMessage, string newMessage);
 ```
 
-- Crie um construtor para este contrato recebendo como parâmetro um valor inicial para a variável `message`. Exemplo no Solidity:
+- Crie um construtor para este contrato recebendo como parâmetro um valor inicial para a variável `message`. E como conteúdo, atribua o valor do atributo para a variável `message`. Exemplo no Solidity:
 
 ```solidity
 // Escrito em solidity
