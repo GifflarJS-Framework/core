@@ -106,7 +106,10 @@ class DeployContractsCommand implements IDeployContractsCommand {
           // COMPILING
           gContract.write();
           gContract.compile((errors) => {
-            if (errors) console.log(errors);
+            if (errors) {
+              console.log(errors);
+              throw new Error(errors);
+            }
           });
 
           // Saving compiled JSON
