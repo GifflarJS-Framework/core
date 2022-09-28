@@ -159,7 +159,8 @@ class DeployContractsCommand implements IDeployContractsCommand {
           contracts[gContract.getName()] = gContract;
         })
       );
-    } catch (e) {
+    } catch (e: any) {
+      console.log(e.message);
       return;
     }
 
