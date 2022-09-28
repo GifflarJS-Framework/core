@@ -183,7 +183,11 @@ class DeployContractsCommand implements IDeployContractsCommand {
         }: IScriptFunctionInputs) => Promise<void> = fileModule.default;
 
         // Executing script
-        await scriptFunction({ contracts });
+        try {
+          await scriptFunction({ contracts });
+        } catch (e) {
+          Promise.reject(e);
+        }
 
         Object.keys(contracts).map((contractName) => {
           const gContract = contracts[contractName];
