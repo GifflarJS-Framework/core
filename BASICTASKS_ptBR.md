@@ -90,14 +90,14 @@ import { createGifflarContract } from "gifflar-library";
 
 ## Task 2: Desenvolvendo Contrato Inteligente com Gifflar Contract Model
 
-- Utilize a API do Gifflar para criar uma variável chamada `message`. Veja um exemplo de como seria a criação desta variável no Solidity:
+- Utilize um método do `MessageContract` para criar uma variável chamada `message`. Veja um exemplo de como seria a criação desta variável no Solidity:
 
 ```solidity
 // Escrito em solidity
 string public message;
 ```
 
-- Crie um evento chamado `MessageUpdated` que será emitido no momento em que a mensagem for alterada. Ele deve receber dois parâmetros: o valor antigo da mensagem e o seu novo valor. Exemplo no Solidity:
+- Crie um evento chamado `MessageUpdated` que será emitido no momento em que a mensagem for alterada. Utilize o método do `MessageContract` responsável por criar eventos. Ele deve receber dois parâmetros: o valor antigo da mensagem e o seu novo valor. Exemplo no Solidity:
 
 ```solidity
 // Escrito em solidity
