@@ -174,6 +174,7 @@ var DeployContractsCommand = /** @class */ (function () {
                         return [3 /*break*/, 4];
                     case 3:
                         e_1 = _a.sent();
+                        console.log(e_1.message);
                         return [2 /*return*/];
                     case 4:
                         scriptFiles = (0, files_1.listFolderFiles)({
