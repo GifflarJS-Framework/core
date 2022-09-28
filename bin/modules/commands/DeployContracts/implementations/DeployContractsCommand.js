@@ -139,7 +139,7 @@ var DeployContractsCommand = /** @class */ (function () {
                                                 gContract.compile(function (errors) {
                                                     if (errors) {
                                                         console.log(errors);
-                                                        throw new Error(errors);
+                                                        throw new Error(JSON.stringify(errors));
                                                     }
                                                 });
                                                 // Saving compiled JSON
