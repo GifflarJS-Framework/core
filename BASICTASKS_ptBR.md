@@ -167,7 +167,7 @@ export default async ({ contracts }: IScriptFunctionInputs) => {
   - Utilize o endereço de carteira `"0xc49d80472ffa30a9a7b1c7b137dd05ff528f4e1d"` como o endereço blockchain que fará a implantação do contrato.
   - Utilize como argumento do construtor do contrato a frase: `"Hello World!"`.
   - Insira a chave privada da carteira no arquivo `gifflarconfig.json` em `mainAddressPrivateKey`, caso ainda não tenha.
-  - Defina o valor do `defaultNetwork` em `gifflarconfig.json` como `bsc_testnet`.
+  - Agora vamos alterar a rede blockchain utilizada para a implantação do contrato. Veja que em `gifflarconfig.json`, a rede padrão (`defaultNetwork`) está como a rede local `local_network`. Perceba que a chave `networks` contém também a rede de teste da BSC (Binance Smart Chain) configurada, vamos selecioná-la alterando o valor de `defaultNetwork` para `bsc_testnet`.
 
 - Chame o método do `MessageContract` responsável por retornar a instância do contrato implantada na rede e salve dentro da variável chamada `contractInstance`.
 
