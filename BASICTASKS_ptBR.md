@@ -86,7 +86,7 @@ Vamos aprender a criar um modelo do zero.
 import { createGifflarContract } from "gifflar-library";
 ```
 
-- Utilize a fábrica para criar um novo Gifflar Contract e nomeie-o de `MessageContract`;
+- Utilize a função importada para criar um novo Gifflar Contract e nomeie-o de `MessageContract`. Atribua o retorno para uma variável chamada `MessageContract`.
 
 ## Task 2: Desenvolvendo Contrato Inteligente com Gifflar Contract Model
 
@@ -113,7 +113,7 @@ constructor(string memory _message) public{
 }
 ```
 
-- Crie também uma função `set` para a variável `message`, para permitir alterar o valor desta variável. Depois da alteração, emita o evento `MessageUpdated`. Exemplo no Solidity:
+- Crie também uma função `set` para a variável `message`, para permitir alterar o valor desta variável. Antes da alteração, crie uma variável local chamada `oldMessage` e atribua o valor de `message` para esta variável, lembre de definir a localização de dado `memory` na criação da variável `oldMessage`. Depois da alteração, emita o evento `MessageUpdated`. Exemplo no Solidity:
 
 ```solidity
 // Escrito em solidity
@@ -162,7 +162,7 @@ export default async ({ contracts }: IScriptFunctionInputs) => {
 
 ## Task 5: Construindo script de implantação na rede blockchain testnet
 
-- Utilize o Gifflar Contract `MessageContract` para chamar o método responsável por implantar o contrato na rede.
+- Utilize o Gifflar Contract `MessageContract` para chamar o método responsável por implantar o contrato na rede. `Lembre que este é um método assíncrono`.
 
   - Utilize o endereço de carteira `"0xc49d80472ffa30a9a7b1c7b137dd05ff528f4e1d"` como o endereço blockchain que fará a implantação do contrato.
   - Utilize como argumento do construtor do contrato a frase: `"Hello World!"`.
