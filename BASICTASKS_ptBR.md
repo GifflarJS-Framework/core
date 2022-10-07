@@ -113,7 +113,7 @@ constructor(string memory _message) public{
 }
 ```
 
-- Crie também uma função `set` para a variável `message`, para permitir alterar o valor desta variável. Antes da alteração, crie uma variável local chamada `oldMessage` e atribua o valor de `message` para esta variável, lembre de definir a localização de dado `memory` na criação da variável `oldMessage`. Depois da alteração, emita o evento `MessageUpdated`. Exemplo no Solidity:
+- Crie também uma função `setMessage` para a variável `message`, para permitir alterar o valor desta variável. Antes da alteração, crie uma variável local chamada `oldMessage` e atribua o valor de `message` para esta variável, lembre de definir a localização de dado `memory` na criação da variável `oldMessage`. Depois da alteração, emita o evento `MessageUpdated`. Exemplo no Solidity:
 
 ```solidity
 // Escrito em solidity
