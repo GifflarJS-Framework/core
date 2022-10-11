@@ -124,7 +124,7 @@ function setMessage(string memory _message) public{
 }
 ```
 
-- Agora que o contrato já está modelado, vamos exportar o modelo para o ambiente Gifflar o encontre. Adicione a exportação no arquivo `MessageModel.ts`:
+- Agora que o contrato já está modelado, vamos exportar o modelo para que o ambiente Gifflar o encontre. Adicione a exportação no arquivo `MessageModel.ts`:
 
 ```ts
 export default MessageContract;
@@ -204,8 +204,8 @@ if (contractInstance) {
 }
 ```
 
-- Agora execute o comando abaixo para executar seu script:
+- Agora execute o comando abaixo no terminal para executar seu script:
 
 ```bash
-$ gifflar deploy
+gifflar deploy
 ```
