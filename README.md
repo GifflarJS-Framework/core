@@ -4,7 +4,7 @@
 
 # Gifflar
 
-This is the Gifflar, a command line interface framework that allows you to define Solidity smart contracts creation via TypeScript. The Gifflar uses [Gifflar library](https://github.com/GifflarJS-Framework/solgen) to allow smart contract development through TypeScript functions and JSON model. This enables you to develop systems able to create smart contracts on the fly based on different configurations.
+This is the Gifflar, a command line interface framework that allows you to define Solidity smart contracts creation via TypeScript. The Gifflar uses [Solgen](https://github.com/GifflarJS-Framework/solgen) to allow smart contract development through TypeScript functions and JSON model. This enables you to develop systems able to create smart contracts on the fly based on different configurations.
 
 <div align="center">
     <img src="https://github.com/GifflarJS-Framework/core/blob/dev/assets/terminal.gif" alt="gifflar terminal demo"/>
@@ -197,9 +197,9 @@ Let's take a look in every property:
 
 - Example: `gifflar make:model MyContract` (The framework will automatically add the word 'Model' in the end of filename).
 
-This command will create a Gifflar Model inside the models folder (defined in `gifflarconfig.json`) with a default content. You can use the Gifflar Model if you want to create static smart contracts using Gifflar modeling (see [Gifflar Library Docs](https://github.com/GifflarJS-Framework/solgen/wiki)). These models can be written, compiled and deployed through terminal. If you are building an application to generate smart contracts on the fly, you might use [Gifflar Services](#make-service), so you can create a service that receives a request, dinamically creates the smart contract and then give a response.
+This command will create a Gifflar Model inside the models folder (defined in `gifflarconfig.json`) with a default content. You can use the Gifflar Model if you want to create static smart contracts using Gifflar modeling (see [Solgen Docs](https://github.com/GifflarJS-Framework/solgen/wiki)). These models can be written, compiled and deployed through terminal. If you are building an application to generate smart contracts on the fly, you might use [Gifflar Services](#make-service), so you can create a service that receives a request, dinamically creates the smart contract and then give a response.
 
-The default contract model content is the code below. If you want to understand more about the Gifflar Contract Model functions, you can see the [Gifflar Library Docs](https://github.com/GifflarJS-Framework/solgen/wiki)).
+The default contract model content is the code below. If you want to understand more about the Gifflar Contract Model functions, you can see the [Solgen Docs](https://github.com/GifflarJS-Framework/solgen/wiki)).
 
 ```ts
 // Factory
@@ -323,7 +323,7 @@ The services are created to manage all the contracts construction steps (modelin
 
 Note that if you want to work only creating smart contracts on the fly, you can use only Gifflar Services. But if you also or only want to create static smart contracts, you can use the Gifflar Environment to facilitate the smart contracts development using the [Gifflar Models](#make-model).
 
-The created service will have a default code to guide you on the service creation. This code uses the Gifflar Manager from [Gifflar Library](https://github.com/GifflarJS-Framework/solgen) ([Gifflar Library Docs](https://github.com/GifflarJS-Framework/solgen/wiki)) to manage many contracts creation, so the service can keep the contracts in only one object. The default service also exports the functions `createModel`, `write`, `compile` and `deploy`, that are the basic Gifflar functions, but you can also customize the services the way you'd like to. This is the service default code:
+The created service will have a default code to guide you on the service creation. This code uses the Gifflar Manager from [Solgen](https://github.com/GifflarJS-Framework/solgen) ([Solgen Docs](https://github.com/GifflarJS-Framework/solgen/wiki)) to manage many contracts creation, so the service can keep the contracts in only one object. The default service also exports the functions `createModel`, `write`, `compile` and `deploy`, that are the basic Gifflar functions, but you can also customize the services the way you'd like to. This is the service default code:
 
 ```ts
 import { createGifflarManager } from "@gifflar/solgen";
@@ -384,5 +384,5 @@ You can also take a look at some demo projects that uses the Gifflar Services at
 
 ## Important Links
 
-- [Gifflar Library Docs](https://github.com/GifflarJS-Framework/solgen/wiki)
+- [Solgen Docs](https://github.com/GifflarJS-Framework/solgen/wiki)
 - [Gifflar Demo Projects](https://github.com/GifflarJS-Framework/gifflar-demo-projects)

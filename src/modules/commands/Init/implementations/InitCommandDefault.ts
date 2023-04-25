@@ -134,7 +134,7 @@ class InitCommandDefault implements IInitCommand {
     }
 
     // Installing solgen
-    console.log("Installing gifflar library...");
+    console.log("Installing @gifflar/solgen...");
     await this.runCommand(
       installCommand.command,
       installCommand.args.concat([
@@ -147,8 +147,8 @@ class InitCommandDefault implements IInitCommand {
       }
     );
 
-    // Installing types gifflar library
-    // console.log("Installing gifflar library types...");
+    // Installing types solgen
+    // console.log("Installing solgen types...");
     // await this.runCommand(
     //   installCommand.command,
     //   installCommand.args.concat([
@@ -177,7 +177,7 @@ class InitCommandDefault implements IInitCommand {
       }
     );
 
-    // console.log("Configuring gifflar library types...");
+    // console.log("Configuring solgen types...");
     // Movendo pacote para a pasta node_modules/@types
     // await this.runCommand(
     //   "mv",
