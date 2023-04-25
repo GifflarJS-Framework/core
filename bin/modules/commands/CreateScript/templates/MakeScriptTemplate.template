@@ -1,0 +1,16 @@
+import { IScriptFunctionInputs } from "types-gifflar/modules/commands/DeployContracts/dtos/IScriptFunctionInputs";
+
+export default async ({ contracts }: IScriptFunctionInputs) => {
+  // Selecting the contract model I want to deploy
+  const MyContract = contracts["MyContract"];
+
+  // Deploying the contract model
+  await MyContract.deploy({
+    from: "0xF0A3f...", // Address who will deploy the contract
+    args: [], // The arguments of contract constructor
+    gas: 3000000, // Gas I'm able to spend
+  });
+
+  // My contract's instance
+  const instance = MyContract.deployed();
+};

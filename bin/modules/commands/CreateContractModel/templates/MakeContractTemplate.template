@@ -1,0 +1,16 @@
+// Factory
+import { createGifflarContract } from "@gifflar/solgen";
+
+// Creating contract model
+const myContract = createGifflarContract("MyContract");
+
+// Creating a contract variable
+myContract.createVariable({ regularType: "string" }, "message", "public");
+
+// Creating a contract constructor function
+myContract
+  .createConstructor()
+  .setInput({ regularType: "string" }, "_message")
+  .setAssignment("message", { customExpression: "_message" });
+
+export default myContract;

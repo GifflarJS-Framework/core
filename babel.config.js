@@ -18,6 +18,7 @@ module.exports = {
           "@utils": "./src/utils",
           "@modules": "./src/modules",
           "@config": "./src/config",
+          "@templates": "./src/templates/*",
           "@test": "./src/test",
           "@shared": "./src/shared",
         },
