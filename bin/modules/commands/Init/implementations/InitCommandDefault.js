@@ -153,10 +153,10 @@ var InitCommandDefault = /** @class */ (function () {
                         _a.sent();
                         _a.label = 3;
                     case 3:
-                        // Installing gifflar-library
+                        // Installing solgen
                         console.log("Installing gifflar library...");
                         return [4 /*yield*/, this.runCommand(installCommand.command, installCommand.args.concat([
-                                "git+https://github.com/GifflarJS-Framework/gifflar-library.git#build",
+                                "git+https://github.com/GifflarJS-Framework/solgen.git#build",
                             ]), commandOptions, function (data, err) {
                                 if (err && !err.includes("warning"))
                                     throw new Error(err);
@@ -170,7 +170,7 @@ var InitCommandDefault = /** @class */ (function () {
                         //   installCommand.command,
                         //   installCommand.args.concat([
                         //     "-D",
-                        //     "git+https://github.com/GifflarJS-Framework/types-gifflar-library.git",
+                        //     "git+https://github.com/GifflarJS-Framework/types-solgen.git",
                         //   ]),
                         //   commandOptions,
                         //   (data, err) => {
@@ -194,7 +194,7 @@ var InitCommandDefault = /** @class */ (function () {
                         // Movendo pacote para a pasta node_modules/@types
                         // await this.runCommand(
                         //   "mv",
-                        //   ["node_modules/types-gifflar-library/", "node_modules/@types/"],
+                        //   ["node_modules/types-solgen/", "node_modules/@types/"],
                         //   commandOptions,
                         //   (data, err) => {
                         //     if (err) throw new Error(err);
