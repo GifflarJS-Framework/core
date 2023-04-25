@@ -1,4 +1,5 @@
 import { IConfigFile } from "@modules/commands/Init/types/IConfigFile";
+import * as tsImport from "ts-import";
 import {
   fileExists,
   listFolderFiles,
@@ -6,7 +7,7 @@ import {
   readFile,
   writeFile,
 } from "@utils/files";
-import { IGifflarContract } from "gifflar-library/bin/modules/managing/gifflarContract/types/IGifflarContract";
+import { IGifflarContract } from "@gifflar/solgen/bin/modules/managing/gifflarContract/types/IGifflarContract";
 import path from "path";
 import { ICompileContractsCommand } from "../types/ICompileContractsCommand";
 
@@ -45,18 +46,17 @@ class CompileContracts implements ICompileContractsCommand {
       path: configFile.modelsFolder,
     });
 
-    const compile = ({
+    const compile = async ({
       file,
       configFile,
     }: {
       file: string;
       configFile: IConfigFile;
-    }): void => {
-      const gContract: IGifflarContract = require(path.resolve(
-        process.cwd(),
-        configFile.modelsFolder,
-        file
-      )).default;
+    }): Promise<void> => {
+      const gContractModule = await tsImport.load(
+        path.resolve(process.cwd(), configFile.modelsFolder, file)
+      );
+      const gContract: IGifflarContract = gContractModule.default;
 
       // Verifying if contract dump file exists
       if (
@@ -148,12 +148,14 @@ class CompileContracts implements ICompileContractsCommand {
       }
 
       // Compiling single contract
-      compile({ file: value, configFile });
+      await compile({ file: value, configFile });
     } else {
       // Creating code and ABIs for all contracts in contracts folder
-      files.map((file) => {
-        compile({ file, configFile });
-      });
+      await Promise.all(
+        files.map(async (file) => {
+          await compile({ file, configFile });
+        })
+      );
     }
   }
 }

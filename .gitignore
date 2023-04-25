@@ -7,3 +7,4 @@ gifflarconfig.json
 bin/
 /types
 *.yml
+CONTRIBUTING.md

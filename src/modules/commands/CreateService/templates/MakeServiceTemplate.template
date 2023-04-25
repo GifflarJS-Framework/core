@@ -1,8 +1,8 @@
-import { createGifflarManager } from "gifflar-library";
-import { IContractDeployDTO } from "gifflar-library/bin/modules/managing/gifflarContract/types/IContractDeployDTO";
-import { IGifflarManager } from "gifflar-library/bin/modules/managing/gifflarManager/types/IGifflarManager";
-import { IGifflarContract } from "gifflar-library/bin/modules/managing/gifflarContract/types/IGifflarContract";
-import { INetworkConfig } from "gifflar-library/bin/modules/deployer/types/INetworkConfig";
+import { createGifflarManager } from "@gifflar/solgen";
+import { IContractDeployDTO } from "@gifflar/solgen/bin/modules/managing/gifflarContract/types/IContractDeployDTO";
+import { IGifflarManager } from "@gifflar/solgen/bin/modules/managing/gifflarManager/types/IGifflarManager";
+import { IGifflarContract } from "@gifflar/solgen/bin/modules/managing/gifflarContract/types/IGifflarContract";
+import { INetworkConfig } from "@gifflar/solgen/bin/modules/deployer/types/INetworkConfig";
 import { Contract } from "web3-eth-contract";
 
 class ContractService {

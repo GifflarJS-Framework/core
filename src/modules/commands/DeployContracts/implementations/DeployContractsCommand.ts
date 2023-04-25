@@ -1,4 +1,5 @@
 import { IConfigFile } from "@modules/commands/Init/types/IConfigFile";
+import * as tsImport from "ts-import";
 import {
   fileExists,
   listFolderFiles,
@@ -12,8 +13,8 @@ import { IScriptFunctionInputs } from "../dtos/IScriptFunctionInputs";
 import { IContractModelsDict } from "../types/IContractModelsDict";
 import { IDeployContractsCommand } from "../types/IDeployContractsCommand";
 import Web3 from "web3";
-import { IContractJson } from "gifflar-library/bin/modules/models/toplevels/contract/types/IContractJson";
-import { IGifflarContract } from "gifflar-library/bin/modules/managing/gifflarContract/types/IGifflarContract";
+import { IContractJson } from "@gifflar/solgen/bin/modules/models/toplevels/contract/types/IContractJson";
+import { IGifflarContract } from "@gifflar/solgen/bin/modules/managing/gifflarContract/types/IGifflarContract";
 
 class DeployContractsCommand implements IDeployContractsCommand {
   async execute(value: string): Promise<void> {
@@ -71,140 +72,161 @@ class DeployContractsCommand implements IDeployContractsCommand {
     // Creating code for all contracts in contracts folder
     const contracts: IContractModelsDict = {};
 
-    files.map((file) => {
-      const gContract: IGifflarContract = require(path.resolve(
-        process.cwd(),
-        configFile.modelsFolder,
-        file
-      )).default;
+    try {
+      await Promise.all(
+        files.map(async (file) => {
+          const gContractModule = await tsImport.load(
+            path.resolve(process.cwd(), configFile.modelsFolder, file)
+          );
+          const gContract: IGifflarContract = gContractModule.default;
 
-      // Verifying if contract dump file exists
-      if (
-        fileExists({
-          path: path.resolve(
-            configFile.compileFolder,
-            `${gContract.getName()}_dump.json`
-          ),
+          // Verifying if contract dump file exists
+          if (
+            fileExists({
+              path: path.resolve(
+                configFile.compileFolder,
+                `${gContract.getName()}_dump.json`
+              ),
+            })
+          ) {
+            // Getting the dump file stringified
+            const dumpStringified = readFile({
+              path: path.resolve(
+                process.cwd(),
+                configFile.compileFolder,
+                `${gContract.getName()}_dump.json`
+              ),
+            });
+            if (!dumpStringified) throw new Error("Dump file not found.");
+
+            // Parsing the json file
+            const dumpJson: IContractJson = JSON.parse(dumpStringified);
+            // Inserting the dump file info to the contract
+            gContract.code = dumpJson.code;
+            gContract.json = dumpJson.json;
+          } else {
+            // COMPILING
+            gContract.write();
+
+            gContract.compile((errors) => {
+              if (errors) {
+                errors.map((e: any) => console.log(e));
+                throw new Error("Error while compiling contracts");
+              }
+            });
+
+            // Saving compiled JSON
+            writeFile({
+              destPath: path.resolve(
+                process.cwd(),
+                configFile.compileFolder,
+                `${gContract.getName()}.json`
+              ),
+              content: JSON.stringify(
+                gContract.json.contracts.jsons[gContract.getName()],
+                null,
+                2
+              ),
+            });
+
+            // Saving Metadata
+            writeFile({
+              destPath: path.resolve(
+                process.cwd(),
+                configFile.compileFolder,
+                `${gContract.getName()}_metadata.json`
+              ),
+              content: JSON.stringify(
+                JSON.parse(
+                  gContract.json.contracts.jsons[gContract.getName()].metadata
+                ),
+                null,
+                2
+              ),
+            });
+
+            // Saving dump file
+            writeFile({
+              destPath: path.resolve(
+                process.cwd(),
+                configFile.compileFolder,
+                `${gContract.getName()}_dump.json`
+              ),
+              content: JSON.stringify(gContract, null, 2),
+            });
+          }
+
+          gContract.setWeb3(web3);
+          gContract.setDeployConfig(networkConfig);
+          gContract.addSigner(configFile.mainAddressPrivateKey);
+
+          contracts[gContract.getName()] = gContract;
         })
-      ) {
-        // Getting the dump file stringified
-        const dumpStringified = readFile({
-          path: path.resolve(
-            configFile.compileFolder,
-            `${gContract.getName()}_dump.json`
-          ),
-        });
-        if (!dumpStringified) throw new Error("Dump file not found.");
+      );
 
-        // Parsing the json file
-        const dumpJson: IContractJson = JSON.parse(dumpStringified);
-        // Inserting the dump file info to the contract
-        gContract.code = dumpJson.code;
-        gContract.json = dumpJson.json;
-      } else {
-        // COMPILING
-        gContract.write();
-        gContract.compile((errors) => {
-          if (errors) console.log(errors);
-        });
+      // listing all files in scripts folder
+      const scriptFiles: string[] = listFolderFiles({
+        path: configFile.scriptsFolder,
+      });
 
-        // Saving compiled JSON
-        writeFile({
-          destPath: path.resolve(
-            configFile.compileFolder,
-            `${gContract.getName()}.json`
-          ),
-          content: JSON.stringify(
-            gContract.json.contracts.jsons[gContract.getName()],
-            null,
-            2
-          ),
-        });
-
-        // Saving Metadata
-        writeFile({
-          destPath: path.resolve(
-            configFile.compileFolder,
-            `${gContract.getName()}_metadata.json`
-          ),
-          content: JSON.stringify(
-            JSON.parse(
-              gContract.json.contracts.jsons[gContract.getName()].metadata
-            ),
-            null,
-            2
-          ),
-        });
-
-        // Saving dump file
-        writeFile({
-          destPath: path.resolve(
-            configFile.compileFolder,
-            `${gContract.getName()}_dump.json`
-          ),
-          content: JSON.stringify(gContract, null, 2),
-        });
+      if (!scriptFiles.length) {
+        throw new Error("No scripts created yet.");
       }
 
-      gContract.setWeb3(web3);
-      gContract.setDeployConfig(networkConfig);
-      gContract.addSigner(configFile.mainAddressPrivateKey);
+      // Iterating the scripts sequentially
+      scriptFiles.reduce(async (accumulator, file) => {
+        await accumulator;
 
-      contracts[gContract.getName()] = gContract;
-    });
+        const fileModule = await tsImport.load(
+          path.resolve(process.cwd(), configFile.scriptsFolder, file)
+        );
 
-    // listing all files in scripts folder
-    const scriptFiles: string[] = listFolderFiles({
-      path: configFile.scriptsFolder,
-    });
+        // Getting script function
+        const scriptFunction: ({
+          contracts,
+        }: IScriptFunctionInputs) => Promise<void> = fileModule.default;
 
-    if (!scriptFiles.length) {
-      throw new Error("No scripts created yet.");
+        // Executing script
+        try {
+          await scriptFunction({ contracts });
+        } catch (e: any) {
+          Promise.reject(e);
+          return;
+        }
+
+        Object.keys(contracts).map((contractName) => {
+          const gContract = contracts[contractName];
+
+          // Updating compiled JSON
+          writeFile({
+            destPath: path.resolve(
+              process.cwd(),
+              configFile.compileFolder,
+              `${gContract.getName()}.json`
+            ),
+            content: JSON.stringify(
+              gContract.json.contracts.jsons[gContract.getName()],
+              null,
+              2
+            ),
+          });
+
+          gContract.instance = undefined;
+          // Updating dump file
+          writeFile({
+            destPath: path.resolve(
+              process.cwd(),
+              configFile.compileFolder,
+              `${gContract.getName()}_dump.json`
+            ),
+            content: JSON.stringify(gContract, null, 2),
+          });
+        });
+      }, Promise.resolve());
+    } catch (e: any) {
+      console.log(e.message);
+      return;
     }
-
-    // Iterating the scripts sequentially
-    scriptFiles.reduce(async (accumulator, file) => {
-      await accumulator;
-
-      // Getting script function
-      const scriptFunction: ({
-        contracts,
-      }: IScriptFunctionInputs) => Promise<void> = require(path.resolve(
-        process.cwd(),
-        configFile.scriptsFolder,
-        file
-      )).default;
-
-      // Executing script
-      await scriptFunction({ contracts });
-
-      Object.keys(contracts).map((contractName) => {
-        const gContract = contracts[contractName];
-
-        // Updating compiled JSON
-        writeFile({
-          destPath: path.resolve(
-            configFile.compileFolder,
-            `${gContract.getName()}.json`
-          ),
-          content: JSON.stringify(
-            gContract.json.contracts.jsons[gContract.getName()],
-            null,
-            2
-          ),
-        });
-
-        gContract.instance = undefined;
-        // Updating dump file
-        writeFile({
-          destPath: path.resolve(
-            configFile.compileFolder,
-            `${gContract.getName()}_dump.json`
-          ),
-          content: JSON.stringify(gContract, null, 2),
-        });
-      });
-    }, Promise.resolve());
   }
 }
 
