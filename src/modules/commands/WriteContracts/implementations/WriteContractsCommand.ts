@@ -8,8 +8,8 @@ import {
   writeFile,
 } from "@utils/files";
 import path from "path";
-import { IGifflarContract } from "gifflar-library/bin/modules/managing/gifflarContract/types/IGifflarContract";
-import { IContractJson } from "gifflar-library/bin/modules/models/toplevels/contract/types/IContractJson";
+import { IGifflarContract } from "@gifflar/solgen/bin/modules/managing/gifflarContract/types/IGifflarContract";
+import { IContractJson } from "@gifflar/solgen/bin/modules/models/toplevels/contract/types/IContractJson";
 import { IWriteContractsCommand } from "../types/IWriteContractsCommand";
 
 class WriteContractsCommand implements IWriteContractsCommand {

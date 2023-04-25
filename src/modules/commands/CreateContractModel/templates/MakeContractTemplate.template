@@ -1,5 +1,5 @@
 // Factory
-import { createGifflarContract } from "gifflar-library";
+import { createGifflarContract } from "@gifflar/solgen";
 
 // Creating contract model
 const myContract = createGifflarContract("MyContract");

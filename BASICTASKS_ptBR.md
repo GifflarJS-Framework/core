@@ -83,10 +83,10 @@ Vamos aprender a criar um modelo do zero.
 - Agora importe a fábrica para criação do GifflarContract:
 
 ```ts
-import { createGifflarContract } from "gifflar-library";
+import { createGifflarContract } from "@gifflar/solgen";
 ```
 
-- Utilize a fábrica para criar um novo Gifflar Contract e nomeie-o de `MessageContract`;
+- Utilize a função importada para criar um novo Gifflar Contract e nomeie-o de `MessageContract`. Atribua o retorno para uma variável chamada `MessageContract`.
 
 ## Task 2: Desenvolvendo Contrato Inteligente com Gifflar Contract Model
 
@@ -113,7 +113,7 @@ constructor(string memory _message) public{
 }
 ```
 
-- Crie também uma função `set` para a variável `message`, para permitir alterar o valor desta variável. Depois da alteração, emita o evento `MessageUpdated`. Exemplo no Solidity:
+- Crie também uma função `setMessage` para a variável `message`, para permitir alterar o valor desta variável. Antes da alteração, crie uma variável local chamada `oldMessage` e atribua o valor de `message` para esta variável, lembre de definir a localização de dado `memory` na criação da variável `oldMessage`. Depois da alteração, emita o evento `MessageUpdated`. Exemplo no Solidity:
 
 ```solidity
 // Escrito em solidity
@@ -124,7 +124,7 @@ function setMessage(string memory _message) public{
 }
 ```
 
-- Agora que o contrato já está modelado, vamos exportar o modelo para o ambiente Gifflar o encontre. Adicione a exportação no arquivo `MessageModel.ts`:
+- Agora que o contrato já está modelado, vamos exportar o modelo para que o ambiente Gifflar o encontre. Adicione a exportação no arquivo `MessageModel.ts`:
 
 ```ts
 export default MessageContract;
@@ -144,6 +144,8 @@ import { IScriptFunctionInputs } from "types-gifflar/modules/commands/DeployCont
 export default async ({ contracts }: IScriptFunctionInputs) => {
   const MessageContract = contracts["MessageContract"];
 
+  // DEFINA AQUI O MÉTODO DE ESCRITA
+
   // DEFINA AQUI O MÉTODO DE COMPILAÇÃO
 
   // DEFINA AQUI O MÉTODO DE IMPLANTAÇÃO
@@ -154,20 +156,21 @@ export default async ({ contracts }: IScriptFunctionInputs) => {
 };
 ```
 
-## Task 4: Configurando compilação do contrato
+## Task 4: Configurando escrita e compilação do contrato
 
-- Uma vez que estamos evitando a linha de comandos do Gifflar, teremos que compilar o contrato dentro deste script (normalmente seria utilizado um comando específico da linha de comandos do Gifflar).
+- Uma vez que estamos evitando a linha de comandos do Gifflar, teremos que escrever e compilar o código do contrato dentro deste script (normalmente seria utilizado um comando específico da linha de comandos do Gifflar).
 
-  - Utilize o Gifflar Contract `MessageContract` para chamar o método responsável por compilar o seu modelo de contrato abaixo de `DEFINA O MÉTODO DE COMPILAÇÃO AQUI`.
+  - Utilize o Gifflar Contract `MessageContract` para chamar o método responsável por escrever o código do seu modelo de contrato abaixo de `DEFINA AQUI O MÉTODO DE ESCRITA`.
+  - Utilize o Gifflar Contract `MessageContract` para chamar o método responsável por compilar o seu modelo de contrato abaixo de `DEFINA AQUI O MÉTODO DE COMPILAÇÃO`.
 
 ## Task 5: Construindo script de implantação na rede blockchain testnet
 
-- Utilize o Gifflar Contract `MessageContract` para chamar o método responsável por implantar o contrato na rede.
+- Utilize o Gifflar Contract `MessageContract` para chamar o método responsável por implantar o contrato na rede. `Veja que este é um método assíncrono`.
 
   - Utilize o endereço de carteira `"0xc49d80472ffa30a9a7b1c7b137dd05ff528f4e1d"` como o endereço blockchain que fará a implantação do contrato.
   - Utilize como argumento do construtor do contrato a frase: `"Hello World!"`.
   - Insira a chave privada da carteira no arquivo `gifflarconfig.json` em `mainAddressPrivateKey`, caso ainda não tenha.
-  - Defina o valor do `defaultNetwork` em `gifflarconfig.json` como `bsc_testnet`.
+  - Agora vamos alterar a rede blockchain utilizada para a implantação do contrato. Veja que em `gifflarconfig.json`, a rede padrão (`defaultNetwork`) está como a rede local `local_network`. Perceba que a chave `networks` contém também a rede de teste da BSC (Binance Smart Chain) configurada, vamos selecioná-la alterando o valor de `defaultNetwork` para `bsc_testnet`.
 
 - Chame o método do `MessageContract` responsável por retornar a instância do contrato implantada na rede e salve dentro da variável chamada `contractInstance`.
 
@@ -201,8 +204,8 @@ if (contractInstance) {
 }
 ```
 
-- Agora execute o comando abaixo para executar seu script:
+- Agora execute o comando abaixo no terminal para executar seu script:
 
 ```bash
-$ gifflar deploy
+gifflar deploy
 ```
