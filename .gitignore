@@ -7,7 +7,4 @@ gifflarconfig.json
 bin/
 /types
 *.yml
-<<<<<<< HEAD
-=======
 CONTRIBUTING.md
->>>>>>> dev
