@@ -13,8 +13,8 @@ import { IScriptFunctionInputs } from "../dtos/IScriptFunctionInputs";
 import { IContractModelsDict } from "../types/IContractModelsDict";
 import { IDeployContractsCommand } from "../types/IDeployContractsCommand";
 import Web3 from "web3";
-import { IContractJson } from "gifflar-library/bin/modules/models/toplevels/contract/types/IContractJson";
-import { IGifflarContract } from "gifflar-library/bin/modules/managing/gifflarContract/types/IGifflarContract";
+import { IContractJson } from "@gifflar/solgen/bin/modules/models/toplevels/contract/types/IContractJson";
+import { IGifflarContract } from "@gifflar/solgen/bin/modules/managing/gifflarContract/types/IGifflarContract";
 
 class DeployContractsCommand implements IDeployContractsCommand {
   async execute(value: string): Promise<void> {

@@ -7,7 +7,7 @@ import {
   readFile,
   writeFile,
 } from "@utils/files";
-import { IGifflarContract } from "gifflar-library/bin/modules/managing/gifflarContract/types/IGifflarContract";
+import { IGifflarContract } from "@gifflar/solgen/bin/modules/managing/gifflarContract/types/IGifflarContract";
 import path from "path";
 import { ICompileContractsCommand } from "../types/ICompileContractsCommand";
 

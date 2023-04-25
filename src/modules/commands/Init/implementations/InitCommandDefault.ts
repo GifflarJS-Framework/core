@@ -133,12 +133,12 @@ class InitCommandDefault implements IInitCommand {
       );
     }
 
-    // Installing gifflar-library
+    // Installing solgen
     console.log("Installing gifflar library...");
     await this.runCommand(
       installCommand.command,
       installCommand.args.concat([
-        "git+https://github.com/GifflarJS-Framework/gifflar-library.git#build",
+        "git+https://github.com/GifflarJS-Framework/solgen.git#build",
       ]),
       commandOptions,
       (data, err) => {
@@ -153,7 +153,7 @@ class InitCommandDefault implements IInitCommand {
     //   installCommand.command,
     //   installCommand.args.concat([
     //     "-D",
-    //     "git+https://github.com/GifflarJS-Framework/types-gifflar-library.git",
+    //     "git+https://github.com/GifflarJS-Framework/types-solgen.git",
     //   ]),
     //   commandOptions,
     //   (data, err) => {
@@ -181,7 +181,7 @@ class InitCommandDefault implements IInitCommand {
     // Movendo pacote para a pasta node_modules/@types
     // await this.runCommand(
     //   "mv",
-    //   ["node_modules/types-gifflar-library/", "node_modules/@types/"],
+    //   ["node_modules/types-solgen/", "node_modules/@types/"],
     //   commandOptions,
     //   (data, err) => {
     //     if (err) throw new Error(err);

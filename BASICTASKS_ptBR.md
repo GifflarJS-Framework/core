@@ -83,7 +83,7 @@ Vamos aprender a criar um modelo do zero.
 - Agora importe a fábrica para criação do GifflarContract:
 
 ```ts
-import { createGifflarContract } from "gifflar-library";
+import { createGifflarContract } from "@gifflar/solgen";
 ```
 
 - Utilize a função importada para criar um novo Gifflar Contract e nomeie-o de `MessageContract`. Atribua o retorno para uma variável chamada `MessageContract`.

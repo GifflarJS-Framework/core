@@ -44,7 +44,7 @@
     "types-gifflar": "git+https://github.com/GifflarJS-Framework/types-gifflar.git"
   },
   "dependencies": {
-    "gifflar-library": "git+https://github.com/GifflarJS-Framework/gifflar-library.git#build",
+    "@gifflar/solgen": "git+https://github.com/GifflarJS-Framework/solgen.git#build",
     "prompt-sync": "^4.2.0",
     "reflect-metadata": "^0.1.13",
     "solc": "0.5.17",
