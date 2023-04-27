@@ -41,14 +41,14 @@ Gifflar Environment allows you to develop smart contracts in two ways: Staticall
 
 ### Node version
 
-- v14.XX.X
+- v16.XX.X
 
 ### Install Gifflar
 
-As Gifflar is yet in development phase, you must install it through `build` branch. Soon it will be available in `npm`.
+Gifflar is now available in `npm`.
 
 ```
-$ npm install -g git+https://github.com/GifflarJS-Framework/core.git#build
+$ npm install -g @gifflar/core
 ```
 
 ## Commands
