@@ -41,10 +41,10 @@
     "ts-node-dev": "1.1.8",
     "tsconfig-paths": "^3.12.0",
     "tscpaths": "^0.0.9",
-    "types-gifflar": "@gifflar/types"
+    "@gifflar/types": "1.0.0"
   },
   "dependencies": {
-    "@gifflar/solgen": "@gifflar/solgen",
+    "@gifflar/solgen": "1.0.1-alpha",
     "prompt-sync": "^4.2.0",
     "reflect-metadata": "^0.1.13",
     "solc": "0.5.17",
