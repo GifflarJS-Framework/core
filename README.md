@@ -1,5 +1,5 @@
 <div align="center">
-    <img src="https://i.imgur.com/mwbuYqE.png" alt="gifflar banner"/>
+    <img src="https://i.imgur.com/1ZqXJUw.png" alt="gifflar banner"/>
 </div>
 
 # Gifflar
