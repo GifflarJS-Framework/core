@@ -8,3 +8,4 @@ bin/
 /types
 *.yml
 CONTRIBUTING.md
+old/
