@@ -1,6 +1,6 @@
 {
   "name": "@gifflar/core",
-  "version": "1.0.1-alpha",
+  "version": "1.0.4-alpha",
   "description": "",
   "main": "index.js",
   "bin": {
