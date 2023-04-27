@@ -1,6 +1,6 @@
 {
-  "name": "gifflar",
-  "version": "1.0.0-alpha",
+  "name": "@gifflar/core",
+  "version": "1.0.1-alpha",
   "description": "",
   "main": "index.js",
   "bin": {
@@ -25,6 +25,9 @@
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/GifflarJS-Framework/core.git/issues"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "homepage": "https://github.com/GifflarJS-Framework/core.git#readme",
   "devDependencies": {
