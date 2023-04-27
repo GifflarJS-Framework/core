@@ -156,7 +156,7 @@ var InitCommandDefault = /** @class */ (function () {
                         // Installing solgen
                         console.log("Installing @gifflar/solgen...");
                         return [4 /*yield*/, this.runCommand(installCommand.command, installCommand.args.concat([
-                                "git+https://github.com/GifflarJS-Framework/solgen.git#build",
+                                "@gifflar/solgen",
                             ]), commandOptions, function (data, err) {
                                 if (err && !err.includes("warning"))
                                     throw new Error(err);
@@ -179,10 +179,10 @@ var InitCommandDefault = /** @class */ (function () {
                         //   }
                         // );
                         // Installing types gifflar
-                        console.log("Installing gifflar types...");
+                        console.log("Installing @gifflar/types...");
                         return [4 /*yield*/, this.runCommand(installCommand.command, installCommand.args.concat([
                                 "-D",
-                                "git+https://github.com/GifflarJS-Framework/types-gifflar.git",
+                                "@gifflar/types",
                             ]), commandOptions, function (data, err) {
                                 if (err && !err.includes("warning"))
                                     throw new Error(err);
