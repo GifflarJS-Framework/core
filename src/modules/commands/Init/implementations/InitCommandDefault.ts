@@ -138,7 +138,7 @@ class InitCommandDefault implements IInitCommand {
     await this.runCommand(
       installCommand.command,
       installCommand.args.concat([
-        "git+https://github.com/GifflarJS-Framework/solgen.git#build",
+        "@gifflar/solgen",
       ]),
       commandOptions,
       (data, err) => {
@@ -163,12 +163,12 @@ class InitCommandDefault implements IInitCommand {
     // );
 
     // Installing types gifflar
-    console.log("Installing gifflar types...");
+    console.log("Installing @gifflar/types...");
     await this.runCommand(
       installCommand.command,
       installCommand.args.concat([
         "-D",
-        "git+https://github.com/GifflarJS-Framework/types-gifflar.git",
+        "@gifflar/types",
       ]),
       commandOptions,
       (data, err) => {
