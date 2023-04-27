@@ -10,12 +10,6 @@ This is the Gifflar, a command line interface framework that allows you to defin
     <img src="https://github.com/GifflarJS-Framework/core/blob/dev/assets/terminal.gif" alt="gifflar terminal demo"/>
 </div>
 
-# Project Status
-
-**In development**
-
-- Version: `v1.0.0_alpha`.
-
 # Smart Contract Languages
 
 For now, the Gifflar framework supports only Solidity code generation, we chose this language because many other blockchains also supports this language for building smart contracts. But we are working to support other smart contracts languages.
